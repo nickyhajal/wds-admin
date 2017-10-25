@@ -2,9 +2,9 @@ const host = window.location.host;
 let url = 'http://wds.nky/api';
 if (!host.includes('localhost') && !host.includes('.nky')) {
   if (host === 'staging.worlddomationsummit.com') {
-    url = 'https://stagingapi.worlddomationsummit.com/api';
+    url = 'https://stagingapi.worlddominationsummit.com/api';
   } else {
-    url = 'https://api.worlddomationsummit.com';
+    url = 'https://api.worlddominationsummit.com';
   }
 }
 const Net = {
