@@ -10,7 +10,7 @@ if (!host.includes('localhost') && !host.includes('.nky')) {
 const Net = {
   url,
   apiUrl: url,
-  graphUrl: `${url}/graphql`,
+  graphUrl: `${url}/api/graphql`,
 };
 
 export default Net;
