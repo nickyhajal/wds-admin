@@ -6,17 +6,18 @@ import Colors from '../constants/Colors';
 const Shell = styled.div`display: flex;`;
 const Blocks = styled.div`
   display: flex;
-  flex-direction: column;
-  width: 240px;
+  flex-direction: row;
+  width: 940px;
 `;
 const Block = styled.div`
+  flex: 1;
   border-radius: 6px;
   background: ${Colors.white};
   padding: 18px 32px;
   box-shadow: 3px 3px 22px rgba(0, 0, 0, 0.07);
   text-align: center;
-  width: 100%;
   margin-bottom: 32px;
+  margin-right: 24px;
   div {
     font-size: 64px;
   }
