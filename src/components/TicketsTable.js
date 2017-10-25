@@ -48,7 +48,6 @@ class TicketsTable extends React.Component {
     });
   }
   render() {
-    console.log(this.props);
     const columns = [
       {
         id: 'type',
