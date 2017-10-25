@@ -40,7 +40,7 @@ const Badge = styled.div`
   display: inline-block;
   margin-left: 10px;
   position: relative;
-  top: -6px;
+  top: -8px;
   font-weight: 600;
   letter-spacing: 0.5px;
   line-height: 24px;
