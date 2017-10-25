@@ -100,8 +100,9 @@ class TransactionsTable extends React.Component {
               console.log('FETCH');
               this.setState({ loading: true });
               apollo
-                .query({
+                .watchQuery({
                   query: queryTransactions,
+                  pollInterval: 15000,
                   variables: {
                     per_page: this.state.per_page,
                     page: this.state.page,

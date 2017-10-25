@@ -92,8 +92,9 @@ class TicketsTable extends React.Component {
             setTimeout(() => {
               this.setState({ loading: true });
               apollo
-                .query({
+                .watchQuery({
                   query: queryTickets,
+                  pollingInterval: 15000,
                   variables: {
                     per_page: this.state.per_page,
                     page: this.state.page,
