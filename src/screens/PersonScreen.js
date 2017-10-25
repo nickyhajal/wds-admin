@@ -19,11 +19,12 @@ const Page = styled.div``;
 
 const Badge = styled.div`
   background: ${({ type, attending18, pre18, ticket_type }) => {
+    console.log(type, attending18, pre18);
     let color = Colors.grayDark;
     if (type === 'staff') {
       color = Colors.blueDarker;
-    } else if (attending18 === '1') {
-      if (ticket_type === '360') {
+    } else if (+attending18 === 1) {
+      if (+ticket_type === 360) {
         color = Colors.orange;
       } else if (ticket_type === 'connect') {
         color = Colors.green;
