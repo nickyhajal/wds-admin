@@ -21,6 +21,32 @@ class TicketsTable extends React.Component {
       per_page: 20,
     };
   }
+  componentWillMount() {
+    this.query = apollo.watchQuery({
+      query: queryTickets,
+      pollInterval: 10000,
+      fetchPolicy: 'network-only',
+      variables: {
+        per_page: this.state.per_page,
+        page: this.state.page,
+      },
+    });
+    this.query.subscribe({
+      next: ({ data }) => {
+        this.setState({
+          data:
+            data !== undefined && data.tickets !== undefined
+              ? data.tickets.tickets
+              : [],
+          pages:
+            data !== undefined && data.tickets !== undefined
+              ? data.tickets.pages
+              : [],
+          loading: false,
+        });
+      },
+    });
+  }
   render() {
     console.log(this.props);
     const columns = [
@@ -88,26 +114,13 @@ class TicketsTable extends React.Component {
           page={this.state.page}
           per_page={this.state.per_page}
           columns={columns}
-          onFetchData={(state, instance) => {
+          onFetchData={() => {
             setTimeout(() => {
-              this.setState({ loading: true });
-              apollo
-                .watchQuery({
-                  query: queryTickets,
-                  pollInterval: 15000,
-                  variables: {
-                    per_page: this.state.per_page,
-                    page: this.state.page,
-                  },
-                })
-                .subscribe(result => {
-                  this.setState({
-                    data: result.data.tickets.tickets,
-                    pages: result.data.tickets.pages,
-                    loading: false,
-                  });
-                });
-            }, 10);
+              this.query.setVariables({
+                per_page: this.state.per_page,
+                page: this.state.page,
+              });
+            }, 40);
           }}
         />
       );

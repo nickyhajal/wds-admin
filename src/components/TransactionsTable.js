@@ -116,6 +116,14 @@ class TransactionsTable extends React.Component {
           page={this.state.page}
           per_page={this.state.per_page}
           columns={columns}
+          onFetchData={() => {
+            setTimeout(() => {
+              this.query.setVariables({
+                per_page: this.state.per_page,
+                page: this.state.page,
+              });
+            }, 40);
+          }}
         />
       );
     }
