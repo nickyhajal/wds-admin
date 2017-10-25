@@ -110,7 +110,7 @@ class PersonScreen extends React.Component {
       <div>
         <h2>
           {first_name}&nbsp;{last_name}
-          <Badge {...this.user}>{badgeText}</Badge>
+          <Badge {...this.state.user}>{badgeText}</Badge>
         </h2>
         <Tabs>
           <TabList>
