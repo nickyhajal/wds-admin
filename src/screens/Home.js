@@ -53,4 +53,4 @@ const HomeScreen = ({ data }) => {
   );
 };
 
-export default query('stats', HomeScreen, { pollingInterval: 20000 });
+export default query('stats', HomeScreen, { pollInterval: 20000 });

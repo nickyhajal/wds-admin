@@ -94,7 +94,7 @@ class TicketsTable extends React.Component {
               apollo
                 .query({
                   query: queryTickets,
-                  pollingInterval: 15000,
+                  pollInterval: 15000,
                   variables: {
                     per_page: this.state.per_page,
                     page: this.state.page,
