@@ -9,12 +9,10 @@ import Sidebar from '../components/Sidebar';
 import apollo from '../util/apollo';
 import PersonScreen from '../screens/PersonScreen';
 import Content from '../components/Content';
+import TransactionsScreen from '../screens/TransactionsScreen';
+import TicketsScreen from '../screens/TicketsScreen';
 
-const Main = styled.div`
-  display: flex;
-  flex-direction: column;
-  height: 100%;
-`;
+const Main = styled.div`height: 100%;`;
 const Body = styled.div`
   display: flex;
   height: 100%;
@@ -32,6 +30,8 @@ class App extends Component {
               <Content>
                 <Route path="/" exact component={Home} />
                 <Route path="/person/:id" component={PersonScreen} />
+                <Route path="/transactions" component={TransactionsScreen} />
+                <Route path="/tickets" component={TicketsScreen} />
               </Content>
             </Body>
           </Main>

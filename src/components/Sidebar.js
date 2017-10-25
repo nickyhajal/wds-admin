@@ -28,8 +28,6 @@ const Button = styled(Link)`
 
 const Sidebar = () => (
   <SidebarShell>
-    <Button to="/content">Content</Button>
-    <Button to="/attendees">Attendees</Button>
     <Button to="/tickets">Tickets</Button>
     <Button to="/transactions">Transactions</Button>
   </SidebarShell>

@@ -8,7 +8,7 @@ import Search from '../containers/Search';
 
 const Shell = styled.div`
   background: ${Colors.headerBg};
-  height: 88px;
+  height: 82px;
   width: 100%;
   display: flex;
 `;

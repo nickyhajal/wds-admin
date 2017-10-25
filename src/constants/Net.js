@@ -4,13 +4,13 @@ if (!host.includes('localhost') && !host.includes('.nky')) {
   if (host === 'staging.worlddomationsummit.com') {
     url = 'https://stagingapi.worlddominationsummit.com/api';
   } else {
-    url = 'https://api.worlddominationsummit.com';
+    url = 'https://api.worlddominationsummit.com/api';
   }
 }
 const Net = {
   url,
   apiUrl: url,
-  graphUrl: `${url}/api/graphql`,
+  graphUrl: `${url}/graphql`,
 };
 
 export default Net;
