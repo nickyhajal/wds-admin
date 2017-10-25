@@ -1,5 +1,6 @@
 import React from 'react';
 import { debounce } from 'lodash';
+import { withRouter } from 'react-router-dom';
 import styled from 'styled-components';
 import Colors from '../constants/Colors';
 import query from '../util/query';
@@ -12,6 +13,8 @@ const SearchShell = styled.div`
     z-index: 2000;
     position: relative;
     cursor: pointer;
+    margin-top: -1px;
+    border-top: 7px solid #6abec7;
     .results {
       position: absolute;
       background: #fff;
@@ -43,9 +46,14 @@ class Search extends React.Component {
       open: false,
       search: '',
       activeSearch: '',
+      selected: 0,
+      results: [],
     };
     this.searchTimo = 0;
   }
+  select = selected => {
+    this.setState({ selected });
+  };
   search = e => {
     clearTimeout(this.searchTimo);
     const search = e.currentTarget.value;
@@ -63,8 +71,38 @@ class Search extends React.Component {
     this.setState({ open: true });
   };
   close = () => {
-    console.log('close');
     this.setState({ open: false });
+  };
+  setResults = results => {
+    let { selected } = this.state;
+    if (selected > results.length) {
+      selected = results.length - 1;
+    }
+    this.setState({ results, selected });
+  };
+  key = e => {
+    const key = e.keyCode;
+    let selected = -1;
+    if (key === 40) {
+      selected = this.state.selected + 1;
+    } else if (key === 38) {
+      selected = this.state.selected - 1;
+    }
+    if (key === 13) {
+      if (this.state.results.length) {
+        const user = this.state.results[this.state.selected];
+        if (user !== undefined && user) {
+          this.props.history.push(`/person/${user.email}`);
+          this.setState({ open: false });
+        }
+      }
+    }
+    if (key === 27) {
+      this.setState({ open: false });
+    }
+    if (selected > -1 && selected < this.state.results.length) {
+      this.setState({ selected });
+    }
   };
   render() {
     return (
@@ -73,9 +111,16 @@ class Search extends React.Component {
           placeholder="Search Attendees..."
           onChange={this.search}
           value={this.state.search}
+          onKeyUp={this.key}
         />
         {this.state.open ? (
-          <SearchResults search={this.state.activeSearch} close={this.close} />
+          <SearchResults
+            search={this.state.activeSearch}
+            close={this.close}
+            selected={this.state.selected}
+            onSelect={this.select}
+            setResults={this.setResults}
+          />
         ) : (
           ''
         )}
@@ -84,4 +129,4 @@ class Search extends React.Component {
   }
 }
 
-export default Search;
+export default withRouter(Search);

@@ -3,6 +3,7 @@ const blueDarker = '#5CABB3';
 const blueLighter = '#82CFD7';
 const blueDarkest = '#4F686B';
 const blueLightest = '#F6FCFD';
+const blueBright = '#d7f5f9';
 const grayDark = '#9A948E';
 const green = '#87BA58';
 const orange = '#E38435';
@@ -29,7 +30,7 @@ export default {
   headerSearchBg: blue,
   searchText: whiteBlue,
   searchResultText: mainTextColor,
-  searchHover: blueLightest,
+  searchHover: blueBright,
 
   // Sidebar
   sidebarBg: blueLightest,
