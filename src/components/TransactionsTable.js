@@ -9,15 +9,36 @@ class TransactionsTable extends React.Component {
   static defaultProps = {
     graph: false,
   };
+  componentWillMount() {
+    this.query = apollo.watchQuery({
+      query: queryTransactions,
+      pollInterval: 10000,
+      fetchPolicy: 'network-only',
+      variables: {
+        per_page: this.state.per_page,
+        page: this.state.page,
+      },
+    });
+    this.query.subscribe({
+      next: ({ data }) => {
+        this.setState({
+          data: data.transactions.transactions,
+          pages: data.transactions.pages,
+          loading: false,
+        });
+      },
+    });
+  }
   constructor() {
     super();
     this.state = {
       data: [],
       pages: -1,
-      loading: false,
+      loading: true,
       page: 0,
       per_page: 20,
     };
+    this.query = false;
   }
   render() {
     const viaMap = {
@@ -95,27 +116,6 @@ class TransactionsTable extends React.Component {
           page={this.state.page}
           per_page={this.state.per_page}
           columns={columns}
-          onFetchData={(state, instance) => {
-            setTimeout(() => {
-              this.setState({ loading: true });
-              apollo
-                .query({
-                  query: queryTransactions,
-                  pollInterval: 15000,
-                  variables: {
-                    per_page: this.state.per_page,
-                    page: this.state.page,
-                  },
-                })
-                .then(result => {
-                  this.setState({
-                    data: result.data.transactions.transactions,
-                    pages: result.data.transactions.pages,
-                    loading: false,
-                  });
-                });
-            }, 10);
-          }}
         />
       );
     }
