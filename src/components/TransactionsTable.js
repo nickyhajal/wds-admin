@@ -97,10 +97,9 @@ class TransactionsTable extends React.Component {
           columns={columns}
           onFetchData={(state, instance) => {
             setTimeout(() => {
-              console.log('FETCH');
               this.setState({ loading: true });
               apollo
-                .watchQuery({
+                .query({
                   query: queryTransactions,
                   pollInterval: 15000,
                   variables: {

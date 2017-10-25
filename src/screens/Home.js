@@ -29,7 +29,6 @@ const Block = styled.div`
   }
 `;
 const HomeScreen = ({ data }) => {
-  console.log(data.stats);
   const { current_wave_tickets, total_tickets, num_assigned } = Object.assign(
     { current_wave_tickets: '', total_tickets: '', num_assigned: '' },
     data.stats,
@@ -54,4 +53,4 @@ const HomeScreen = ({ data }) => {
   );
 };
 
-export default query('stats', HomeScreen);
+export default query('stats', HomeScreen, { pollingInterval: 20000 });
