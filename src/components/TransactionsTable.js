@@ -2,6 +2,7 @@ import { startCase } from 'lodash';
 import React from 'react';
 import moment from 'moment';
 import Table from './Table';
+
 const TransactionsTable = props => {
   const viaMap = {
     and: 'Android',
