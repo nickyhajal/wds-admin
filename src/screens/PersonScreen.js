@@ -38,9 +38,9 @@ const Badge = styled.div`
   color: ${Colors.white};
   font-size: 15px;
   display: inline-block;
-  margin-left: 10px;
+  margin-left: 16px;
   position: relative;
-  top: -8px;
+  top: -7px;
   font-weight: 600;
   letter-spacing: 0.5px;
   line-height: 24px;
