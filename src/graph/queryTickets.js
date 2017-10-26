@@ -17,10 +17,12 @@ export default gql`
         status
         year
         user {
+          user_id
           first_name
           last_name
         }
         purchaser {
+          user_id
           first_name
           last_name
         }

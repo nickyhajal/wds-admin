@@ -27,10 +27,6 @@ class TicketsScreen extends React.Component {
   rowProps = (state, rowInfo, column, instance) => {
     return {
       onClick: (e, original) => {
-        console.log(original);
-        console.log(original());
-        console.log(column.id);
-        console.log(rowInfo.original[column.id]);
         // this.props.history.push(`/person/${rowInfo.original.user.user_id}`);
       },
     };

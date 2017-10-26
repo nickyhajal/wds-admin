@@ -81,7 +81,7 @@ class TicketsTable extends React.Component {
         style: { textAlign: 'center' },
         Header: 'Purchased By',
         accessor: d => ({
-          email: d.purchaser.email,
+          email: d.purchaser.user_id,
           name:
             d.purchaser.first_name !== undefined && d.purchaser.first_name
               ? `${d.purchaser.first_name} ${d.purchaser.last_name}`
@@ -96,7 +96,7 @@ class TicketsTable extends React.Component {
         Header: 'Assigned To',
         style: { textAlign: 'center' },
         accessor: d => ({
-          email: d.user.email,
+          email: d.user.user_id,
           name:
             d.user.first_name !== undefined && d.user.first_name
               ? `${d.user.first_name} ${d.user.last_name}`
@@ -112,6 +112,7 @@ class TicketsTable extends React.Component {
         accessor: d => moment(d.created_at).format('MMM Do, YYYY'),
       },
     ];
+    console.log(this.state.data);
     if (this.props.graph) {
       return (
         <Table
