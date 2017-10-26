@@ -27,7 +27,9 @@ class TransactionScreen extends React.Component {
   rowProps = (state, rowInfo, column, instance) => {
     return {
       onClick: (e, original) => {
-        this.props.history.push(`/person/${rowInfo.original.user.user_id}`);
+        if (column.id !== 'stripe') {
+          this.props.history.push(`/person/${rowInfo.original.user.user_id}`);
+        }
       },
     };
   };
@@ -45,7 +47,7 @@ class TransactionScreen extends React.Component {
         <TransactionsTable
           graph="transactions"
           data={transactions}
-          getTrProps={this.rowProps}
+          getTdProps={this.rowProps}
         />
       </div>
     );

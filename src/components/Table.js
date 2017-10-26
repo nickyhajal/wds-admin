@@ -15,12 +15,22 @@ export default styled(ReactTable)`
     }
     .rt-td {
       padding: 12px;
+
+      a {
+        color: ${Colors.blueDarker};
+        text-decoration: underline;
+        &:hover {
+          text-decoration: none;
+        }
+      }
     }
-    .rt-tr-group {
+    .rt-tr {
       cursor: pointer;
       transition: 0.2s all;
-      &:hover {
-        background: ${lighten(0.38, Colors.blue)};
+    }
+    &.-highlight {
+      .rt-tbody .rt-tr:not(.-padRow):hover {
+        background: ${lighten(0.03, Colors.blueBright)};
       }
     }
   }

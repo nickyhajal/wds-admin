@@ -82,7 +82,7 @@ class TransactionsTable extends React.Component {
       },
       {
         id: 'paid',
-        Header: 'Amount Paid',
+        Header: 'Amt Paid',
         style: { textAlign: 'center' },
         width: 105,
         accessor: d => `$${d.paid_amount / 100}`,
@@ -93,6 +93,21 @@ class TransactionsTable extends React.Component {
         style: { textAlign: 'center' },
         width: 140,
         accessor: d => moment(d.created_at).format('MMM Do, YYYY'),
+      },
+      {
+        id: 'stripe',
+        Header: 'Stripe',
+        style: { textAlign: 'center' },
+        width: 140,
+        accessor: d => d.stripe_id,
+        Cell: props => (
+          <a
+            target="_blank"
+            href={`https://dashboard.stripe.com/payments/${props.value}`}
+          >
+            View on Stripe
+          </a>
+        ),
       },
     ];
     const p = Object.assign({}, this.props);
@@ -106,8 +121,10 @@ class TransactionsTable extends React.Component {
     if (this.props.graph) {
       return (
         <Table
+          {...p}
           data={this.state.data}
           pages={this.state.pages}
+          className="-striped -highlight"
           loading={this.state.loading}
           onPageChange={pageIndex => this.setState({ page: pageIndex })} // Called when the page index is changed by the user
           onPageSizeChange={(pageSize, pageIndex) =>
@@ -130,7 +147,7 @@ class TransactionsTable extends React.Component {
     return (
       <Table
         {...p}
-        className="-striped"
+        className="-striped -highlight"
         columns={columns}
         defaultSorted={[{ id: 'created_at', desc: true }]}
       />

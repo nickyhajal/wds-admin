@@ -18,6 +18,7 @@ export default {
   blueDarker,
   blueLighter,
   blueLightest,
+  blueBright,
   white,
   whiteBlue,
   grayDark,

@@ -107,6 +107,7 @@ class TicketsTable extends React.Component {
           pages={this.state.pages}
           loading={this.state.loading}
           onPageChange={pageIndex => this.setState({ page: pageIndex })} // Called when the page index is changed by the user
+          className="-striped"
           onPageSizeChange={(pageSize, pageIndex) =>
             this.setState({ per_page: pageSize })}
           manual

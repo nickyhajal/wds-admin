@@ -30,9 +30,13 @@ const Block = styled.div`
 `;
 const HomeScreen = ({ data }) => {
   const { current_wave_tickets, total_tickets, num_assigned } = Object.assign(
-    { current_wave_tickets: '', total_tickets: '', num_assigned: '' },
+    { current_wave_tickets: '', total_tickets: 0, num_assigned: 0 },
     data.stats,
   );
+  const percentAssigned =
+    total_tickets > 0
+      ? `${Math.floor(num_assigned / total_tickets * 100)}%`
+      : '';
   return (
     <Shell>
       <Blocks>
@@ -45,7 +49,7 @@ const HomeScreen = ({ data }) => {
           <label>Total Tickets Sold</label>
         </Block>
         <Block>
-          <div>{Math.floor(num_assigned / total_tickets * 100)}%</div>
+          <div>{percentAssigned}</div>
           <label>Percent Assigned</label>
         </Block>
       </Blocks>
