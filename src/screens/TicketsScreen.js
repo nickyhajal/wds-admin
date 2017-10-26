@@ -31,9 +31,6 @@ class TicketsScreen extends React.Component {
       },
     };
   };
-  componentWillReceiveProps(props) {
-    this.setState({ user: Object.assign({}, props.data.user) });
-  }
   render() {
     const { transactions } = Object.assign(
       { transactions: [] },
@@ -45,7 +42,7 @@ class TicketsScreen extends React.Component {
         <TicketsTable
           graph="transactions"
           data={transactions}
-          getTrProps={this.rowProps}
+          getTdProps={this.rowProps}
         />
       </div>
     );
