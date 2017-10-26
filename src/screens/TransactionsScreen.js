@@ -33,9 +33,6 @@ class TransactionScreen extends React.Component {
       },
     };
   };
-  componentWillReceiveProps(props) {
-    this.setState({ user: Object.assign({}, props.data.user) });
-  }
   render() {
     const { transactions } = Object.assign(
       { transactions: [] },
