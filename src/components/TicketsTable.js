@@ -80,19 +80,31 @@ class TicketsTable extends React.Component {
         id: 'purchaser',
         style: { textAlign: 'center' },
         Header: 'Purchased By',
-        accessor: d =>
-          d.purchaser.first_name !== undefined && d.purchaser.first_name
-            ? `${d.purchaser.first_name} ${d.purchaser.last_name}`
-            : 'Owner',
+        accessor: d => ({
+          email: d.purchaser.email,
+          name:
+            d.purchaser.first_name !== undefined && d.purchaser.first_name
+              ? `${d.purchaser.first_name} ${d.purchaser.last_name}`
+              : 'Owner',
+        }),
+        Cell: props => (
+          <a href={`/person/${props.value.email}`}>{props.value.name}</a>
+        ),
       },
       {
         id: 'assigned',
         Header: 'Assigned To',
         style: { textAlign: 'center' },
-        accessor: d =>
-          d.user.first_name !== undefined
-            ? `${d.user.first_name} ${d.user.last_name}`
-            : 'Owner',
+        accessor: d => ({
+          email: d.user.email,
+          name:
+            d.user.first_name !== undefined && d.user.first_name
+              ? `${d.user.first_name} ${d.user.last_name}`
+              : 'Owner',
+        }),
+        Cell: props => (
+          <a href={`/person/${props.value.email}`}>{props.value.name}</a>
+        ),
       },
       {
         id: 'created',
@@ -103,6 +115,7 @@ class TicketsTable extends React.Component {
     if (this.props.graph) {
       return (
         <Table
+          {...this.props}
           data={this.state.data}
           pages={this.state.pages}
           loading={this.state.loading}
