@@ -112,7 +112,6 @@ class TicketsTable extends React.Component {
         accessor: d => moment(d.created_at).format('MMM Do, YYYY'),
       },
     ];
-    console.log(this.state.data);
     if (this.props.graph) {
       return (
         <Table

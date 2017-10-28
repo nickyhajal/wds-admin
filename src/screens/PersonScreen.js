@@ -279,6 +279,12 @@ class PersonScreen extends React.Component {
               />
             </div>
           </FormRow>
+          <FormRow cols={2}>
+            <div>
+              <Label>User ID</Label>
+              <Input type="text" value={this.state.user.user_id} />
+            </div>
+          </FormRow>
         </ContentSide>
       </ColContent>
     );
