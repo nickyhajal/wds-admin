@@ -99,7 +99,6 @@ class PersonScreen extends React.Component {
     };
   };
   componentWillReceiveProps(props) {
-    console.log(props);
     this.setState({ user: Object.assign({}, props.data.user) });
   }
   giveTicket = async () => {
