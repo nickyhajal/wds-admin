@@ -15,6 +15,8 @@ import Table from '../components/Table';
 import TicketsTable from '../components/TicketsTable';
 import TransactionsTable from '../components/TransactionsTable';
 import Label from '../components/Label';
+import apollo from '../util/apollo';
+import mutateAddTicket from '../graph/mutateAddTicket';
 
 const Page = styled.div``;
 
@@ -63,6 +65,7 @@ class PersonScreen extends React.Component {
   constructor() {
     super();
     this.state = {
+      giveTicketText: 'Give Ticket',
       user: {
         first_name: '',
         last_name: '',
@@ -96,11 +99,24 @@ class PersonScreen extends React.Component {
     };
   };
   componentWillReceiveProps(props) {
-    console.log(props.data.user);
+    console.log(props);
     this.setState({ user: Object.assign({}, props.data.user) });
   }
+  giveTicket = async () => {
+    this.setState({ giveTicketText: 'Giving Ticket...' });
+    const result = await apollo.mutate({
+      mutation: mutateAddTicket,
+      variables: {
+        user_id: this.state.user.user_id,
+      },
+    });
+    this.setState({ giveTicketText: 'Success!' });
+    this.props.data.refetch();
+    setTimeout(() => {
+      this.setState({ giveTicketText: 'Give Ticket' });
+    });
+  };
   render() {
-    console.log(this.props.data);
     const {
       first_name,
       last_name,
@@ -243,8 +259,18 @@ class PersonScreen extends React.Component {
               </Form>
             </TabPanel>
             <TabPanel>
-              <h3>Tickets</h3>
-              <TicketsTable data={this.state.user.tickets} />
+              <h3>
+                Tickets{' '}
+                <button onClick={this.giveTicket}>
+                  {this.state.giveTicketText}
+                </button>
+              </h3>
+              <TicketsTable
+                data={this.state.user.tickets}
+                onTicketChange={() =>
+                  setTimeout(() => this.props.data.refetch(), 300)}
+              />
+              n
             </TabPanel>
             <TabPanel>
               <h3>Transactions</h3>

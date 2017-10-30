@@ -6,11 +6,11 @@ export default gql`
       user_id
       attending18
       pre18
+      type
+      ticket_type
       first_name
       last_name
       email
-      user_name
-      password
     }
   }
 `;

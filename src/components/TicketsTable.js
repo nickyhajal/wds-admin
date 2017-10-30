@@ -14,6 +14,7 @@ import mutateUpdateTicket from '../graph/mutateUpdateTicket';
 class TicketsTable extends React.Component {
   static defaultProps = {
     graph: false,
+    onTicketChange: () => {},
   };
   constructor() {
     super();
@@ -164,10 +165,14 @@ class TicketsTable extends React.Component {
       },
     });
     this.confirmText('Success!');
-    this.query.setVariables({
-      per_page: this.state.per_page,
-      page: this.state.page,
-    });
+    if (this.query) {
+      this.query.setVariables({
+        per_page: this.state.per_page,
+        page: this.state.page,
+      });
+    }
+    this.props.onTicketChange();
+
     setTimeout(() => {
       this.closeConfirm();
     }, 350);

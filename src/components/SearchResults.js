@@ -28,9 +28,32 @@ const Message = styled.div`
   font-style: italic;
   color: ${Colors.blueDarker};
 `;
+const Badge = styled.div`
+  background: ${({ type, attending18, pre18, ticket_type }) => {
+    let color = Colors.grayDark;
+    if (type === 'staff') {
+      color = Colors.blueDarker;
+    } else if (+attending18 === 1) {
+      if (+ticket_type === 360) {
+        color = Colors.orange;
+      } else if (ticket_type === 'connect') {
+        color = Colors.green;
+      }
+    }
+    return color;
+  }};
+  border-radius: 50%;
+  display: inline-block;
+  margin-right: 17px;
+  position: relative;
+  top: 1px;
+  width: 12px;
+  height: 12px;
+  margin-left: -9px;
+`;
 
 const Row = ({ user, close, onSelect, inx, selected }) => {
-  const { first_name, last_name, email } = user;
+  const { first_name, last_name, email, attending18, pre18, type } = user;
   const className = selected ? 'row-selected' : '';
   return (
     <RowShell
@@ -39,6 +62,7 @@ const Row = ({ user, close, onSelect, inx, selected }) => {
       onClick={close}
       onMouseOver={() => onSelect(inx)}
     >
+      <Badge {...user} />
       {first_name} {last_name}
     </RowShell>
   );
@@ -52,16 +76,18 @@ const Results = ({ data, close, selected, onSelect, setResults }) => {
     <ResultsShell className="resultsShell">
       <div className="results">
         {data !== undefined && data.users !== undefined && data.users.length ? (
-          data.users.map((u, inx) => (
-            <Row
-              selected={inx === selected}
-              onSelect={onSelect}
-              inx={inx}
-              user={u}
-              key={u.user_id}
-              close={close}
-            />
-          ))
+          data.users
+            .slice(0, 16)
+            .map((u, inx) => (
+              <Row
+                selected={inx === selected}
+                onSelect={onSelect}
+                inx={inx}
+                user={u}
+                key={u.user_id}
+                close={close}
+              />
+            ))
         ) : (
           <Message>{data.loading ? 'Loading...' : 'No results'}</Message>
         )}

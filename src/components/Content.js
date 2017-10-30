@@ -13,6 +13,26 @@ const Content = styled.div`
   h3 {
     font-size: 26px;
     line-height: 24px;
+
+    button {
+      display: inline;
+      border: 1px solid #ced7da;
+      border-radius: 3px;
+      margin-left: 8px;
+      background: #fff;
+      padding: 3px 10px 3px;
+      position: relative;
+      top: -5px;
+      color: ${Colors.blue};
+      font-size: 13px;
+      cursor: pointer;
+      transition: 0.5s all;
+      font-weight: 600;
+      box-shadow: 1px 1px 1px rgba(206, 215, 218, 0.55);
+      &:hover {
+        background: ${Colors.whiteBlue};
+      }
+    }
   }
   h2,
   h3,
