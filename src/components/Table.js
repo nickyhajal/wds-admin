@@ -15,6 +15,14 @@ export default styled(ReactTable)`
     }
     .rt-td {
       padding: 12px;
+      display: flex;
+      overflow: visible;
+      align-items: center;
+      justify-content: center;
+
+      * {
+        flex: 1;
+      }
 
       a {
         color: ${Colors.blueDarker};

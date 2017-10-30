@@ -24,13 +24,6 @@ class TicketsScreen extends React.Component {
       });
     }
   };
-  rowProps = (state, rowInfo, column, instance) => {
-    return {
-      onClick: (e, original) => {
-        // this.props.history.push(`/person/${rowInfo.original.user.user_id}`);
-      },
-    };
-  };
   render() {
     const { transactions } = Object.assign(
       { transactions: [] },

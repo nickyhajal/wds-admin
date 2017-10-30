@@ -26,4 +26,15 @@ injectGlobal`
     outline: none;
     font-family: 'Source Sans Pro', sans-serif;
    }
+   .ReactModal__Content {
+     width: 720px;
+     margin: 0 auto !important;
+     border: 0 !important;
+     box-shadow: 2px 2px 18px rgba(0,0,0,0.1);
+     padding: 50px !important;
+     bottom: auto !important;
+     top: 120px !important;
+
+     h1{ margin-top: 0; color: ${Colors.blueDarkest}; line-height: 120%;}
+   }
 `;
