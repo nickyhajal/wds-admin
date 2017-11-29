@@ -15,6 +15,10 @@ class Address extends React.Component {
   constructor() {
     super();
     this.state = {
+      address: '',
+      address2: '',
+      zip: '',
+      region: '',
       country: 'US',
     };
     this.countries = false;
@@ -117,12 +121,10 @@ class Address extends React.Component {
   render() {
     const pushProps = omit(this.props, ['className']);
     const countries = this.getCountries();
+    const vals = Object.assign({}, this.props, this.state);
     let country = 'US';
-    if (
-      this.props.values !== undefined &&
-      this.props.values.country !== undefined
-    ) {
-      country = this.props.values.country;
+    if (vals !== undefined && vals.country !== undefined) {
+      country = vals.country;
     }
     return (
       <div>
@@ -141,28 +143,48 @@ class Address extends React.Component {
         <FormRow>
           <div>
             <label>Address Line 1</label>
-            <Input id="address" value={this.state.address} />
+            <Input
+              id="address"
+              name="address"
+              value={vals.address}
+              onChange={this.props.onChange}
+            />
           </div>
           <div>
             <label>Address Line 2</label>
-            <Input id="address2" value={this.state.address2} />
+            <Input
+              id="address2"
+              name="address2"
+              value={vals.address2}
+              onChange={this.props.onChange}
+            />
           </div>
         </FormRow>
         <FormRow>
           <div>
             <label>City</label>
-            <Input id="city" value={this.state.city} />
+            <Input
+              id="city"
+              name="city"
+              value={vals.city}
+              onChange={this.props.onChange}
+            />
           </div>
           <div>{this.renderRegionRow()}</div>
         </FormRow>
         <FormRow>
           <div>
             <label>Postal Code</label>
-            <Input id="zip" value={this.state.zip} />
+            <Input
+              id="zip"
+              name="zip"
+              value={vals.zip}
+              onChange={this.props.onChange}
+            />
           </div>
         </FormRow>
         <FormRow>
-          <SubmitButton />
+          <SubmitButton {...this.props} />
         </FormRow>
       </div>
     );

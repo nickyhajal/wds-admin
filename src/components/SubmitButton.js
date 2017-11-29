@@ -9,7 +9,7 @@ const Button = styled.button`
   margin-top: 20px;
   margin-bottom: -16px;
   font-size: 17px;
-  background: ${Colors.peach};
+  background: ${Colors.blue};
   border-radius: 4px;
   color: #fff;
   font-family: Lato;
