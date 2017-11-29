@@ -87,6 +87,7 @@ class UserAdminNoteContainer extends React.Component {
         <PostShell onMouseOver={this.postAreaOver}>
           <TextInput
             onChange={e => this.setState({ note: e.currentTarget.value })}
+            value={this.state.note}
             style={{
               borderRadius: this.state.note.length ? '3px 0 0 3px' : '3px',
             }}
