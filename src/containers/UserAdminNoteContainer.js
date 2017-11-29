@@ -34,6 +34,7 @@ const Button = styled.button`
   border-radius: 0 3px 3px 0;
   opacity: 0;
   transition: 0.2s all;
+  cursor: pointer;
 `;
 const NoteShell = styled.div`
   margin-top: 24px;
@@ -58,8 +59,10 @@ const Note = styled.div`
 class UserAdminNoteContainer extends React.Component {
   state = {
     note: '',
+    postBtn: 'Post Note',
   };
   post = async () => {
+    this.setState({ postBtn: 'Posting...' });
     const result = await apollo.mutate({
       mutation: mutateUserNoteAdd,
       variables: {
@@ -69,7 +72,10 @@ class UserAdminNoteContainer extends React.Component {
         note: this.state.note,
       },
     });
-    this.setState({ note: '' });
+    this.setState({ note: '', postBtn: 'Posted!' });
+    setTimeout(() => {
+      this.setState({ postBtn: 'Post Note' });
+    });
     this.props.data.refetch();
   };
   render() {
@@ -90,7 +96,7 @@ class UserAdminNoteContainer extends React.Component {
             onClick={this.post}
             style={{ opacity: this.state.note.length ? '1' : '0' }}
           >
-            Post
+            {this.state.postBtn}
           </Button>
         </PostShell>
         <NoteShell>
