@@ -139,6 +139,7 @@ class Address extends React.Component {
               onChange={this.changeCountry}
             />
           </div>
+          <div />
         </FormRow>
         <FormRow>
           <div>
@@ -182,6 +183,7 @@ class Address extends React.Component {
               onChange={this.props.onChange}
             />
           </div>
+          <div />
         </FormRow>
         <FormRow>
           <SubmitButton {...this.props} />
