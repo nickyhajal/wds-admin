@@ -20,6 +20,7 @@ import mutateAddTicket from '../graph/mutateAddTicket';
 import SubmitButton from '../components/SubmitButton';
 import queryUser from '../graph/queryUser';
 import mutateAddUser from '../graph/mutateAddUser';
+import UserAdminNoteContainer from '../containers/UserAdminNoteContainer';
 
 const Page = styled.div``;
 

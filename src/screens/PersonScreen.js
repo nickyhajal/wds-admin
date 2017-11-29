@@ -17,6 +17,7 @@ import TransactionsTable from '../components/TransactionsTable';
 import Label from '../components/Label';
 import apollo from '../util/apollo';
 import mutateAddTicket from '../graph/mutateAddTicket';
+import UserAdminNoteContainer from '../containers/UserAdminNoteContainer';
 
 const Page = styled.div``;
 
@@ -147,6 +148,7 @@ class PersonScreen extends React.Component {
           <Tabs>
             <TabList>
               <Tab>The Basics</Tab>
+              <Tab>Notes</Tab>
               <Tab>Tickets</Tab>
               <Tab>Transactions</Tab>
               <Tab>RSVPs</Tab>
@@ -258,6 +260,10 @@ class PersonScreen extends React.Component {
               </Form>
             </TabPanel>
             <TabPanel>
+              <h3>Attendee Notes</h3>
+              <UserAdminNoteContainer user={this.state.user} />
+            </TabPanel>
+            <TabPanel>
               <h3>
                 Tickets{' '}
                 <button onClick={this.giveTicket}>
@@ -267,7 +273,8 @@ class PersonScreen extends React.Component {
               <TicketsTable
                 data={this.state.user.tickets}
                 onTicketChange={() =>
-                  setTimeout(() => this.props.data.refetch(), 300)}
+                  setTimeout(() => this.props.data.refetch(), 300)
+                }
               />
               n
             </TabPanel>
