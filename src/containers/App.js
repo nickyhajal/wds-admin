@@ -13,6 +13,7 @@ import TransactionsScreen from '../screens/TransactionsScreen';
 import TicketsScreen from '../screens/TicketsScreen';
 import PeopleScreen from '../screens/PeopleScreen';
 import AddPersonScreen from '../screens/AddPersonScreen';
+import HotelScreen from '../screens/HotelScreen';
 
 const Main = styled.div`
   height: 100%;
@@ -37,6 +38,7 @@ class App extends Component {
                 <Route path="/transactions" component={TransactionsScreen} />
                 <Route path="/tickets" component={TicketsScreen} />
                 <Route path="/people" component={PeopleScreen} />
+                <Route path="/hotel" component={HotelScreen} />
                 <Route path="/add-person" component={AddPersonScreen} />
               </Content>
             </Body>
