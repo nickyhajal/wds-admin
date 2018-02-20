@@ -4,8 +4,9 @@ import queryTransactions from './queryTransactions';
 import queryStats from './queryStats';
 import queryUserAdminNotes from './queryUserAdminNotes';
 import queryBookings from './queryBookings';
+import queryPages from './queryPages';
+import queryPage from './queryPage';
 
-console.log(queryBookings);
 export default {
   querySearchAttendees,
   queryUser,
@@ -13,4 +14,6 @@ export default {
   queryTransactions,
   queryStats,
   queryBookings,
+  queryPages,
+  queryPage,
 };

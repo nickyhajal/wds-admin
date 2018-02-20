@@ -14,6 +14,9 @@ import TicketsScreen from '../screens/TicketsScreen';
 import PeopleScreen from '../screens/PeopleScreen';
 import AddPersonScreen from '../screens/AddPersonScreen';
 import HotelScreen from '../screens/HotelScreen';
+import PagesScreen from '../screens/PagesScreen';
+import AddPageScreen from '../screens/AddPageScreen';
+import UpdatePageScreen from '../screens/UpdatePageScreen';
 
 const Main = styled.div`
   height: 100%;
@@ -35,10 +38,13 @@ class App extends Component {
               <Content>
                 <Route path="/" exact component={Home} />
                 <Route path="/person/:id" component={PersonScreen} />
+                <Route path="/page/:id" component={UpdatePageScreen} />
                 <Route path="/transactions" component={TransactionsScreen} />
                 <Route path="/tickets" component={TicketsScreen} />
                 <Route path="/people" component={PeopleScreen} />
                 <Route path="/hotel" component={HotelScreen} />
+                <Route path="/pages" component={PagesScreen} />
+                <Route path="/add-page" component={AddPageScreen} />
                 <Route path="/add-person" component={AddPersonScreen} />
               </Content>
             </Body>
