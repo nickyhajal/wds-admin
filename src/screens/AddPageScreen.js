@@ -56,6 +56,9 @@ class AddPageScreen extends React.Component {
       status: e.value,
     });
   };
+  changeContent = content => {
+    this.setState({ content });
+  };
   change = e => {
     if (e.currentTarget.name !== undefined) {
       const { name, value } = e.currentTarget;
@@ -116,7 +119,7 @@ class AddPageScreen extends React.Component {
                   theme="tomorrow"
                   name="blah2"
                   onLoad={this.onLoad}
-                  onChange={this.change}
+                  onChange={this.changeContent}
                   fontSize={14}
                   style={{
                     width: '100%',
