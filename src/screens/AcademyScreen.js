@@ -139,9 +139,9 @@ class AcademyScreen extends React.Component {
     e.ampm = pm;
     e.end_minute = end.format('mm');
     e.end_ampm = end_pm;
-    const bios = JSON.parse(
-      e.bios.includes('{') ? e.bios : Base64.decode(e.bios),
-    );
+    const bios = e.bios
+      ? JSON.parse(e.bios.includes('{') ? e.bios : Base64.decode(e.bios))
+      : {};
     this.setState({
       bios,
       event: Object.assign({}, e),

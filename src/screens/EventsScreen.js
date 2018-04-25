@@ -60,9 +60,11 @@ const Badge = styled.div`
 `;
 
 class EventScreen extends React.Component {
+  tabs = ['schedule', 'academies', 'activities', 'meetups'];
   constructor() {
     super();
     this.state = {
+      tab: 0,
       giveTicketText: 'Give Ticket',
       user: {
         first_name: '',
@@ -81,17 +83,34 @@ class EventScreen extends React.Component {
       },
     };
   }
+  componentDidMount() {
+    this.updateTab();
+  }
+  componentDidUpdate(prevProps) {
+    if (prevProps !== this.props) {
+      this.updateTab();
+    }
+  }
+  updateTab() {
+    const props = this.props;
+    if (props.match && props.match.params && props.match.params.tab) {
+      const tab = this.tabs.findIndex(x => x === props.match.params.tab);
+      this.setState({ tab });
+    }
+  }
   showEvent = e => {
-    console.log(e);
     let { type } = e;
     if (['program', 'event', 'activity'].includes(type)) {
       type = 'event';
     }
     this.props.history.push(`/${type}/${e.event_id}`);
   };
+  changeTab = (index, last, event) => {
+    const tabName = this.tabs[index];
+    this.props.history.push(`/events/${tabName}`);
+  };
   render() {
     const { loading, events } = this.props.data;
-    console.log(events);
     return (
       <ColContent>
         <div>
@@ -99,12 +118,12 @@ class EventScreen extends React.Component {
           {loading && <div>Loading...</div>}
           {!loading &&
             events.length && (
-              <Tabs>
+              <Tabs onSelect={this.changeTab} selectedIndex={this.state.tab}>
                 <TabList>
                   <Tab>Schedule</Tab>
-                  <Tab>Meetups</Tab>
                   <Tab>Academies</Tab>
                   <Tab>Activities</Tab>
+                  <Tab>Meetups</Tab>
                 </TabList>
                 <TabPanel>
                   <Form>
@@ -119,11 +138,6 @@ class EventScreen extends React.Component {
                 </TabPanel>
                 <TabPanel>
                   <h3>
-                    Meetups<button>Add Meetup</button>
-                  </h3>
-                </TabPanel>
-                <TabPanel>
-                  <h3>
                     Academies <Link to="/add-academy">Add Academy</Link>
                   </h3>
                   <EventListing
@@ -134,6 +148,11 @@ class EventScreen extends React.Component {
                 <TabPanel>
                   <h3>
                     Activities <button>Add Activity</button>
+                  </h3>
+                </TabPanel>
+                <TabPanel>
+                  <h3>
+                    Meetups<button>Add Meetup</button>
                   </h3>
                 </TabPanel>
               </Tabs>

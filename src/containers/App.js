@@ -47,7 +47,8 @@ class App extends Component {
                 <Route path="/people" component={PeopleScreen} />
                 <Route path="/hotel" component={HotelScreen} />
                 <Route path="/pages" component={PagesScreen} />
-                <Route path="/events" component={EventsScreen} />
+                <Route path="/events" exact component={EventsScreen} />
+                <Route path="/events/:tab" component={EventsScreen} />
                 <Route path="/add-academy" component={AddAcademyScreen} />
                 <Route path="/academy/:id" component={AcademyScreen} />
                 <Route path="/add-page" component={AddPageScreen} />
