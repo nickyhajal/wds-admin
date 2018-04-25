@@ -36,12 +36,14 @@ const Content = styled.div`
     font-size: 26px;
     line-height: 24px;
 
-    button {
+    button,
+    a {
       display: inline;
       border: 1px solid #ced7da;
       border-radius: 3px;
       margin-left: 8px;
       background: #fff;
+      text-decoration: none;
       padding: 3px 10px 3px;
       position: relative;
       top: -5px;

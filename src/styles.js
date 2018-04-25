@@ -7,11 +7,11 @@ import Colors from './constants/Colors';
 injectGlobal`
   html, body, #root {
     height: 100%;
+    background: #F6FCFD;
   }
   body {
     margin: 0;
     padding: 0;
-    font-family: Lato;
     color: ${Colors.text};
     background: ${Colors.bg};
     font-family: 'Source Sans Pro', sans-serif;

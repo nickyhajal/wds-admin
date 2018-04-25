@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 import Colors from '../constants/Colors';
 
-export default styled.input`
+export default styled.textarea`
   padding: 9px;
   border: 1px solid #ccc;
   font-size: 15px;

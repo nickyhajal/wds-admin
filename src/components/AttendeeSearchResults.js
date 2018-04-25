@@ -6,7 +6,7 @@ import Colors from '../constants/Colors';
 import query from '../util/query';
 
 const ResultsShell = styled.div``;
-const RowShell = styled(Link)`
+const RowShell = styled.div`
   padding: 18px 28px;
   font-weight: 600;
   cursor: pointer;
@@ -52,14 +52,16 @@ const Badge = styled.div`
   margin-left: -9px;
 `;
 
-const Row = ({ user, close, onSelect, inx, selected }) => {
+const Row = ({ user, close, onSelect, inx, selected, onClick }) => {
   const { first_name, last_name, email, attending18, pre18, type } = user;
   const className = selected ? 'row-selected' : '';
   return (
     <RowShell
-      to={`/person/${email}`}
       className={className}
-      onClick={close}
+      onClick={() => {
+        close();
+        onClick(user);
+      }}
       onMouseOver={() => onSelect(inx)}
     >
       <Badge {...user} />
@@ -68,7 +70,7 @@ const Row = ({ user, close, onSelect, inx, selected }) => {
   );
 };
 
-const Results = ({ data, close, selected, onSelect, setResults }) => {
+const Results = ({ data, close, selected, onSelect, setResults, onClick }) => {
   // if (data !== undefined && data.users !== undefined && data.users.length) {
   //   setResults(data.users);
   // }
@@ -82,6 +84,7 @@ const Results = ({ data, close, selected, onSelect, setResults }) => {
               <Row
                 selected={inx === selected}
                 onSelect={onSelect}
+                onClick={onClick}
                 inx={inx}
                 user={u}
                 key={u.user_id}

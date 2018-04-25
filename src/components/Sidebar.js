@@ -32,6 +32,7 @@ const Sidebar = () => (
     <Button to="/pages">Pages</Button>
     <Button to="/tickets">Tickets</Button>
     <Button to="/transactions">Transactions</Button>
+    <Button to="/events">Events</Button>
     <Button to="/hotel">Hotel</Button>
   </SidebarShell>
 );

@@ -12,7 +12,6 @@ const Button = styled.button`
   background: ${Colors.blue};
   border-radius: 4px;
   color: #fff;
-  font-family: Lato;
   cursor: pointer;
 `;
 
