@@ -20,14 +20,13 @@ import apollo from '../util/apollo';
 import mutateAddTicket from '../graph/mutateAddTicket';
 import SubmitButton from '../components/SubmitButton';
 import queryUser from '../graph/queryUser';
-import mutateAddUser from '../graph/mutateAddUser';
 import UserAdminNoteContainer from '../containers/UserAdminNoteContainer';
 import Textarea from '../components/Textarea';
 import TimeSelect from '../components/TimeSelect';
 import DateSelect from '../components/DateSelect';
 import Search from '../containers/Search';
 import AttendeeSearch from '../containers/AttendeeSearch';
-import mutateAddEvent from '../graph/mutateAddEvent';
+import mutateUpdateEvent from '../graph/mutateUpdateEvent';
 
 const Page = styled.div``;
 
@@ -147,20 +146,20 @@ class AcademyScreen extends React.Component {
       event: Object.assign({}, e),
     });
   }
-  startAdd = async e => {
+  save = async e => {
     e.preventDefault();
     const event = Object.assign({}, this.state.event);
     event.bios = Base64.encode(JSON.stringify(this.state.bios));
     event.hosts = event.hosts.map(v => v.user_id).join(',');
     this.setState({ status: 'saving' });
     const res = await apollo.mutate({
-      mutation: mutateAddEvent,
+      mutation: mutateUpdateEvent,
       variables: event,
     });
-    const { event_id } = res.data.eventAdd;
     this.setState({ status: 'success' });
-    setTimeout(() => this.props.history.push(`/event/${event_id}`), 1000);
-    setTimeout(() => window.scrollTo(0, 0), 1100);
+    setTimeout(() => {
+      this.setState({ status: 'ready' });
+    }, 2000);
   };
   changeStart = (part, value) => {
     this.setState({
@@ -171,8 +170,10 @@ class AcademyScreen extends React.Component {
     this.changeStart(`end_${part}`, value);
   };
   addHost = host => {
-    const hosts = this.state.event.hosts;
-    hosts.push(host);
+    const hosts = [...this.state.event.hosts];
+    if (hosts.findIndex(({ user_id }) => user_id === host.user_id) === -1) {
+      hosts.push(host);
+    }
     this.upd('hosts', hosts);
   };
   updateBio = (user_id, e) => {
@@ -184,7 +185,7 @@ class AcademyScreen extends React.Component {
     }
   };
   removeHost = filter_id => {
-    const hosts = this.state.event.hosts;
+    const hosts = [...this.state.event.hosts];
     this.upd('hosts', hosts.filter(({ user_id }) => user_id !== filter_id));
   };
   render() {
@@ -204,7 +205,7 @@ class AcademyScreen extends React.Component {
             <div>
               <h2>{this.state.event.what}</h2>
               <div className="react-tabs__tab-panel react-tabs__tab-panel--selected">
-                <Form onSubmit={this.startAdd}>
+                <Form onSubmit={this.save}>
                   <h3>Academy Info</h3>
                   <FormRow>
                     <div>
@@ -307,7 +308,7 @@ class AcademyScreen extends React.Component {
                         hour={this.state.event.end_hour}
                         minute={this.state.event.end_minute}
                         ampm={this.state.event.end_ampm}
-                        onChange={this.changeStart}
+                        onChange={this.changeEnd}
                       />
                     </div>
                   </FormRow>
