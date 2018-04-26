@@ -83,6 +83,12 @@ class AddEventScreen extends React.Component {
       },
     };
   }
+  componentDidMount() {
+    const { mode, addType } = this.props;
+    if (mode === 'add' && addType) {
+      this.upd('type', addType);
+    }
+  }
   componentWillReceiveProps(props) {
     if (!this.state.eventReady) {
       if (props.mode === 'add') {
@@ -167,8 +173,7 @@ class AddEventScreen extends React.Component {
     this.setState({ status: 'success' });
     if (mode === 'add') {
       const { event_id } = res.data.eventAdd;
-      const url = event.type === 'academy' ? 'academy' : 'event';
-      setTimeout(() => this.props.history.push(`/${url}/${event_id}`), 1000);
+      setTimeout(() => this.props.history.push(`/event/${event_id}`), 1000);
       setTimeout(() => window.scrollTo(0, 0), 1100);
     } else {
       setTimeout(() => {
@@ -216,6 +221,7 @@ class AddEventScreen extends React.Component {
     ];
     const types = [
       { label: 'Program Event', value: 'program' },
+      { label: 'Academy', value: 'academy' },
       { label: 'Activity', value: 'activity' },
       { label: 'Registration Session', value: 'registration' },
       { label: 'Meetup', value: 'meetup' },
@@ -308,7 +314,7 @@ class AddEventScreen extends React.Component {
                 {event.showMaxAttendees && (
                   <FormRow>
                     <div>
-                      <label>Max Attendees</label>
+                      <label>Max Attendees (0 is unlimited)</label>
                       <Input
                         type="number"
                         value={this.state.event.max}

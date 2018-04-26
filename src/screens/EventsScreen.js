@@ -130,14 +130,7 @@ class EventScreen extends React.Component {
                   <Form>
                     <h3>
                       WDS Schedule
-                      <Link
-                        to={{
-                          pathname: '/add-event',
-                          query: { type: 'program' },
-                        }}
-                      >
-                        Add Schedule Event
-                      </Link>
+                      <Link to="/add-event/program">Add Schedule Event</Link>
                     </h3>
                     <EventListing
                       events={events.filter(({ type }) => type === 'program')}
@@ -147,7 +140,7 @@ class EventScreen extends React.Component {
                 </TabPanel>
                 <TabPanel>
                   <h3>
-                    Academies <Link to="/add-academy">Add Academy</Link>
+                    Academies <Link to="/add-event/academy">Add Academy</Link>
                   </h3>
                   <EventListing
                     events={events.filter(({ type }) => type === 'academy')}
@@ -157,14 +150,7 @@ class EventScreen extends React.Component {
                 <TabPanel>
                   <h3>
                     Activities
-                    <Link
-                      to={{
-                        pathname: '/add-event',
-                        query: { type: 'activities' },
-                      }}
-                    >
-                      Add Activity
-                    </Link>
+                    <Link to="/add-event/activity">Add Activity</Link>
                   </h3>
                   <EventListing
                     events={events.filter(({ type }) => type === 'activity')}
@@ -173,12 +159,7 @@ class EventScreen extends React.Component {
                 </TabPanel>
                 <TabPanel>
                   <h3>
-                    Meetups{' '}
-                    <Link
-                      to={{ pathname: '/add-event', query: { type: 'meetup' } }}
-                    >
-                      Add Meetup
-                    </Link>
+                    Meetups <Link to="/add-event/meetup">Add Meetup</Link>
                   </h3>
                   <EventListing
                     events={events.filter(({ type }) => type === 'meetup')}
@@ -188,12 +169,7 @@ class EventScreen extends React.Component {
                 <TabPanel>
                   <h3>
                     Registration{' '}
-                    <Link
-                      to={{
-                        pathname: '/add-event',
-                        query: { type: 'registration' },
-                      }}
-                    >
+                    <Link to="/add-event/registration">
                       Add Registration Session
                     </Link>
                   </h3>

@@ -46,9 +46,9 @@ const ContentSide = styled.div`
   margin-top: 110px;
 `;
 
-const AddEventScreen = () => (
+const AddEventScreen = ({ match }) => (
   <ColContent>
-    <EventForm mode="add" />
+    <EventForm mode="add" addType={match.params.type} />
   </ColContent>
 );
 export default withRouter(AddEventScreen);
