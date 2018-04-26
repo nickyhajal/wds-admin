@@ -33,7 +33,7 @@ const EventRow = ({ event: { what, who, hosts, start }, even, onClick }) => {
         backgroundColor: lighten(even ? 0.04 : 0.014, Colors.whiteBlue),
       }}
     >
-      <td style={{ width: '90px' }}>{moment(start).format('h:mm a')}</td>
+      <td style={{ width: '90px' }}>{moment.utc(start).format('h:mm a')}</td>
       <td>{what}</td>
     </Row>
   );
