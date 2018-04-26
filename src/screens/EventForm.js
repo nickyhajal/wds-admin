@@ -96,7 +96,7 @@ class AddEventScreen extends React.Component {
           eventReady: true,
           event: Object.assign({}, props.event),
         });
-      } else {
+      } else if (props.event && props.event.event_id) {
         let e = Object.assign({}, props.event);
         const start = moment.utc(e.start);
         const end = moment.utc(e.end);
@@ -211,7 +211,7 @@ class AddEventScreen extends React.Component {
     const dates = [
       { label: 'Monday, June 25th', value: '25' },
       { label: 'Tuesday, June 26th', value: '26' },
-      { label: 'Wedsneday, June 27th', value: '27' },
+      { label: 'Wednesday, June 27th', value: '27' },
       { label: 'Thursday, June 28th', value: '28' },
       { label: 'Friday, June 29th', value: '29' },
       { label: 'Saturday, June 30th', value: '30' },

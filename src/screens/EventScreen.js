@@ -58,9 +58,12 @@ const RemoveButton = styled.button`
 `;
 
 const EventScreen = ({ data: { event } }) => (
-  <ColContent>
-    <EventForm mode="update" event={event} />
-  </ColContent>
+  console.log(event),
+  (
+    <ColContent>
+      <EventForm mode="update" event={event} />
+    </ColContent>
+  )
 );
 export default query('event', EventScreen, ({ match }) => ({
   variables: { event_id: match.params.id },
