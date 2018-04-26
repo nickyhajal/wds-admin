@@ -96,6 +96,11 @@ class PersonScreen extends React.Component {
       user: Object.assign({}, this.state.user, { type: e.value }),
     });
   };
+  upd = (name, value) => {
+    this.setState({
+      user: Object.assign({}, this.state.user, { [name]: value }),
+    });
+  };
   change = e => {
     if (e.currentTarget.name !== undefined) {
       const { name, value } = e.currentTarget;
@@ -170,6 +175,10 @@ class PersonScreen extends React.Component {
       { label: 'Staff', value: 'staff' },
       { label: 'Ambassador', value: 'ambassador' },
     ];
+    const ticket_types = [
+      { label: '360', value: '360' },
+      { label: 'Connect', value: 'connect' },
+    ];
     return (
       <ColContent>
         <div>
@@ -196,10 +205,19 @@ class PersonScreen extends React.Component {
                       name="type"
                       options={types}
                       clearable={false}
-                      onChange={this.changeType}
+                      onChange={({ value }) => this.upd('type', value)}
                     />
                   </div>
-                  <div />
+                  <div>
+                    <label>Ticket Type</label>
+                    <Select
+                      value={this.state.user.ticket_type}
+                      name="ticket_type"
+                      options={ticket_types}
+                      clearable={false}
+                      onChange={({ value }) => this.upd('ticket_type', value)}
+                    />
+                  </div>
                 </FormRow>
                 <FormRow>
                   <div>

@@ -5,6 +5,7 @@ export default gql`
     $email: String
     $user_id: String
     $type: String
+    $ticket_type: String
     $facebook: String
     $site: String
     $instagram: String
@@ -21,6 +22,7 @@ export default gql`
       email: $email
       user_id: $user_id
       type: $type
+      ticket_type: $ticket_type
       facebook: $facebook
       site: $site
       instagram: $instagram

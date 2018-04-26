@@ -3,6 +3,7 @@ import { gql } from 'react-apollo';
 export default gql`
   mutation userAdd(
     $email: String!
+    $type: String!
     $first_name: String!
     $last_name: String!
     $address: String!
@@ -11,9 +12,11 @@ export default gql`
     $region: String
     $zip: String
     $country: String
+    $ticket_type: String
   ) {
     userAdd(
       email: $email
+      type: $type
       first_name: $first_name
       last_name: $last_name
       address: $address
@@ -22,6 +25,7 @@ export default gql`
       region: $region
       zip: $zip
       country: $country
+      ticket_type: $ticket_type
     ) {
       user_id
       first_name

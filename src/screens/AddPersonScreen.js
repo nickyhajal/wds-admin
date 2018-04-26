@@ -51,6 +51,7 @@ class AddPersonScreen extends React.Component {
         email: '',
         address: '',
         address2: '',
+        ticket_type: '360',
         region: '',
         city: '',
         country: '',
@@ -60,6 +61,11 @@ class AddPersonScreen extends React.Component {
   changeType = e => {
     this.setState({
       user: Object.assign({}, this.state.user, { type: e.value }),
+    });
+  };
+  upd = (name, value) => {
+    this.setState({
+      user: Object.assign({}, this.state.user, { [name]: value }),
     });
   };
   changeGiveTicket = e => {
@@ -113,6 +119,10 @@ class AddPersonScreen extends React.Component {
       { label: 'Give 2018 Ticket', value: 'y' },
       { label: "Don't Give Ticket", value: 'n' },
     ];
+    const ticket_types = [
+      { label: '360', value: '360' },
+      { label: 'Connect', value: 'connect' },
+    ];
     return (
       <ColContent>
         <div>
@@ -142,6 +152,21 @@ class AddPersonScreen extends React.Component {
                   />
                 </div>
               </FormRow>
+              {this.state.giveTicket === 'y' && (
+                <FormRow>
+                  <div>
+                    <label>Ticket Type</label>
+                    <Select
+                      value={this.state.user.ticket_type}
+                      name="ticket_type"
+                      options={ticket_types}
+                      clearable={false}
+                      onChange={({ value }) => this.upd('ticket_type', value)}
+                    />
+                  </div>
+                  <div />
+                </FormRow>
+              )}
               <FormRow>
                 <div>
                   <label>First Name</label>
