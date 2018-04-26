@@ -3,11 +3,13 @@ import styled from 'styled-components';
 import { withRouter } from 'react-router-dom';
 import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
 import moment from 'moment';
+import { omit } from 'lodash';
 import query from '../util/query';
 import Container from '../components/Container';
 import Form from '../components/Form';
 import FormRow from '../components/FormRow';
 import Input from '../components/Input';
+import Select from 'react-select';
 import AddressForm from '../components/AddressForm';
 import ShirtSize from '../components/ShirtSize';
 import Colors from '../constants/Colors';
@@ -18,6 +20,7 @@ import Label from '../components/Label';
 import apollo from '../util/apollo';
 import mutateAddTicket from '../graph/mutateAddTicket';
 import UserAdminNoteContainer from '../containers/UserAdminNoteContainer';
+import mutateUpdateUser from '../graph/mutateUpdateUser';
 
 const Page = styled.div``;
 
@@ -39,6 +42,8 @@ const Badge = styled.div`
     let color = Colors.grayDark;
     if (type === 'staff') {
       color = Colors.blueDarker;
+    } else if (type === 'ambassador') {
+      color = '#FFB826';
     } else if (+attending18 === 1) {
       if (+ticket_type === 360) {
         color = Colors.orange;
@@ -66,6 +71,7 @@ class PersonScreen extends React.Component {
   constructor() {
     super();
     this.state = {
+      status: 'ready',
       giveTicketText: 'Give Ticket',
       user: {
         first_name: '',
@@ -76,6 +82,7 @@ class PersonScreen extends React.Component {
         address2: '',
         region: '',
         city: '',
+        type: '',
         country: '',
         site: '',
         instagram: '',
@@ -84,6 +91,11 @@ class PersonScreen extends React.Component {
       },
     };
   }
+  changeType = e => {
+    this.setState({
+      user: Object.assign({}, this.state.user, { type: e.value }),
+    });
+  };
   change = e => {
     if (e.currentTarget.name !== undefined) {
       const { name, value } = e.currentTarget;
@@ -116,6 +128,20 @@ class PersonScreen extends React.Component {
       this.setState({ giveTicketText: 'Give Ticket' });
     });
   };
+  save = async e => {
+    e.stopPropagation();
+    e.preventDefault();
+    const user = this.state.user;
+    this.setState({ status: 'saving' });
+    const res = await apollo.mutate({
+      mutation: mutateUpdateUser,
+      variables: omit(user, ['tickets', 'transactions', 'lat', 'lon', 'hash']),
+    });
+    this.setState({ status: 'success' });
+    setTimeout(() => {
+      this.setState({ status: 'ready' });
+    }, 2000);
+  };
   render() {
     const {
       first_name,
@@ -128,6 +154,8 @@ class PersonScreen extends React.Component {
     let badgeText = 'Not Attending';
     if (type === 'staff') {
       badgeText = 'Staff';
+    } else if (type === 'ambassador') {
+      badgeText = 'Ambassador';
     } else if (attending18 === 1) {
       if (ticket_type === '360') {
         badgeText = '360 Attendee';
@@ -137,7 +165,11 @@ class PersonScreen extends React.Component {
     } else if (pre18 === 1) {
       badgeText = 'Unclaimed Pre-Order';
     }
-
+    const types = [
+      { label: 'Attendee', value: 'attendee' },
+      { label: 'Staff', value: 'staff' },
+      { label: 'Ambassador', value: 'ambassador' },
+    ];
     return (
       <ColContent>
         <div>
@@ -154,8 +186,21 @@ class PersonScreen extends React.Component {
               <Tab>RSVPs</Tab>
             </TabList>
             <TabPanel>
-              <Form>
+              <Form onSubmit={this.save}>
                 <h3>Attendee Info</h3>
+                <FormRow>
+                  <div>
+                    <label>Type</label>
+                    <Select
+                      value={this.state.user.type}
+                      name="type"
+                      options={types}
+                      clearable={false}
+                      onChange={this.changeType}
+                    />
+                  </div>
+                  <div />
+                </FormRow>
                 <FormRow>
                   <div>
                     <label>First Name</label>
@@ -256,7 +301,11 @@ class PersonScreen extends React.Component {
                   </div>
                 </FormRow>
                 <h3>Contact Info</h3>
-                <AddressForm {...this.state.user} onChange={this.change} />
+                <AddressForm
+                  {...this.state.user}
+                  onChange={this.change}
+                  status={this.state.status}
+                />
               </Form>
             </TabPanel>
             <TabPanel>
