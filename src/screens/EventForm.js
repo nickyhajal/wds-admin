@@ -35,6 +35,7 @@ const Page = styled.div``;
 const ColContent = styled.div`
   display: flex;
   align-items: flex-start;
+  width: 100%;
 `;
 const ContentSide = styled.div`
   background: ${Colors.white};
@@ -43,7 +44,7 @@ const ContentSide = styled.div`
   border-radius: 4px;
   box-shadow: 3px 3px 20px rgba(0, 0, 0, 0.08);
   flex: 1;
-  margin-top: 110px;
+  margin-top: 55px;
 `;
 
 class AddEventScreen extends React.Component {
@@ -241,6 +242,9 @@ class AddEventScreen extends React.Component {
         ? `Add ${event.article} ${event.typeStr}`
         : `${event.what}`;
     const ready = mode === 'add' || event.event_id;
+    const showRsvpCount = event.showMaxAttendees || event.num_rsvps > 0;
+    const showUrl = event.url;
+    const showSidebar = showRsvpCount || showUrl;
     return (
       <ColContent>
         {ready && (
@@ -483,6 +487,29 @@ class AddEventScreen extends React.Component {
               </Form>
             </div>
           </div>
+        )}
+        {showSidebar && (
+          <ContentSide>
+            {showRsvpCount && (
+              <FormRow cols={2}>
+                <div>
+                  <Label>RSVP Count</Label>
+                  <Input type="text" value={event.num_rsvps || 0} />
+                </div>
+              </FormRow>
+            )}
+            {showUrl && (
+              <FormRow cols={2}>
+                <div>
+                  <Label>Event URL</Label>
+                  <Input
+                    type="text"
+                    value={`https://wds.fm/${event.url}/${event.slug}`}
+                  />
+                </div>
+              </FormRow>
+            )}
+          </ContentSide>
         )}
       </ColContent>
     );

@@ -7,6 +7,7 @@ const eventNameFromEventType = type => {
     showMaxAttendees: false,
     showForType: true,
     showHosts: true,
+    url: false,
   };
   switch (type) {
     case 'academy':
@@ -16,10 +17,12 @@ const eventNameFromEventType = type => {
       event.showMaxAttendees = true;
       event.showMaxFree = true;
       event.showForType = false;
+      event.url = 'academy';
       break;
     case 'meetup':
       event.typeStr = 'Meetup';
       event.showMaxAttendees = true;
+      event.url = 'meetup';
       break;
     case 'program':
       event.typeStr = 'Program Event';
@@ -31,6 +34,7 @@ const eventNameFromEventType = type => {
       event.article = 'an';
       event.showMaxAttendees = true;
       event.showPrice = true;
+      event.url = 'activity';
       break;
     case 'expedition':
       event.typeStr = 'Expedition';
