@@ -98,8 +98,8 @@ class AddEventScreen extends React.Component {
         });
       } else {
         let e = Object.assign({}, props.event);
-        const start = moment(e.start);
-        const end = moment(e.end);
+        const start = moment.utc(e.start);
+        const end = moment.utc(e.end);
         const date = start.format('DD');
         let hour = +start.format('HH');
         let end_hour = +end.format('HH');
