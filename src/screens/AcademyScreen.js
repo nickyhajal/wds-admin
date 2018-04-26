@@ -195,7 +195,6 @@ class AcademyScreen extends React.Component {
       { label: 'June 29th', value: '29' },
       { label: 'July 2nd', value: '2' },
     ];
-    console.log(this.props.data);
     return (
       <div>
         {this.props.data.loading ? (

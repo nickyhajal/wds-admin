@@ -20,6 +20,8 @@ import UpdatePageScreen from '../screens/UpdatePageScreen';
 import EventsScreen from '../screens/EventsScreen';
 import AddAcademyScreen from '../screens/AddAcademyScreen';
 import AcademyScreen from '../screens/AcademyScreen';
+import AddEventScreen from '../screens/AddEventScreen';
+import EventScreen from '../screens/EventScreen';
 
 const Main = styled.div`
   height: 100%;
@@ -49,8 +51,11 @@ class App extends Component {
                 <Route path="/pages" component={PagesScreen} />
                 <Route path="/events" exact component={EventsScreen} />
                 <Route path="/events/:tab" component={EventsScreen} />
+                <Route path="/add-event" component={AddEventScreen} />
+                <Route path="/add-event/:type" component={AddEventScreen} />
                 <Route path="/add-academy" component={AddAcademyScreen} />
                 <Route path="/academy/:id" component={AcademyScreen} />
+                <Route path="/event/:id" component={EventScreen} />
                 <Route path="/add-page" component={AddPageScreen} />
                 <Route path="/add-person" component={AddPersonScreen} />
               </Content>

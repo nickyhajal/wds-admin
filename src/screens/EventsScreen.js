@@ -60,7 +60,7 @@ const Badge = styled.div`
 `;
 
 class EventScreen extends React.Component {
-  tabs = ['schedule', 'academies', 'activities', 'meetups'];
+  tabs = ['schedule', 'academies', 'activities', 'meetups', 'registration'];
   constructor() {
     super();
     this.state = {
@@ -124,14 +124,23 @@ class EventScreen extends React.Component {
                   <Tab>Academies</Tab>
                   <Tab>Activities</Tab>
                   <Tab>Meetups</Tab>
+                  <Tab>Registration</Tab>
                 </TabList>
                 <TabPanel>
                   <Form>
                     <h3>
-                      WDS Schedule <button>Add Schedule Event</button>
+                      WDS Schedule
+                      <Link
+                        to={{
+                          pathname: '/add-event',
+                          query: { type: 'program' },
+                        }}
+                      >
+                        Add Schedule Event
+                      </Link>
                     </h3>
                     <EventListing
-                      events={events.filter(({ type }) => type === 'academy')}
+                      events={events.filter(({ type }) => type === 'program')}
                       onClick={this.showEvent}
                     />
                   </Form>
@@ -147,13 +156,53 @@ class EventScreen extends React.Component {
                 </TabPanel>
                 <TabPanel>
                   <h3>
-                    Activities <button>Add Activity</button>
+                    Activities
+                    <Link
+                      to={{
+                        pathname: '/add-event',
+                        query: { type: 'activities' },
+                      }}
+                    >
+                      Add Activity
+                    </Link>
                   </h3>
+                  <EventListing
+                    events={events.filter(({ type }) => type === 'activity')}
+                    onClick={this.showEvent}
+                  />
                 </TabPanel>
                 <TabPanel>
                   <h3>
-                    Meetups<button>Add Meetup</button>
+                    Meetups{' '}
+                    <Link
+                      to={{ pathname: '/add-event', query: { type: 'meetup' } }}
+                    >
+                      Add Meetup
+                    </Link>
                   </h3>
+                  <EventListing
+                    events={events.filter(({ type }) => type === 'meetup')}
+                    onClick={this.showEvent}
+                  />
+                </TabPanel>
+                <TabPanel>
+                  <h3>
+                    Registration{' '}
+                    <Link
+                      to={{
+                        pathname: '/add-event',
+                        query: { type: 'registration' },
+                      }}
+                    >
+                      Add Registration Session
+                    </Link>
+                  </h3>
+                  <EventListing
+                    events={events.filter(
+                      ({ type }) => type === 'registration',
+                    )}
+                    onClick={this.showEvent}
+                  />
                 </TabPanel>
               </Tabs>
             )}

@@ -2,11 +2,9 @@ import React from 'react';
 import styled from 'styled-components';
 import { withRouter } from 'react-router-dom';
 import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
+import { Base64 } from 'js-base64';
 import Select from 'react-select';
 import moment from 'moment';
-import { Base64 } from 'js-base64';
-import { omit } from 'lodash';
-import mutateAddEvent from '../graph/mutateAddEvent';
 import query from '../util/query';
 import Container from '../components/Container';
 import Form from '../components/Form';
@@ -15,19 +13,20 @@ import Input from '../components/Input';
 import AddressForm from '../components/AddressForm';
 import Colors from '../constants/Colors';
 import Table from '../components/Table';
+import TicketsTable from '../components/TicketsTable';
 import TransactionsTable from '../components/TransactionsTable';
 import Label from '../components/Label';
 import apollo from '../util/apollo';
 import mutateAddTicket from '../graph/mutateAddTicket';
 import SubmitButton from '../components/SubmitButton';
 import queryUser from '../graph/queryUser';
-import mutateAddUser from '../graph/mutateAddUser';
 import UserAdminNoteContainer from '../containers/UserAdminNoteContainer';
 import Textarea from '../components/Textarea';
 import TimeSelect from '../components/TimeSelect';
+import DateSelect from '../components/DateSelect';
+import Search from '../containers/Search';
 import AttendeeSearch from '../containers/AttendeeSearch';
-import RemoveButton from '../components/RemoveButton';
-import eventMetaFromType from '../util/eventMetaFromType';
+import mutateUpdateEvent from '../graph/mutateUpdateEvent';
 import EventForm from './EventForm';
 
 const Page = styled.div``;
@@ -46,9 +45,23 @@ const ContentSide = styled.div`
   margin-top: 110px;
 `;
 
-const AddEventScreen = () => (
+const RemoveButton = styled.button`
+  margin-left: 7px;
+  left: 2px;
+  position: relative;
+  top: -2px;
+  border: 1px solid #ccc;
+  cursor: pointer;
+  padding: 2px 15px;
+  color: #444;
+  border-radius: 3px;
+`;
+
+const EventScreen = ({ data: { event } }) => (
   <ColContent>
-    <EventForm mode="add" />
+    <EventForm mode="update" event={event} />
   </ColContent>
 );
-export default withRouter(AddEventScreen);
+export default query('event', EventScreen, ({ match }) => ({
+  variables: { event_id: match.params.id },
+}));

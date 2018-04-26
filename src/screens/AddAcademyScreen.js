@@ -28,6 +28,7 @@ import DateSelect from '../components/DateSelect';
 import Search from '../containers/Search';
 import AttendeeSearch from '../containers/AttendeeSearch';
 import mutateAddEvent from '../graph/mutateAddEvent';
+import RemoveButton from '../components/RemoveButton';
 
 const Page = styled.div``;
 
@@ -45,23 +46,10 @@ const ContentSide = styled.div`
   margin-top: 110px;
 `;
 
-const RemoveButton = styled.button`
-  margin-left: 7px;
-  left: 2px;
-  position: relative;
-  top: -2px;
-  border: 1px solid #ccc;
-  cursor: pointer;
-  padding: 2px 15px;
-  color: #444;
-  border-radius: 3px;
-`;
-
 class AddEventScreen extends React.Component {
   constructor() {
     super();
     this.state = {
-      giveTicket: 'y',
       status: 'ready',
       bios: {},
       event: {
