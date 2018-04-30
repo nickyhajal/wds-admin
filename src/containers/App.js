@@ -53,8 +53,7 @@ class App extends Component {
                 <Route path="/events/:tab" component={EventsScreen} />
                 <Route path="/add-event" exact component={AddEventScreen} />
                 <Route path="/add-event/:type" component={AddEventScreen} />
-                <Route path="/add-academy" component={AddAcademyScreen} />
-                <Route path="/academy/:id" component={AcademyScreen} />
+                <Route path="/academy/:id" component={EventScreen} />
                 <Route path="/event/:id" component={EventScreen} />
                 <Route path="/add-page" component={AddPageScreen} />
                 <Route path="/add-person" component={AddPersonScreen} />

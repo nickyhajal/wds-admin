@@ -103,7 +103,7 @@ class EventScreen extends React.Component {
     if (['program', 'event', 'activity'].includes(type)) {
       type = 'event';
     }
-    this.props.history.push(`/${type}/${e.event_id}`);
+    this.props.history.push(`/event/${e.event_id}`);
   };
   changeTab = (index, last, event) => {
     const tabName = this.tabs[index];

@@ -245,6 +245,10 @@ class AddEventScreen extends React.Component {
     const showRsvpCount = event.showMaxAttendees || event.num_rsvps > 0;
     const showUrl = event.url;
     const showSidebar = showRsvpCount || showUrl;
+    console.log('>>>>>>>>>>>');
+    console.log(showUrl);
+    console.log(showRsvpCount);
+    console.log(showSidebar);
     return (
       <ColContent>
         {ready && (
@@ -504,7 +508,9 @@ class AddEventScreen extends React.Component {
                   <Label>Event URL</Label>
                   <Input
                     type="text"
-                    value={`https://wds.fm/${event.url}/${event.slug}`}
+                    value={`https://worlddominationsummit.com/${event.url}/${
+                      event.slug
+                    }`}
                   />
                 </div>
               </FormRow>
