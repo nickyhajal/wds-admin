@@ -4,6 +4,7 @@ export default gql`
   mutation userAdd(
     $email: String!
     $type: String!
+    $ticket_type: String
     $first_name: String!
     $last_name: String!
     $address: String!
@@ -17,6 +18,7 @@ export default gql`
     userAdd(
       email: $email
       type: $type
+      ticket_type: $ticket_type
       first_name: $first_name
       last_name: $last_name
       address: $address
