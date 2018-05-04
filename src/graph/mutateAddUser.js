@@ -29,6 +29,8 @@ export default gql`
     ) {
       user_id
       first_name
+      ticket_type
+      type
       last_name
       email_hash
     }
