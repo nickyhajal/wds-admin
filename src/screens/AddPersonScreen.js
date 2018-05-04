@@ -102,7 +102,11 @@ class AddPersonScreen extends React.Component {
     if (this.state.giveTicket === 'y') {
       const giveTicketRes = await apollo.mutate({
         mutation: mutateAddTicket,
-        variables: { user_id, status: 'active' },
+        variables: {
+          user_id,
+          status: 'active',
+          type: this.state.user.ticket_type,
+        },
       });
     }
     this.setState({ status: 'success' });
