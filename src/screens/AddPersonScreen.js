@@ -100,7 +100,6 @@ class AddPersonScreen extends React.Component {
     });
     const user_id = res.data.userAdd.user_id;
     if (this.state.giveTicket === 'y') {
-      console.log(res.data.userAdd);
       const giveTicketRes = await apollo.mutate({
         mutation: mutateAddTicket,
         variables: {
