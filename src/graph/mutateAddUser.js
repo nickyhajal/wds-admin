@@ -17,6 +17,7 @@ export default gql`
     userAdd(
       email: $email
       type: $type
+      ticket_type: $ticket_type
       first_name: $first_name
       last_name: $last_name
       address: $address
