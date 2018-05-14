@@ -1,7 +1,7 @@
 import { gql } from 'react-apollo';
 
 export default gql`
-  query events($year: Int, $showInactive: Boolean, $type: String) {
+  query events($year: String, $showInactive: Boolean, $type: String) {
     events(year: $year, type: $type, showInactive: $showInactive) {
       event_id
       year
