@@ -144,6 +144,16 @@ class AddEventScreen extends React.Component {
       this.upd(name, value);
     }
   };
+  updateStatus(value) {
+    if (value === 'rejected') {
+      this.upd('ignored', '1');
+    } else {
+      this.upd('ignored', '0');
+      setTimeout(() => {
+        this.upd('active', value === 'active' ? '1' : '0');
+      }, 4);
+    }
+  }
   upd = (name, value) => {
     this.setState({
       event: Object.assign({}, this.state.event, { [name]: value }),
@@ -227,6 +237,10 @@ class AddEventScreen extends React.Component {
       { label: 'Registration Session', value: 'registration' },
       { label: 'Meetup', value: 'meetup' },
     ];
+    const statusTypes = [
+      { label: 'Active', value: 'active' },
+      { label: 'Not Active', value: 'not-active' },
+    ];
     const forTypes = [
       { label: 'All', value: 'all' },
       { label: '360', value: '360' },
@@ -237,6 +251,7 @@ class AddEventScreen extends React.Component {
       this.state.event,
       eventMetaFromType(this.state.event.type),
     );
+    const { type } = event;
     const title =
       mode === 'add'
         ? `Add ${event.article} ${event.typeStr}`
@@ -245,10 +260,14 @@ class AddEventScreen extends React.Component {
     const showRsvpCount = event.showMaxAttendees || event.num_rsvps > 0;
     const showUrl = event.url;
     const showSidebar = showRsvpCount || showUrl;
-    console.log('>>>>>>>>>>>');
-    console.log(showUrl);
-    console.log(showRsvpCount);
-    console.log(showSidebar);
+    if (event.type === 'meetup') {
+      statusTypes.push({ label: 'Rejected', value: 'rejected' });
+    }
+    const status = +event.ignored
+      ? 'rejected'
+      : +event.active
+        ? 'active'
+        : 'not-active';
     return (
       <ColContent>
         {ready && (
@@ -272,6 +291,19 @@ class AddEventScreen extends React.Component {
                     <div />
                   </FormRow>
                 )}
+                <FormRow>
+                  <div>
+                    <label>Status</label>
+                    <Select
+                      value={status}
+                      name="status"
+                      options={statusTypes}
+                      clearable={false}
+                      onChange={({ value }) => this.updateStatus(value)}
+                    />
+                  </div>
+                  <div />
+                </FormRow>
                 <FormRow>
                   <div>
                     <label>{`${event.typeStr} Name`}</label>
@@ -487,6 +519,43 @@ class AddEventScreen extends React.Component {
                       success: 'Saved!',
                     }}
                   />
+                  {type === 'meetup' &&
+                    !+event.active &&
+                    !+event.ignored && (
+                      <React.Fragment>
+                        <span
+                          style={{
+                            height: '30px',
+                            display: 'block',
+                            width: '3px',
+                            borderRadius: '4px',
+                            position: 'relative',
+                            top: '28px',
+                            background: 'rgb(184, 210, 213)',
+                            margin: '0 40px 0 30px',
+                            opacity: '0.8',
+                          }}
+                        />
+                        <SubmitButton
+                          tier="2"
+                          status={this.state.status}
+                          msgs={{
+                            ready: `Approve Meetup`,
+                            saving: `Approving...`,
+                            success: 'Approved!',
+                          }}
+                        />
+                        <SubmitButton
+                          tier="3"
+                          status={this.state.status}
+                          msgs={{
+                            ready: `Reject Meetup`,
+                            saving: `Rejecting...`,
+                            success: 'Rejected!',
+                          }}
+                        />
+                      </React.Fragment>
+                    )}
                 </FormRow>
               </Form>
             </div>

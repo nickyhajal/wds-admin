@@ -58,6 +58,7 @@ const eventNameFromEventType = type => {
       event.article = 'an';
       break;
   }
+
   return event;
 };
 
