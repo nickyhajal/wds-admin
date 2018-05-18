@@ -88,6 +88,7 @@ const EventListing = ({ events, onClick }) => {
     out.push(curr);
     return out;
   }, []);
+
   const type = events[0].type;
   return (
     <Table>
