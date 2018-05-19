@@ -99,6 +99,7 @@ class AddEventScreen extends React.Component {
         });
       } else if (props.event && props.event.event_id) {
         let e = Object.assign({}, props.event);
+        this.orig = e;
         const start = moment.utc(e.start);
         const end = moment.utc(e.end);
         const date = start.format('DD');
@@ -154,12 +155,15 @@ class AddEventScreen extends React.Component {
       }, 4);
     }
   }
-  upd = (name, value) => {
-    this.setState({
-      event: Object.assign({}, this.state.event, { [name]: value }),
-    });
+  upd = (name, value, cb) => {
+    this.setState(
+      {
+        event: Object.assign({}, this.state.event, { [name]: value }),
+      },
+      cb,
+    );
   };
-  startAdd = async e => {
+  startAdd = async (e, statusType = 'status', cb = false) => {
     e.preventDefault();
     const { mode } = this.props;
     const event = Object.assign(
@@ -169,7 +173,7 @@ class AddEventScreen extends React.Component {
     );
     event.bios = Base64.encode(JSON.stringify(this.state.bios));
     event.hosts = event.hosts.map(v => v.user_id).join(',');
-    this.setState({ status: 'saving' });
+    this.setState({ [statusType]: 'saving' });
     const omits = [];
     if (!event.showMaxFree) omits.push('free_max');
     if (!event.showPrice) omits.push('price');
@@ -181,14 +185,17 @@ class AddEventScreen extends React.Component {
       mutation: mode === 'add' ? mutateAddEvent : mutateUpdateEvent,
       variables: omit(event, omits),
     });
-    this.setState({ status: 'success' });
+    this.setState({ [statusType]: 'success' });
     if (mode === 'add') {
       const { event_id } = res.data.eventAdd;
       setTimeout(() => this.props.history.push(`/event/${event_id}`), 1000);
       setTimeout(() => window.scrollTo(0, 0), 1100);
     } else {
       setTimeout(() => {
-        this.setState({ status: 'ready' });
+        this.setState({ [statusType]: 'ready' });
+        if (cb) {
+          cb();
+        }
       }, 2000);
     }
   };
@@ -216,6 +223,26 @@ class AddEventScreen extends React.Component {
   removeHost = filter_id => {
     const hosts = this.state.event.hosts;
     this.upd('hosts', hosts.filter(({ user_id }) => user_id !== filter_id));
+  };
+  reject = e => {
+    e.preventDefault();
+    e.stopPropagation();
+    this.upd('ignored', '1', () => {
+      this.startAdd(e, 'rejectStatus', () => {
+        setTimeout(() => window.scrollTo(0, 0), 2);
+        setTimeout(() => window.location.reload(), 2);
+      });
+    });
+  };
+  approve = e => {
+    e.preventDefault();
+    e.stopPropagation();
+    this.upd('active', '1', () => {
+      this.startAdd(e, 'approveStatus', () => {
+        setTimeout(() => window.scrollTo(0, 0), 2);
+        setTimeout(() => window.location.reload(), 2);
+      });
+    });
   };
   render() {
     const { mode, loading } = this.props;
@@ -520,8 +547,9 @@ class AddEventScreen extends React.Component {
                     }}
                   />
                   {type === 'meetup' &&
-                    !+event.active &&
-                    !+event.ignored && (
+                    mode !== 'add' &&
+                    !+this.orig.active &&
+                    !+this.orig.ignored && (
                       <React.Fragment>
                         <span
                           style={{
@@ -538,7 +566,8 @@ class AddEventScreen extends React.Component {
                         />
                         <SubmitButton
                           tier="2"
-                          status={this.state.status}
+                          status={this.state.approveStatus}
+                          onClick={this.approve}
                           msgs={{
                             ready: `Approve Meetup`,
                             saving: `Approving...`,
@@ -547,7 +576,8 @@ class AddEventScreen extends React.Component {
                         />
                         <SubmitButton
                           tier="3"
-                          status={this.state.status}
+                          status={this.state.rejectStatus}
+                          onClick={this.reject}
                           msgs={{
                             ready: `Reject Meetup`,
                             saving: `Rejecting...`,

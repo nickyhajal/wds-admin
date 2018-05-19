@@ -72,7 +72,7 @@ const EventRow = ({
 const Heading = ({ heading }) => {
   return (
     <Row className="heading">
-      <td colspan="30" style={{ fontSize: '18px', fontWeight: '700' }}>
+      <td colSpan="30" style={{ fontSize: '18px', fontWeight: '700' }}>
         {heading}
       </td>
     </Row>
@@ -115,9 +115,14 @@ const EventListing = ({ events, onClick }) => {
         {eventsWithHeadings.map(
           (e, i) =>
             e.heading ? (
-              <Heading heading={e.heading} />
+              <Heading heading={e.heading} key={e.heading} />
             ) : (
-              <EventRow onClick={() => onClick(e)} event={e} even={i % 2} />
+              <EventRow
+                key={e.event_id}
+                onClick={() => onClick(e)}
+                event={e}
+                even={i % 2}
+              />
             ),
         )}
       </tbody>

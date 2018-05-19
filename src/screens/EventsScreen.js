@@ -124,6 +124,7 @@ class EventScreen extends React.Component {
                   <Tab>Academies</Tab>
                   <Tab>Activities</Tab>
                   <Tab>Meetups</Tab>
+                  <Tab>Meetup Proposals</Tab>
                   <Tab>Registration</Tab>
                 </TabList>
                 <TabPanel>
@@ -162,7 +163,19 @@ class EventScreen extends React.Component {
                     Meetups <Link to="/add-event/meetup">Add Meetup</Link>
                   </h3>
                   <EventListing
-                    events={events.filter(({ type }) => type === 'meetup')}
+                    events={events.filter(
+                      ({ type, active }) => type === 'meetup' && +active,
+                    )}
+                    onClick={this.showEvent}
+                  />
+                </TabPanel>
+                <TabPanel>
+                  <h3>Meetup Proposals</h3>
+                  <EventListing
+                    events={events.filter(
+                      ({ type, ignored, active }) =>
+                        type === 'meetup' && !+ignored && !+active,
+                    )}
                     onClick={this.showEvent}
                   />
                 </TabPanel>

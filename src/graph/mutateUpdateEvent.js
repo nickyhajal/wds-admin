@@ -4,6 +4,8 @@ export default gql`
   mutation eventUpdate(
     $event_id: String!
     $type: String!
+    $active: String
+    $ignored: String
     $what: String!
     $who: String
     $place: String
@@ -28,6 +30,8 @@ export default gql`
       type: $type
       what: $what
       who: $who
+      active: $active
+      ignored: $ignored
       place: $place
       descr: $descr
       date: $date
