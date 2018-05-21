@@ -156,6 +156,9 @@ class AddEventScreen extends React.Component {
     }
   }
   upd = (name, value, cb) => {
+    if (name === 'price' && +value > 0) {
+      value *= 100;
+    }
     this.setState(
       {
         event: Object.assign({}, this.state.event, { [name]: value }),
@@ -402,6 +405,25 @@ class AddEventScreen extends React.Component {
                     ) : (
                       <div />
                     )}
+                  </FormRow>
+                )}
+                {event.showPrice && (
+                  <FormRow>
+                    <div>
+                      <label>Price (Empty if Free)</label>
+                      <Input
+                        type="number"
+                        value={
+                          this.state.event.price
+                            ? this.state.event.price / 100
+                            : ''
+                        }
+                        name="price"
+                        placeholder="Price in Dollars"
+                        onChange={this.change}
+                      />
+                    </div>
+                    <div />
                   </FormRow>
                 )}
                 <h3>Venue Info</h3>
