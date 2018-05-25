@@ -28,6 +28,12 @@ export default gql`
       pay_link
       max
       num_rsvps
+      rsvps {
+        user_id
+        first_name
+        last_name
+        email
+      }
       free_max
       num_free
       created_at

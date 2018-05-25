@@ -25,6 +25,35 @@ export default gql`
       city
       region
       country
+      transfers_from {
+        year
+        new_attendee
+        created_at
+        user_id
+        ticket {
+          created_at
+        }
+        to {
+          user_id
+          first_name
+          last_name
+          email
+          created_at
+        }
+      }
+      transfers_to {
+        year
+        new_attendee
+        created_at
+        user_id
+        from {
+          user_id
+          first_name
+          last_name
+          email
+          created_at
+        }
+      }
       zip
       calling_code
       phone
@@ -34,10 +63,16 @@ export default gql`
       intro
       academy
       size
+      rsvps {
+        what
+        type
+        start
+      }
       tickets {
         type
         ticket_id
         created_at
+        updated_at
         status
         year
         user {

@@ -32,21 +32,6 @@ import mutateUpdateEvent from '../graph/mutateUpdateEvent';
 
 const Page = styled.div``;
 
-const ColContent = styled.div`
-  display: flex;
-  align-items: flex-start;
-  width: 100%;
-`;
-const ContentSide = styled.div`
-  background: ${Colors.white};
-  padding: 32px;
-  margin-left: 24px;
-  border-radius: 4px;
-  box-shadow: 3px 3px 20px rgba(0, 0, 0, 0.08);
-  flex: 1;
-  margin-top: 55px;
-`;
-
 class AddEventScreen extends React.Component {
   constructor() {
     super();
@@ -89,8 +74,10 @@ class AddEventScreen extends React.Component {
     if (mode === 'add' && addType) {
       this.upd('type', addType);
     }
+    this.componentWillReceiveProps(this.props);
   }
   componentWillReceiveProps(props) {
+    console.log('REV PROPs');
     if (!this.state.eventReady) {
       if (props.mode === 'add') {
         this.setState({
@@ -131,6 +118,8 @@ class AddEventScreen extends React.Component {
         const bios = e.bios
           ? JSON.parse(e.bios.includes('{') ? e.bios : Base64.decode(e.bios))
           : {};
+        console.log('>>');
+        console.log(e);
         this.setState({
           eventReady: true,
           bios,
@@ -298,8 +287,10 @@ class AddEventScreen extends React.Component {
       : +event.active
         ? 'active'
         : 'not-active';
+    console.log(event);
+    console.log(ready);
     return (
-      <ColContent>
+      <div style={{ flex: '0.8', width: '100%' }}>
         {ready && (
           <div>
             <h2>{title}</h2>
@@ -613,32 +604,7 @@ class AddEventScreen extends React.Component {
             </div>
           </div>
         )}
-        {showSidebar && (
-          <ContentSide>
-            {showRsvpCount && (
-              <FormRow cols={2}>
-                <div>
-                  <Label>RSVP Count</Label>
-                  <Input type="text" value={event.num_rsvps || 0} />
-                </div>
-              </FormRow>
-            )}
-            {showUrl && (
-              <FormRow cols={2}>
-                <div>
-                  <Label>Event URL</Label>
-                  <Input
-                    type="text"
-                    value={`https://worlddominationsummit.com/${event.url}/${
-                      event.slug
-                    }`}
-                  />
-                </div>
-              </FormRow>
-            )}
-          </ContentSide>
-        )}
-      </ColContent>
+      </div>
     );
   }
 }

@@ -3,6 +3,8 @@ import styled from 'styled-components';
 import { lighten } from 'polished';
 import moment from 'moment';
 import Colors from '../constants/Colors';
+import ConfirmButton from '../containers/ConfirmButton';
+import apollo from '../util/apollo';
 
 const Table = styled.table`
   width: 100%;
@@ -48,9 +50,13 @@ const Head = styled.thead`
 
 const EventRow = ({
   event: { type, what, who, hosts, start, num_free, num_rsvps, max, free_max },
+  listtype,
+  user_id,
   even,
+  deleteRsvp,
   onClick,
 }) => {
+  const norm = listtype === 'normal';
   return (
     <Row
       onClick={onClick}
@@ -60,11 +66,22 @@ const EventRow = ({
     >
       <td style={{ width: '90px' }}>{moment.utc(start).format('h:mm a')}</td>
       <td>{what}</td>
-      {type === 'academy' && (
-        <td className="data">{`${num_free}/${free_max}`}</td>
-      )}
-      {['academy', 'activity', 'meetup'].includes(type) && (
-        <td className="data">{`${num_rsvps}/${max}`}</td>
+      {type === 'academy' &&
+        norm && <td className="data">{`${num_free}/${free_max}`}</td>}
+      {['academy', 'activity', 'meetup'].includes(type) &&
+        norm && <td className="data">{`${num_rsvps}/${max}`}</td>}
+      {user_id && <td className="data">{`${type}`}</td>}
+      {user_id && (
+        <td className="data" style={{ width: '160px' }}>
+          <ConfirmButton
+            readyMsg="unRsvp"
+            confirmMsg="Again to Confirm"
+            confirmed="unRsvping..."
+            action={() => {
+              console.log('delete');
+            }}
+          />
+        </td>
       )}
     </Row>
   );
@@ -78,7 +95,7 @@ const Heading = ({ heading }) => {
     </Row>
   );
 };
-const EventListing = ({ events, onClick }) => {
+const EventListing = ({ events, listtype, deleteRsvp, onClick, user_id }) => {
   let lastDay = false;
   const eventsWithHeadings = events.reduce((out, curr) => {
     if (!lastDay || !moment(lastDay).isSame(curr.start, 'day')) {
@@ -88,26 +105,39 @@ const EventListing = ({ events, onClick }) => {
     out.push(curr);
     return out;
   }, []);
+  const norm = listtype === 'normal';
 
   const type = events[0].type;
   return (
     <Table>
-      {['meetup', 'activity'].includes(type) && (
+      {['meetup', 'activity'].includes(type) &&
+        norm && (
+          <Head>
+            <tr>
+              <th />
+              <th />
+              <th>RSVPs</th>
+            </tr>
+          </Head>
+        )}
+      {type === 'academy' &&
+        norm && (
+          <Head>
+            <tr>
+              <th />
+              <th />
+              <th>Free</th>
+              <th>Paid</th>
+            </tr>
+          </Head>
+        )}
+      {user_id && (
         <Head>
           <tr>
             <th />
             <th />
-            <th>RSVPs</th>
-          </tr>
-        </Head>
-      )}
-      {type === 'academy' && (
-        <Head>
-          <tr>
+            <th>Type</th>
             <th />
-            <th />
-            <th>Free</th>
-            <th>Paid</th>
           </tr>
         </Head>
       )}
@@ -118,6 +148,9 @@ const EventListing = ({ events, onClick }) => {
               <Heading heading={e.heading} key={e.heading} />
             ) : (
               <EventRow
+                deleteRsvp={deleteRsvp}
+                listtype={listtype}
+                user_id={user_id}
                 key={e.event_id}
                 onClick={() => onClick(e)}
                 event={e}
@@ -128,6 +161,10 @@ const EventListing = ({ events, onClick }) => {
       </tbody>
     </Table>
   );
+};
+
+EventListing.defaultProps = {
+  listtype: 'normal',
 };
 
 export default EventListing;

@@ -21,12 +21,17 @@ import apollo from '../util/apollo';
 import mutateAddTicket from '../graph/mutateAddTicket';
 import UserAdminNoteContainer from '../containers/UserAdminNoteContainer';
 import mutateUpdateUser from '../graph/mutateUpdateUser';
+import EventListing from '../components/EventListing';
+import NullMsg from '../components/NullMsg';
 
 const Page = styled.div``;
 
 const ColContent = styled.div`
   display: flex;
   align-items: flex-start;
+  .react-tabs__tab-panel {
+    width: 100% !important;
+  }
 `;
 const ContentSide = styled.div`
   background: ${Colors.white};
@@ -34,7 +39,7 @@ const ContentSide = styled.div`
   margin-left: 24px;
   border-radius: 4px;
   box-shadow: 3px 3px 20px rgba(0, 0, 0, 0.08);
-  flex: 1;
+  flex: 0.2;
   margin-top: 110px;
 `;
 const Badge = styled.div`
@@ -155,6 +160,8 @@ class PersonScreen extends React.Component {
       pre18,
       ticket_type,
       type,
+      transfers_from,
+      transfers_to,
     } = this.state.user;
     let badgeText = 'Not Attending';
     if (type === 'staff') {
@@ -179,9 +186,13 @@ class PersonScreen extends React.Component {
       { label: '360', value: '360' },
       { label: 'Connect', value: 'connect' },
     ];
+    const transfers = {
+      from: transfers_from,
+      to: transfers_to,
+    };
     return (
       <ColContent>
-        <div>
+        <div style={{ flex: '0.8', width: '100%' }}>
           <h2>
             {first_name}&nbsp;{last_name}
             <Badge {...this.state.user}>{badgeText}</Badge>
@@ -339,6 +350,7 @@ class PersonScreen extends React.Component {
               </h3>
               <TicketsTable
                 data={this.state.user.tickets}
+                transfers={transfers}
                 onTicketChange={() =>
                   setTimeout(() => this.props.data.refetch(), 300)
                 }
@@ -351,7 +363,15 @@ class PersonScreen extends React.Component {
             </TabPanel>
             <TabPanel>
               <h2>RSVPs</h2>
-              <p>Coming once we launch events!</p>
+              {this.state.user.rsvps && this.state.user.rsvps.length ? (
+                <EventListing
+                  events={this.state.user.rsvps}
+                  user_id={this.state.user.user_id}
+                  listtype="attendeeList"
+                />
+              ) : (
+                <NullMsg>No RSVPs Yet.</NullMsg>
+              )}
             </TabPanel>
           </Tabs>
         </div>

@@ -6,6 +6,7 @@ import Colors from '../constants/Colors';
 import TextArea from 'react-textarea-autosize';
 import apollo from '../util/apollo';
 import mutateUserNoteAdd from '../graph/mutateUserNoteAdd';
+import NullMsg from '../components/NullMsg';
 
 const TextInput = styled(TextArea)`
   padding: 10px;
@@ -81,7 +82,9 @@ class UserAdminNoteContainer extends React.Component {
   render() {
     const admin_notes = this.props.data.loading
       ? []
-      : this.props.data.user ? this.props.data.user.admin_notes : [];
+      : this.props.data.user
+        ? this.props.data.user.admin_notes
+        : [];
     return (
       <div>
         <PostShell onMouseOver={this.postAreaOver}>
@@ -104,7 +107,7 @@ class UserAdminNoteContainer extends React.Component {
           {admin_notes.length ? (
             admin_notes.map(v => <Note>{v.note}</Note>)
           ) : (
-            <Note className="nullMsg">No notes yet!</Note>
+            <NullMsg className="nullMsg">No notes yet!</NullMsg>
           )}
         </NoteShell>
       </div>

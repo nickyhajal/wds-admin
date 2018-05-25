@@ -94,7 +94,9 @@ class TicketsTable extends React.Component {
         }),
         accessor: d =>
           d.type !== undefined && d.type && d.type.length
-            ? d.type === 'connect' ? 'CNCT' : d.type
+            ? d.type === 'connect'
+              ? 'CNCT'
+              : d.type
             : '360',
       },
       {
@@ -200,6 +202,7 @@ class TicketsTable extends React.Component {
     };
   };
   render() {
+    const { transfers } = this.props;
     const columns = [
       {
         id: 'type',
@@ -213,7 +216,9 @@ class TicketsTable extends React.Component {
         }),
         accessor: d =>
           d.type !== undefined && d.type && d.type.length
-            ? d.type === 'connect' ? 'CNCT' : d.type
+            ? d.type === 'connect'
+              ? 'CNCT'
+              : d.type
             : '360',
       },
       {
@@ -229,6 +234,7 @@ class TicketsTable extends React.Component {
         style: { textAlign: 'center' },
         accessor: d => startCase(d.status),
       },
+
       {
         id: 'purchaser',
         style: { textAlign: 'center' },
@@ -291,6 +297,44 @@ class TicketsTable extends React.Component {
         },
       },
     ];
+    const transferCol = {
+      id: 'transfer',
+      style: { textAlign: 'center' },
+      Header: 'Transferred',
+      accessor: ({ year, updated_at }) => {
+        const { from, to } = transfers;
+        const f = from.find(
+          t =>
+            +t.year === +year &&
+            Math.abs(+new Date(updated_at) - +new Date(t.created_at)) < 30000,
+        );
+        const t = to.find(t => (console.log(t), +t.year === +year));
+        if (t) {
+          return (
+            <span>
+              From:{' '}
+              <Link to={`/person/${t.from.email}`}>{`${t.from.first_name} ${
+                t.from.last_name
+              }`}</Link>
+            </span>
+          );
+        }
+        if (f) {
+          return (
+            <span>
+              To:{' '}
+              <Link to={`/person/${f.to.email}`}>{`${f.to.first_name} ${
+                f.to.last_name
+              }`}</Link>
+            </span>
+          );
+        }
+        return 'No';
+      },
+    };
+    if (transfers) {
+      columns.splice(2, 0, transferCol);
+    }
     if (this.props.graph) {
       return (
         <div>
@@ -303,7 +347,8 @@ class TicketsTable extends React.Component {
             onPageChange={pageIndex => this.setState({ page: pageIndex })} // Called when the page index is changed by the user
             className="-striped"
             onPageSizeChange={(pageSize, pageIndex) =>
-              this.setState({ per_page: pageSize })}
+              this.setState({ per_page: pageSize })
+            }
             manual
             page={this.state.page}
             per_page={this.state.per_page}

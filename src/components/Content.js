@@ -6,6 +6,7 @@ const Content = styled.div`
   background: ${Colors.contentBg};
   width: 100%;
   color: ${Colors.contentText};
+
   h2 {
     font-size: 36px;
     line-height: 24px;
@@ -57,6 +58,10 @@ const Content = styled.div`
         background: ${Colors.whiteBlue};
       }
     }
+  }
+  h4 {
+    font-size: 20px;
+    margin: 8px 0;
   }
   h2,
   h3,
