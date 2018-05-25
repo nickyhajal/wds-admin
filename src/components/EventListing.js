@@ -17,6 +17,7 @@ const Row = styled.tr`
     border-top: 25px solid #fff;
   }
   td {
+    vertical-align: top;
     padding: 12px 10px;
     text-align: left;
     font-size: 18px;
@@ -56,6 +57,7 @@ const Head = styled.thead`
 
 const EventRow = ({
   event: {
+    event_id,
     type,
     what,
     who,
@@ -86,17 +88,18 @@ const EventRow = ({
       </td>
       <td>
         <div>{what}</div>
-        <div className="row2">{place}</div>
-        {hosts.length > 0 && (
-          <div className="row2">
-            <span>Hosted by: </span>
-            {hosts.map(({ first_name, last_name }, inx) => (
-              <span>{`${first_name} ${last_name}${
-                inx !== hosts.length - 1 ? ', ' : ''
-              }`}</span>
-            ))}
-          </div>
-        )}
+        {place && <div className="row2">{place}</div>}
+        {hosts &&
+          hosts.length > 0 && (
+            <div className="row2">
+              <span>Hosted by: </span>
+              {hosts.map(({ first_name, last_name }, inx) => (
+                <span>{`${first_name} ${last_name}${
+                  inx !== hosts.length - 1 ? ', ' : ''
+                }`}</span>
+              ))}
+            </div>
+          )}
       </td>
       {type === 'academy' &&
         norm && <td className="data">{`${num_free}/${free_max}`}</td>}
@@ -110,6 +113,7 @@ const EventRow = ({
             confirmMsg="Again to Confirm"
             confirmed="unRsvping..."
             action={() => {
+              deleteRsvp(event_id);
               console.log('delete');
             }}
           />
@@ -197,6 +201,7 @@ const EventListing = ({ events, listtype, deleteRsvp, onClick, user_id }) => {
 
 EventListing.defaultProps = {
   listtype: 'normal',
+  onClick: () => {},
 };
 
 export default EventListing;

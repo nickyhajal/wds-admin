@@ -117,8 +117,6 @@ class AddEventScreen extends React.Component {
         const bios = e.bios
           ? JSON.parse(e.bios.includes('{') ? e.bios : Base64.decode(e.bios))
           : {};
-        console.log('>>');
-        console.log(e);
         this.setState({
           eventReady: true,
           bios,

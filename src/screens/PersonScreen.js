@@ -23,6 +23,8 @@ import UserAdminNoteContainer from '../containers/UserAdminNoteContainer';
 import mutateUpdateUser from '../graph/mutateUpdateUser';
 import EventListing from '../components/EventListing';
 import NullMsg from '../components/NullMsg';
+import mutateDeleteRsvp from '../graph/mutateDeleteRsvp';
+import EmailsTable from '../components/EmailsTable';
 
 const Page = styled.div``;
 
@@ -154,6 +156,16 @@ class PersonScreen extends React.Component {
       this.setState({ status: 'ready' });
     }, 2000);
   };
+  unRsvp = async event_id => {
+    await apollo.mutate({
+      mutation: mutateDeleteRsvp,
+      variables: {
+        user_id: this.state.user.user_id.toString(),
+        event_id: event_id.toString(),
+      },
+    });
+    this.props.data.refetch();
+  };
   render() {
     const {
       first_name,
@@ -214,6 +226,7 @@ class PersonScreen extends React.Component {
               <Tab>Tickets</Tab>
               <Tab>Transactions</Tab>
               <Tab>RSVPs</Tab>
+              <Tab>Emails</Tab>
             </TabList>
             <TabPanel>
               <Form onSubmit={this.save}>
@@ -377,11 +390,19 @@ class PersonScreen extends React.Component {
                 <EventListing
                   events={this.state.user.rsvps}
                   user_id={this.state.user.user_id}
+                  deleteRsvp={this.unRsvp}
                   listtype="attendeeList"
                 />
               ) : (
                 <NullMsg>No RSVPs Yet.</NullMsg>
               )}
+            </TabPanel>
+            <TabPanel>
+              <h3>Sent Emails</h3>
+              <EmailsTable
+                emails={this.state.user.emails}
+                refetch={this.props.data.refetch}
+              />
             </TabPanel>
           </Tabs>
         </div>

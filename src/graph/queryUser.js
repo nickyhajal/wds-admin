@@ -59,11 +59,20 @@ export default gql`
       phone
       lat
       lon
+      emails {
+        email_id
+        promo
+        subject
+        data
+        resent_from
+        created_at
+      }
       accomodation
       intro
       academy
       size
       rsvps {
+        event_id
         what
         type
         start
