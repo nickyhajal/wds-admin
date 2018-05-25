@@ -53,6 +53,7 @@ class EmailsTable extends React.Component {
               style={{
                 border: '#ddd',
                 padding: '10px',
+                fontSize: '11px',
                 fontFamily: 'courier new',
               }}
             >
