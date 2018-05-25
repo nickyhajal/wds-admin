@@ -174,6 +174,9 @@ class PersonScreen extends React.Component {
       } else if (ticket_type === 'connect') {
         badgeText = 'Connect Attendee';
       }
+    } else if (attending18 === -1) {
+      badgeText = 'Canceled';
+    }
     } else if (pre18 === 1) {
       badgeText = 'Unclaimed Pre-Order';
     }

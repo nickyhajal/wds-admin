@@ -77,7 +77,6 @@ class AddEventScreen extends React.Component {
     this.componentWillReceiveProps(this.props);
   }
   componentWillReceiveProps(props) {
-    console.log('REV PROPs');
     if (!this.state.eventReady) {
       if (props.mode === 'add') {
         this.setState({
@@ -287,8 +286,6 @@ class AddEventScreen extends React.Component {
       : +event.active
         ? 'active'
         : 'not-active';
-    console.log(event);
-    console.log(ready);
     return (
       <div style={{ flex: '0.8', width: '100%' }}>
         {ready && (
@@ -436,6 +433,18 @@ class AddEventScreen extends React.Component {
                       name="address"
                       onChange={this.change}
                     />
+                  </div>
+                </FormRow>
+                <FormRow>
+                  <div>
+                    <label>Venue Note</label>
+                    <Textarea
+                      type="text"
+                      value={this.state.event.venue_note}
+                      name="venue_note"
+                      onChange={this.change}
+                    />
+                    <div />
                   </div>
                 </FormRow>
                 <h3>{`${event.typeStr} Timing`}</h3>

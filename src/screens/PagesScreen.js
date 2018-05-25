@@ -7,6 +7,7 @@ import moment from 'moment';
 import query from '../util/query';
 import Container from '../components/Container';
 import Table from '../components/Table';
+import WideCol from '../components/WideCol';
 
 const Page = styled.div``;
 
@@ -42,13 +43,15 @@ class PagesScreen extends React.Component {
         <h2>
           Pages <Link to="/add-page">Add Page</Link>
         </h2>
-        <Table
-          getTrProps={this.rowProps}
-          loading={!(pages !== undefined && pages)}
-          data={pages || []}
-          columns={columns}
-          defaultSorted={[{ id: 'created_at', desc: true }]}
-        />
+        <WideCol>
+          <Table
+            getTrProps={this.rowProps}
+            loading={!(pages !== undefined && pages)}
+            data={pages || []}
+            columns={columns}
+            defaultSorted={[{ id: 'created_at', desc: true }]}
+          />
+        </WideCol>
       </div>
     );
   }

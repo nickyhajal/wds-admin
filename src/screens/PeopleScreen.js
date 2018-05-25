@@ -7,6 +7,7 @@ import moment from 'moment';
 import query from '../util/query';
 import Container from '../components/Container';
 import Table from '../components/Table';
+import WideCol from '../components/WideCol';
 
 const Page = styled.div``;
 
@@ -42,13 +43,15 @@ class PeopleScreen extends React.Component {
         <h2>
           People <Link to="/add-person">Add Person</Link>
         </h2>
-        <Table
-          getTrProps={this.rowProps}
-          loading={!(users !== undefined && users)}
-          data={users || []}
-          columns={columns}
-          defaultSorted={[{ id: 'created_at', desc: true }]}
-        />
+        <WideCol>
+          <Table
+            getTrProps={this.rowProps}
+            loading={!(users !== undefined && users)}
+            data={users || []}
+            columns={columns}
+            defaultSorted={[{ id: 'created_at', desc: true }]}
+          />
+        </WideCol>
       </div>
     );
   }

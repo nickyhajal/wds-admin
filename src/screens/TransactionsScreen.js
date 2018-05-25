@@ -8,6 +8,7 @@ import Container from '../components/Container';
 import Colors from '../constants/Colors';
 import TicketsTable from '../components/TicketsTable';
 import TransactionsTable from '../components/TransactionsTable';
+import WideCol from '../components/WideCol';
 
 const Page = styled.div``;
 
@@ -41,11 +42,13 @@ class TransactionScreen extends React.Component {
     return (
       <div>
         <h2>Transactions</h2>
-        <TransactionsTable
-          graph="transactions"
-          data={transactions}
-          getTdProps={this.rowProps}
-        />
+        <WideCol>
+          <TransactionsTable
+            graph="transactions"
+            data={transactions}
+            getTdProps={this.rowProps}
+          />
+        </WideCol>
       </div>
     );
   }

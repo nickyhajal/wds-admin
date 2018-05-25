@@ -7,6 +7,7 @@ import moment from 'moment';
 import query from '../util/query';
 import Container from '../components/Container';
 import Table from '../components/Table';
+import WideCol from '../components/WideCol';
 
 const Page = styled.div``;
 
@@ -44,13 +45,16 @@ class HotelScreen extends React.Component {
     const { bookings } = this.props.data;
     return (
       <div>
-        <Table
-          getTrProps={this.rowProps}
-          loading={!(bookings !== undefined && bookings)}
-          data={bookings || []}
-          columns={columns}
-          defaultSorted={[{ id: 'created_at', desc: true }]}
-        />
+        <h2>Hotel Bookings</h2>
+        <WideCol>
+          <Table
+            getTrProps={this.rowProps}
+            loading={!(bookings !== undefined && bookings)}
+            data={bookings || []}
+            columns={columns}
+            defaultSorted={[{ id: 'created_at', desc: true }]}
+          />
+        </WideCol>
       </div>
     );
   }
