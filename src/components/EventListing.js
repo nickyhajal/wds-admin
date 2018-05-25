@@ -19,6 +19,7 @@ const Row = styled.tr`
   td {
     padding: 12px 10px;
     text-align: left;
+    font-size: 18px;
     cursor: pointer;
     opacity: 0.9;
     &:first-of-type {
@@ -26,6 +27,11 @@ const Row = styled.tr`
     }
     &.data {
       text-align: center;
+    }
+    .row2 {
+      font-size: 16px;
+      opacity: 0.8;
+      font-style: italic;
     }
   }
   &:hover {
@@ -49,7 +55,18 @@ const Head = styled.thead`
 `;
 
 const EventRow = ({
-  event: { type, what, who, hosts, start, num_free, num_rsvps, max, free_max },
+  event: {
+    type,
+    what,
+    who,
+    hosts,
+    start,
+    num_free,
+    num_rsvps,
+    max,
+    free_max,
+    place,
+  },
   listtype,
   user_id,
   even,
@@ -64,8 +81,23 @@ const EventRow = ({
         backgroundColor: lighten(even ? 0.04 : 0.014, Colors.whiteBlue),
       }}
     >
-      <td style={{ width: '90px' }}>{moment.utc(start).format('h:mm a')}</td>
-      <td>{what}</td>
+      <td style={{ width: '95px', verticalAlign: 'top' }}>
+        {moment.utc(start).format('h:mm a')}
+      </td>
+      <td>
+        <div>{what}</div>
+        <div className="row2">{place}</div>
+        {hosts.length > 0 && (
+          <div className="row2">
+            <span>Hosted by: </span>
+            {hosts.map(({ first_name, last_name }, inx) => (
+              <span>{`${first_name} ${last_name}${
+                inx !== hosts.length - 1 ? ', ' : ''
+              }`}</span>
+            ))}
+          </div>
+        )}
+      </td>
       {type === 'academy' &&
         norm && <td className="data">{`${num_free}/${free_max}`}</td>}
       {['academy', 'activity', 'meetup'].includes(type) &&
