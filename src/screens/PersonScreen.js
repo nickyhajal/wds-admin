@@ -55,6 +55,8 @@ const Badge = styled.div`
       } else if (ticket_type === 'connect') {
         color = Colors.green;
       }
+    } else if (+attending18 === -1) {
+      color = '#CB0303';
     }
     return color;
   }};
@@ -173,6 +175,10 @@ class PersonScreen extends React.Component {
         badgeText = '360 Attendee';
       } else if (ticket_type === 'connect') {
         badgeText = 'Connect Attendee';
+      } else if (ticket_type === 'friend') {
+        badgeText = 'Friends & Fam';
+      } else if (ticket_type === 'speaker') {
+        badgeText = 'Speaker';
       }
     } else if (attending18 === -1) {
       badgeText = 'Canceled';
@@ -181,8 +187,10 @@ class PersonScreen extends React.Component {
     }
     const types = [
       { label: 'Attendee', value: 'attendee' },
-      { label: 'Staff', value: 'staff' },
       { label: 'Ambassador', value: 'ambassador' },
+      { label: 'Friends & Family', value: 'friend' },
+      { label: 'Speaker', value: 'speaker' },
+      { label: 'Staff', value: 'staff' },
     ];
     const ticket_types = [
       { label: '360', value: '360' },

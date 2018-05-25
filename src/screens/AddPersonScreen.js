@@ -116,8 +116,10 @@ class AddPersonScreen extends React.Component {
   render() {
     const types = [
       { label: 'Attendee', value: 'attendee' },
-      { label: 'Staff', value: 'staff' },
       { label: 'Ambassador', value: 'ambassador' },
+      { label: 'Friends & Family', value: 'friend' },
+      { label: 'Speaker', value: 'speaker' },
+      { label: 'Staff', value: 'staff' },
     ];
     const tickets = [
       { label: 'Give 2018 Ticket', value: 'y' },
