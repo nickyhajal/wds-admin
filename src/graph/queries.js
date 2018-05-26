@@ -8,6 +8,7 @@ import queryPages from './queryPages';
 import queryPage from './queryPage';
 import queryEvents from './queryEvents';
 import queryEvent from './queryEvent';
+import queryTransfers from './queryTransfers';
 
 export default {
   querySearchAttendees,
@@ -17,6 +18,7 @@ export default {
   queryEvent,
   queryTransactions,
   queryStats,
+  queryTransfers,
   queryBookings,
   queryPages,
   queryPage,

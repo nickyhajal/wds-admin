@@ -22,6 +22,8 @@ import AddAcademyScreen from '../screens/AddAcademyScreen';
 import AcademyScreen from '../screens/AcademyScreen';
 import AddEventScreen from '../screens/AddEventScreen';
 import EventScreen from '../screens/EventScreen';
+import TransfersScreen from '../screens/TransfersScreen';
+import NotificationsScreen from '../screens/NotificationsScreen';
 
 const Main = styled.div`
   height: 100%;
@@ -45,6 +47,12 @@ class App extends Component {
                 <Route path="/person/:id" component={PersonScreen} />
                 <Route path="/page/:id" component={UpdatePageScreen} />
                 <Route path="/transactions" component={TransactionsScreen} />
+                <Route path="/transfers" exact component={TransfersScreen} />
+                <Route
+                  path="/notifications"
+                  exact
+                  component={NotificationsScreen}
+                />
                 <Route path="/tickets" component={TicketsScreen} />
                 <Route path="/people" component={PeopleScreen} />
                 <Route path="/hotel" component={HotelScreen} />
