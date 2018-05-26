@@ -43,7 +43,7 @@ const ContentSide = styled.div`
   border-radius: 4px;
   box-shadow: 3px 3px 20px rgba(0, 0, 0, 0.08);
   flex: 0.2;
-  margin-top: 174px;
+  margin-top: 175px;
 `;
 const Badge = styled.div`
   background: ${({ type, attending18, pre18, ticket_type }) => {
