@@ -25,6 +25,7 @@ import EventListing from '../components/EventListing';
 import NullMsg from '../components/NullMsg';
 import mutateDeleteRsvp from '../graph/mutateDeleteRsvp';
 import EmailsTable from '../components/EmailsTable';
+import Avatar from '../components/Avatar';
 
 const Page = styled.div``;
 
@@ -42,7 +43,7 @@ const ContentSide = styled.div`
   border-radius: 4px;
   box-shadow: 3px 3px 20px rgba(0, 0, 0, 0.08);
   flex: 0.2;
-  margin-top: 110px;
+  margin-top: 174px;
 `;
 const Badge = styled.div`
   background: ${({ type, attending18, pre18, ticket_type }) => {
@@ -216,6 +217,11 @@ class PersonScreen extends React.Component {
       <ColContent>
         <div style={{ flex: '0.8', width: '100%' }}>
           <h2>
+            <Avatar
+              user={this.state.user}
+              width="96"
+              style={{ marginRight: '12px', marginBottom: '-8px' }}
+            />
             {first_name}&nbsp;{last_name}
             <Badge {...this.state.user}>{badgeText}</Badge>
           </h2>
