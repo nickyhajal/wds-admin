@@ -12,13 +12,6 @@ import WideCol from '../components/WideCol';
 const Page = styled.div``;
 
 class TransfersScreen extends React.Component {
-  rowProps = (state, rowInfo, column, instance) => {
-    return {
-      onClick: (e, original) => {
-        this.props.history.push(`/person/${rowInfo.original.user_id}`);
-      },
-    };
-  };
   render() {
     const columns = [
       {
@@ -51,7 +44,6 @@ class TransfersScreen extends React.Component {
         <h2>Transfers</h2>
         <WideCol>
           <Table
-            getTrProps={this.rowProps}
             loading={!(transfers !== undefined && transfers)}
             data={transfers || []}
             columns={columns}
