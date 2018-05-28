@@ -78,6 +78,7 @@ const Results = ({ data, close, selected, onSelect, setResults, onClick }) => {
     <ResultsShell className="resultsShell">
       <div className="results">
         {data !== undefined && data.users !== undefined && data.users.length ? (
+          (console.log(data.users),
           data.users
             .slice(0, 16)
             .map((u, inx) => (
@@ -90,7 +91,7 @@ const Results = ({ data, close, selected, onSelect, setResults, onClick }) => {
                 key={u.user_id}
                 close={close}
               />
-            ))
+            )))
         ) : (
           <Message>{data.loading ? 'Loading...' : 'No results'}</Message>
         )}

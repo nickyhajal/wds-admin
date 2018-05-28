@@ -24,6 +24,7 @@ import AddEventScreen from '../screens/AddEventScreen';
 import EventScreen from '../screens/EventScreen';
 import TransfersScreen from '../screens/TransfersScreen';
 import NotificationsScreen from '../screens/NotificationsScreen';
+import AddNotificationScreen from '../screens/AddNotificationScreen';
 
 const Main = styled.div`
   height: 100%;
@@ -64,6 +65,10 @@ class App extends Component {
                 <Route path="/academy/:id" component={EventScreen} />
                 <Route path="/event/:id" component={EventScreen} />
                 <Route path="/add-page" component={AddPageScreen} />
+                <Route
+                  path="/add-notification"
+                  component={AddNotificationScreen}
+                />
                 <Route path="/add-person" component={AddPersonScreen} />
               </Content>
             </Body>

@@ -187,15 +187,15 @@ class PersonScreen extends React.Component {
       badgeText = 'Friends & Fam';
     } else if (type === 'speaker') {
       badgeText = 'Speaker';
-    } else if (attending18 === 1) {
+    } else if (+attending18 === 1) {
       if (ticket_type === '360') {
         badgeText = '360 Attendee';
       } else if (ticket_type === 'connect') {
         badgeText = 'Connect Attendee';
       }
-    } else if (attending18 === -1) {
+    } else if (+attending18 === -1) {
       badgeText = 'Canceled';
-    } else if (pre18 === 1) {
+    } else if (+pre18 === 1) {
       badgeText = 'Unclaimed Pre-Order';
     }
     const types = [
