@@ -37,4 +37,16 @@ injectGlobal`
 
      h1{ margin-top: 0; color: ${Colors.blueDarkest}; line-height: 120%;}
    }
+   .react-datepicker__time-container .react-datepicker__time .react-datepicker__time-box ul.react-datepicker__time-list {
+     padding: 0 !important;
+   }
+   .react-datepicker__input-container input {
+
+  padding: 9px;
+  border: 1px solid #ccc;
+  font-size: 15px;
+  border-radius: 4px;
+  width: 100%;
+  color: ${Colors.inputText};
+   }
 `;

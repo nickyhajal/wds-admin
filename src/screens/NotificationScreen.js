@@ -5,13 +5,8 @@ import { pick, kebabCase } from 'lodash';
 import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
 import Select from 'react-select';
 import moment from 'moment';
-import AceEditor from 'react-ace';
-import axios from 'axios';
 import query from '../util/query';
 import Container from '../components/Container';
-import Form from '../components/Form';
-import FormRow from '../components/FormRow';
-import Input from '../components/Input';
 import Colors from '../constants/Colors';
 import Label from '../components/Label';
 import apollo from '../util/apollo';
@@ -20,13 +15,9 @@ import SubmitButton from '../components/SubmitButton';
 import queryUser from '../graph/queryUser';
 import mutateAddUser from '../graph/mutateAddUser';
 import UserAdminNoteContainer from '../containers/UserAdminNoteContainer';
-import 'brace/mode/jsx';
-import 'brace/mode/markdown';
-import 'brace/snippets/markdown';
-import 'brace/theme/tomorrow';
-import mutateAddNotification from '../graph/mutateAddNotification';
 import NotificationForm from '../containers/NotificationForm';
 import api from '../util/api';
+import WideCol from '../components/WideCol';
 
 const Page = styled.div``;
 
@@ -44,54 +35,12 @@ const ContentSide = styled.div`
   margin-top: 110px;
 `;
 
-class AddNotificationScreen extends React.Component {
-  constructor() {
-    super();
-    this.state = {
-      submitStatus: 'ready',
-      status: 'draft',
-      title: '',
-      content: '',
-    };
-  }
-  changeStatus = e => {
-    this.setState({
-      status: e.value,
-    });
-  };
-  changeContent = content => {
-    this.setState({ content });
-  };
-  change = e => {
-    if (e.currentTarget.name !== undefined) {
-      const { name, value } = e.currentTarget;
-      this.setState({
-        [name]: value,
-      });
-    }
-  };
-  startAdd = async e => {
-    e.preventDefault();
-    this.setState({ submitStatus: 'saving' });
-    const variables = pick(this.state, ['status', 'content', 'title']);
-    const res = await apollo.mutate({
-      mutation: mutateAddNotification,
-      variables,
-    });
-    const page_id = res.data.pageAdd.page_id;
-    this.setState({ submitStatus: 'success' });
-    setTimeout(() => this.props.history.push(`/page/${page_id}`), 1000);
-    setTimeout(() => window.scrollTo(0, 0), 1100);
-  };
+class NotificationScreen extends React.Component {
   render() {
-    const types = [
-      { label: 'Draft', value: 'draft' },
-      { label: 'Published', value: 'published' },
-    ];
     return (
       <ColContent>
         <div style={{ display: 'flex', flexDirection: 'column' }}>
-          <h2>Add a Notification</h2>
+          <h2>Edit Notification</h2>
           <div style={{ display: 'flex', width: '100%', marginTop: '-18px' }}>
             <div
               className="react-tabs__tab-panel react-tabs__tab-panel--selected"
@@ -100,7 +49,10 @@ class AddNotificationScreen extends React.Component {
                 marginRight: '20px',
               }}
             >
-              <NotificationForm mode="add" />
+              <NotificationForm
+                mode="update"
+                notification={this.props.data.notification}
+              />
             </div>
           </div>
         </div>
@@ -108,4 +60,6 @@ class AddNotificationScreen extends React.Component {
     );
   }
 }
-export default withRouter(AddNotificationScreen);
+export default query('notification', NotificationScreen, ({ match }) => ({
+  variables: { admin_notification_id: match.params.id },
+}));
