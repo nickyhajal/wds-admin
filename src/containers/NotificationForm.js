@@ -74,9 +74,7 @@ class AddEventScreen extends React.Component {
         title: '',
         event_id: 'all',
         content: '',
-        send_on: moment()
-          .utc()
-          .subtract(8, 'h'),
+        send_on: moment().utc(),
         channel_type: 'global',
         channel_id: 0,
       },
@@ -128,7 +126,7 @@ class AddEventScreen extends React.Component {
     }
   }
   sendOnChange = async e => {
-    this.upd('send_on', e.add(8, 'h'));
+    this.upd('send_on', e.add(7, 'h'));
   };
   async getCount() {
     const notn = this.state.notification;
@@ -163,11 +161,9 @@ class AddEventScreen extends React.Component {
     e.preventDefault();
     const { mode } = this.props;
     const notification = Object.assign({}, this.state.notification);
-    console.log(notification);
     notification.send_on = moment(notification.send_on).format(
       'YYYY-MM-DD HH:mm:ss',
     );
-    console.log(notification);
 
     this.setState({ [statusType]: 'saving' });
     const omits = [];
@@ -267,7 +263,7 @@ class AddEventScreen extends React.Component {
                         : this.state.sendNow
                           ? 'Now'
                           : `On ${moment(this.state.notification.send_on)
-                              .subtract(8, 'h')
+                              .subtract(7, 'h')
                               .format('MMMM Do YYYY, h:mm:ss a')}`}
                     </div>
                   </div>
@@ -432,7 +428,7 @@ class AddEventScreen extends React.Component {
                       <DatePicker
                         selected={moment(
                           this.state.notification.send_on,
-                        ).subtract(8, 'h')}
+                        ).subtract(7, 'h')}
                         onChange={this.sendOnChange}
                         showTimeSelect
                         timeIntervaln={15}

@@ -13,6 +13,8 @@ export default gql`
       link
       send_on
       sent_on
+      sent_devices
+      sent_users
       created_at
       updated_at
     }

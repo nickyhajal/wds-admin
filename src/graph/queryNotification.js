@@ -14,6 +14,8 @@ export default gql`
       channel_type
       channel_id
       type
+      sent_devices
+      sent_users
       link
       send_on
       sent_on

@@ -26,6 +26,9 @@ injectGlobal`
     outline: none;
     font-family: 'Source Sans Pro', sans-serif;
    }
+   .wide .react-tabs__tab-panel {
+     width: 100% !important;
+   }
    .ReactModal__Content {
      width: 720px;
      margin: 0 auto !important;
