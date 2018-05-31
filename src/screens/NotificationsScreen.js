@@ -49,9 +49,11 @@ class NotificationsScreen extends React.Component {
         accessor: ({ send_on, sent_on }) =>
           sent_on
             ? `Sent on: ${moment(sent_on)
-                .subtract(8, 'h')
+                .utc()
+                .subtract(7, 'h')
                 .format('MMMM Do, YYYY [at] h:mm a')}`
             : `Scheduled: ${moment(send_on)
+                .utc()
                 .subtract(7, 'h')
                 .format('MMMM Do, YYYY [at] h:mm a')}`,
       },

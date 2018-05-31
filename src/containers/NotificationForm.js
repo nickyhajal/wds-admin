@@ -113,6 +113,7 @@ class AddEventScreen extends React.Component {
         } else {
           sent = true;
           confirmMode = true;
+          e.send_on = moment(e.send_on).utc();
         }
         this.orig = e;
         this.setState({
