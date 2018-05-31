@@ -430,6 +430,9 @@ class AddEventScreen extends React.Component {
                           this.state.notification.send_on,
                         ).subtract(7, 'h')}
                         onChange={this.sendOnChange}
+                        onChangeRaw={e =>
+                          this.sendOnChange(moment(e.target.value))
+                        }
                         showTimeSelect
                         timeIntervaln={15}
                         dateFormat="LLL"

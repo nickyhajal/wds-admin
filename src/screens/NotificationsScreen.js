@@ -52,7 +52,7 @@ class NotificationsScreen extends React.Component {
                 .subtract(8, 'h')
                 .format('MMMM Do, YYYY [at] h:mm a')}`
             : `Scheduled: ${moment(send_on)
-                .subtract(8, 'h')
+                .subtract(7, 'h')
                 .format('MMMM Do, YYYY [at] h:mm a')}`,
       },
       {
