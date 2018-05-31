@@ -110,10 +110,10 @@ class AddEventScreen extends React.Component {
         let confirmMode = false;
         if (moment(e.send_on).isAfter(moment())) {
           sendNow = false;
+          e.send_on = moment(e.send_on).utc();
         } else {
           sent = true;
           confirmMode = true;
-          e.send_on = moment(e.send_on).utc();
         }
         this.orig = e;
         this.setState({
