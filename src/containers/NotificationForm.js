@@ -365,7 +365,7 @@ class AddEventScreen extends React.Component {
                       name="attendee_type"
                       options={types}
                       clearable={false}
-                      onChange={({ value }) => this.upd('type', value)}
+                      onChange={({ value }) => this.upd('attendee_type', value)}
                     />
                   </div>
                 </FormRow>
