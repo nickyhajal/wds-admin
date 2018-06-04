@@ -4,6 +4,7 @@ import { withRouter } from 'react-router-dom';
 import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
 import moment from 'moment';
 import { omit } from 'lodash';
+import axios from 'axios';
 import query from '../util/query';
 import Container from '../components/Container';
 import Form from '../components/Form';
@@ -35,6 +36,32 @@ const ColContent = styled.div`
   .react-tabs__tab-panel {
     width: 100% !important;
   }
+`;
+const RotateShell = styled.button`
+  cursor: pointer;
+  width: 28px;
+  height: 28px;
+  position: absolute !important;
+  top: -1px !important;
+  opacity: 0.6;
+  left: 101px !important;
+  transition: 0.2s all;
+  &:hover {
+    opacity: 1;
+  }
+`;
+const RotateIcon = styled.div`
+  cursor: pointer;
+  background-color: transparent !important;
+  border: 0 !important;
+  background-image: url('/rotate-icon.png') !important;
+  background-size: contain !important;
+  background-repeat: no-repeat !important;
+  width: 16px;
+  height: 16px;
+  position: relative;
+  left: -3px;
+  top: 1px;
 `;
 const ContentSide = styled.div`
   background: ${Colors.white};
@@ -81,6 +108,7 @@ class PersonScreen extends React.Component {
   constructor() {
     super();
     this.state = {
+      avatarRefresh: '',
       status: 'ready',
       giveTicketText: 'Give Ticket',
       user: {
@@ -167,6 +195,16 @@ class PersonScreen extends React.Component {
     });
     this.props.data.refetch();
   };
+  rotate = async () => {
+    await axios(
+      `https://api.worlddominationsummit.com/rotate?user_id=${
+        this.state.user.user_id
+      }`,
+    );
+    setTimeout(() => {
+      this.setState({ avatarRefresh: +new Date() });
+    }, 200);
+  };
   render() {
     const {
       first_name,
@@ -216,12 +254,16 @@ class PersonScreen extends React.Component {
     return (
       <ColContent>
         <div style={{ flex: '0.8', width: '100%' }}>
-          <h2>
+          <h2 style={{ position: 'relative' }}>
             <Avatar
               user={this.state.user}
               width="96"
+              suffix={this.state.avatarRefresh}
               style={{ marginRight: '12px', marginBottom: '-8px' }}
             />
+            <RotateShell onClick={this.rotate}>
+              <RotateIcon />
+            </RotateShell>
             {first_name}&nbsp;{last_name}
             <Badge {...this.state.user}>{badgeText}</Badge>
           </h2>
