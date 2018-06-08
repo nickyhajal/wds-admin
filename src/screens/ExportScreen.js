@@ -118,7 +118,9 @@ class ExportScreen extends React.Component {
     e.preventDefault();
     const { params, type } = this.state;
     params.export = type;
-    const url = `http://wds.nky/api/admin/export${toQueryString(params)}`;
+    const url = `https://api.worlddominationsummit.com/api/admin/export${toQueryString(
+      params,
+    )}`;
     window.location.assign(url);
   };
   render() {
