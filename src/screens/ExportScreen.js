@@ -37,6 +37,121 @@ const ContentSide = styled.div`
 const exps = {
   transfers: { filters: [] },
   hotel: { filters: [] },
+  tickets: {
+    defaultParams: {
+      year: ['2018'],
+      type: ['360', 'connect'],
+      status: ['active'],
+    },
+    filters: [
+      [
+        {
+          id: 'year',
+          name: 'Year',
+          multi: true,
+          options: [
+            '2018',
+            '2017',
+            '2016',
+            '2015',
+            '2014',
+            '2013',
+            '2012',
+            '2011',
+          ],
+        },
+        {
+          id: 'status',
+          multi: true,
+          name: 'Status',
+          options: [
+            'Active',
+            'Unclaimed',
+            'Purchased',
+            'Canceled',
+            'Refunded',
+            'Pending',
+          ],
+        },
+      ],
+      [
+        {
+          id: 'type',
+          name: 'Type',
+          options: ['360', 'Connect'],
+          multi: true,
+        },
+      ],
+    ],
+  },
+  events: {
+    defaultParams: {
+      year: ['2018'],
+      type: ['program', 'meetup', 'activity', 'academy'],
+      rejected: 'no',
+      for_type: ['360', 'Connect'],
+      rsvp: 'all',
+      active: 'yes',
+      available: 'all',
+    },
+    filters: [
+      [
+        {
+          id: 'year',
+          name: 'Year',
+          multi: true,
+          options: [
+            '2018',
+            '2017',
+            '2016',
+            '2015',
+            '2014',
+            '2013',
+            '2012',
+            '2011',
+          ],
+        },
+      ],
+      [
+        {
+          id: 'type',
+          multi: true,
+          name: 'Event Type',
+          options: ['Program', 'Meetup', 'Activity', 'Academy'],
+        },
+        {
+          id: 'for_type',
+          name: 'For Attendee Type',
+          options: ['360', 'Connect'],
+          multi: true,
+        },
+      ],
+      [
+        {
+          id: 'active',
+          name: 'Active',
+          options: ['All', 'Yes', 'No'],
+        },
+        {
+          id: 'rejected',
+          name: 'Rejected',
+          options: ['All', 'Yes', 'No'],
+        },
+      ],
+      [
+        {
+          id: 'rsvp',
+          name: 'RSVP Required',
+          options: ['All', 'Yes', 'No'],
+        },
+        {
+          id: 'available',
+          name: 'Space Remains',
+          options: ['All', 'Yes', 'No'],
+        },
+      ],
+    ],
+  },
   people: {
     defaultParams: {
       year: ['2018'],
@@ -111,7 +226,6 @@ class ExportScreen extends React.Component {
   }
   changeExport = ({ value }) => {
     const params = exps[value].defaultParams;
-    console.log(params);
     this.setState({ type: value, params });
   };
   upd = (name, val) => {
@@ -132,6 +246,8 @@ class ExportScreen extends React.Component {
   render() {
     const types = [
       { label: 'People', value: 'people' },
+      { label: 'Tickets', value: 'tickets' },
+      { label: 'Events', value: 'events' },
       { label: 'Event RSVPs', value: 'rsvps' },
       { label: 'Bookings', value: 'hotel' },
       { label: 'Transfers', value: 'transfers' },
@@ -144,7 +260,7 @@ class ExportScreen extends React.Component {
           <Form onSubmit={this.export}>
             <FormRow>
               <div>
-                <label>Choose an Export Type</label>
+                <h4 style={{ marginTop: '30px' }}>Choose an Export Type</h4>
                 <Select
                   value={this.state.type}
                   name="type"
@@ -155,6 +271,9 @@ class ExportScreen extends React.Component {
               </div>
               <div />
             </FormRow>
+            {exp.filters.length > 0 && (
+              <h4 style={{ marginTop: '10px' }}>Filters</h4>
+            )}
             {exp.filters.map(row => (
               <FormRow>
                 {row.map(filter => (
