@@ -11,9 +11,11 @@ import queryEvent from './queryEvent';
 import queryTransfers from './queryTransfers';
 import queryNotifications from './queryNotifications';
 import queryNotification from './queryNotification';
+import queryBareEvents from './queryBareEvents';
 
 export default {
   querySearchAttendees,
+  queryBareEvents,
   queryUser,
   queryUserAdminNotes,
   queryEvents,
