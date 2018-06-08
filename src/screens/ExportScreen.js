@@ -71,6 +71,12 @@ const exps = {
           options: ['All', 'Yes', 'No'],
           defaultValue: 'all',
         },
+        {
+          id: 'intro',
+          name: 'Intro Status',
+          options: ['Any', 'Complete', 'Incomplete'],
+          defaultValue: 'any',
+        },
       ],
     ],
   },
