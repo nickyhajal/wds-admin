@@ -18,6 +18,7 @@ export default gql`
     $end_hour: String
     $end_minute: String
     $end_ampm: String
+    $venue_note: String
     $max: Int
     $free_max: Int
     $for_type: String
@@ -39,6 +40,7 @@ export default gql`
       address: $address
       hour: $hour
       ampm: $ampm
+      venue_note: $venue_note
       end_hour: $end_hour
       end_minute: $end_minute
       end_ampm: $end_ampm
