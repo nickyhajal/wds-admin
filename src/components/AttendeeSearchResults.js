@@ -82,7 +82,7 @@ const Results = ({
   // if (data !== undefined && data.users !== undefined && data.users.length) {
   //   setResults(data.users);
   // }
-  const filterFnc = filter ? filter : () => true;
+  const filterFnc = filter ? filter : u => !u.merged;
   return (
     <ResultsShell className="resultsShell">
       <div className="results">
