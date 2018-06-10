@@ -70,16 +70,25 @@ const Row = ({ user, close, onSelect, inx, selected, onClick }) => {
   );
 };
 
-const Results = ({ data, close, selected, onSelect, setResults, onClick }) => {
+const Results = ({
+  data,
+  close,
+  selected,
+  onSelect,
+  setResults,
+  onClick,
+  filter,
+}) => {
   // if (data !== undefined && data.users !== undefined && data.users.length) {
   //   setResults(data.users);
   // }
+  const filterFnc = filter ? filter : () => true;
   return (
     <ResultsShell className="resultsShell">
       <div className="results">
         {data !== undefined && data.users !== undefined && data.users.length ? (
-          (console.log(data.users),
           data.users
+            .filter(filterFnc)
             .slice(0, 16)
             .map((u, inx) => (
               <Row
@@ -91,7 +100,7 @@ const Results = ({ data, close, selected, onSelect, setResults, onClick }) => {
                 key={u.user_id}
                 close={close}
               />
-            )))
+            ))
         ) : (
           <Message>{data.loading ? 'Loading...' : 'No results'}</Message>
         )}

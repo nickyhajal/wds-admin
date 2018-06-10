@@ -1,6 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import Colors from '../constants/Colors';
+import SubmitButton from '../components/SubmitButton';
 
 const Button = styled.button`
   display: inline;
@@ -46,14 +47,32 @@ class ConfirmButton extends React.Component {
     }
   };
   render() {
-    const { readyMsg, confirmMsg } = this.props;
+    const {
+      readyMsg,
+      confirmMsg,
+      mainButton,
+      saving,
+      success,
+      status,
+    } = this.props;
     const { step } = this.state;
     const msg = step ? confirmMsg : readyMsg;
-    return (
-      <Button onClick={this.click} style={this.props.style}>
-        {msg}
-      </Button>
-    );
+    if (mainButton) {
+      return (
+        <SubmitButton
+          msgs={{ ready: msg, saving, success }}
+          onClick={this.click}
+          style={this.props.style}
+          status={status}
+        />
+      );
+    } else {
+      return (
+        <Button onClick={this.click} style={this.props.style}>
+          {msg}
+        </Button>
+      );
+    }
   }
 }
 

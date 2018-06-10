@@ -41,6 +41,9 @@ const Bar = styled.input`
 `;
 
 class Search extends React.Component {
+  static defaultProps = {
+    placeholder: 'Search attendees...',
+  };
   constructor() {
     super();
     this.state = {
@@ -79,7 +82,7 @@ class Search extends React.Component {
     if (selected > results.length) {
       selected = results.length - 1;
     }
-    this.setState({ results, selected });
+    this.setState({ results: results, selected });
   };
   key = e => {
     const key = e.keyCode;
@@ -109,7 +112,7 @@ class Search extends React.Component {
     return (
       <SearchShell>
         <Bar
-          placeholder="Search Attendees..."
+          placeholder={this.props.placeholder}
           onChange={this.search}
           value={this.state.search}
           onKeyUp={this.key}
@@ -119,6 +122,7 @@ class Search extends React.Component {
             <AttendeeSearchResults
               search={this.state.activeSearch}
               close={this.close}
+              filter={this.props.filter}
               selected={this.state.selected}
               onSelect={this.select}
               onClick={selected => this.props.onSelect(selected)}

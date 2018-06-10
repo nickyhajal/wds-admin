@@ -27,6 +27,8 @@ import NullMsg from '../components/NullMsg';
 import mutateDeleteRsvp from '../graph/mutateDeleteRsvp';
 import EmailsTable from '../components/EmailsTable';
 import Avatar from '../components/Avatar';
+import MergeAttendee from '../containers/MergeAttendee';
+import delay from '../util/delay';
 
 const Page = styled.div``;
 
@@ -225,6 +227,8 @@ class PersonScreen extends React.Component {
       badgeText = 'Friends & Fam';
     } else if (type === 'speaker') {
       badgeText = 'Speaker';
+    } else if (+attending18 === -2) {
+      badgeText = 'Merged to Other User'
     } else if (+attending18 === 1) {
       if (ticket_type === '360') {
         badgeText = '360 Attendee';
@@ -275,6 +279,7 @@ class PersonScreen extends React.Component {
               <Tab>Transactions</Tab>
               <Tab>RSVPs</Tab>
               <Tab>Emails</Tab>
+              <Tab>Merge</Tab>
             </TabList>
             <TabPanel>
               <Form onSubmit={this.save}>
@@ -452,7 +457,18 @@ class PersonScreen extends React.Component {
                 refetch={this.props.data.refetch}
               />
             </TabPanel>
+            <TabPanel>
+              <h3>Merge Into This Account</h3>
+              <MergeAttendee
+                into={this.state.user}
+                onMerge={async () => {
+                  await delay(200);
+                  this.props.data.refetch();
+                }}
+              />
+            </TabPanel>
           </Tabs>
+          <div style={{ height: '100px', width: '40px' }} />
         </div>
         <ContentSide>
           <FormRow cols={2}>

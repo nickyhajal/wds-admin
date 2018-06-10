@@ -10,7 +10,12 @@ export default gql`
       ticket_type
       first_name
       last_name
+      user_name
+      location
+      twitter
+      stripe
       email
+      merged
     }
   }
 `;

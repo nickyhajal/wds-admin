@@ -20,6 +20,20 @@ export default gql`
       twitter
       instagram
       location
+      merged
+      merge_user {
+        user_id
+        email
+        first_name
+        last_name
+      }
+      merged_users {
+        user_id
+        email
+        first_name
+        last_name
+      }
+      merge_log
       address
       address2
       city
