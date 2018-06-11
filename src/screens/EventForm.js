@@ -72,6 +72,8 @@ class AddEventScreen extends React.Component {
   componentDidMount() {
     const { mode, addType } = this.props;
     if (mode === 'add' && addType) {
+      console.log('>>> UPD TYPE');
+      console.log(addType);
       this.upd('type', addType);
     }
     this.componentWillReceiveProps(this.props);
@@ -81,7 +83,7 @@ class AddEventScreen extends React.Component {
       if (props.mode === 'add') {
         this.setState({
           eventReady: true,
-          event: Object.assign({}, props.event),
+          // event: Object.assign({}, props.event),
         });
       } else if (props.event && props.event.event_id) {
         let e = Object.assign({}, props.event);
@@ -145,6 +147,8 @@ class AddEventScreen extends React.Component {
     if (name === 'price' && +value > 0) {
       value *= 100;
     }
+    console.log('upd: ', name, value);
+    console.log(Object.assign({}, this.state.event, { [name]: value }));
     this.setState(
       {
         event: Object.assign({}, this.state.event, { [name]: value }),
@@ -262,12 +266,14 @@ class AddEventScreen extends React.Component {
       { label: '360', value: '360' },
       { label: 'Connect', value: 'connect' },
     ];
+    console.log('event', this.state.event);
     const event = Object.assign(
       {},
       this.state.event,
       eventMetaFromType(this.state.event.type),
     );
     const { type } = event;
+    console.log('TYPE: ', type);
     const title =
       mode === 'add'
         ? `Add ${event.article} ${event.typeStr}`
@@ -492,67 +498,68 @@ class AddEventScreen extends React.Component {
                           flexDirection: 'column',
                         }}
                       >
-                        {this.state.event.hosts.map(
-                          ({ first_name, last_name, user_id }) => (
-                            <div
-                              style={{
-                                display: 'flex',
-                                flexDirection: 'row',
-                                padding: '20px',
-                                width: '100%',
-                                backgroundColor: 'rgb(249, 249, 249)',
-                                marginBottom: '4px',
-                              }}
-                            >
+                        {this.state.event.hosts &&
+                          this.state.event.hosts.map(
+                            ({ first_name, last_name, user_id }) => (
                               <div
                                 style={{
                                   display: 'flex',
-                                  flexDirection: 'column',
+                                  flexDirection: 'row',
+                                  padding: '20px',
                                   width: '100%',
+                                  backgroundColor: 'rgb(249, 249, 249)',
+                                  marginBottom: '4px',
                                 }}
                               >
                                 <div
                                   style={{
-                                    fontWeight: 'bold',
-                                    marginBottom: '4px',
+                                    display: 'flex',
+                                    flexDirection: 'column',
+                                    width: '100%',
                                   }}
                                 >
-                                  {`${first_name} ${last_name}`}
-                                  <RemoveButton
-                                    onClick={() => this.removeHost(user_id)}
-                                    style={{
-                                      marginLeft: '4px',
-                                      marginTop: '-3px',
-                                    }}
-                                  >
-                                    Remove
-                                  </RemoveButton>
-                                </div>
-                                <div style={{ display: 'flex' }}>
                                   <div
                                     style={{
-                                      width: '48px',
-                                      height: '48px',
-                                      marginRight: '4px',
-                                      marginTop: '1px',
-                                      backgroundImage: `url(http://avatar.wds.fm/${user_id}?width=96)`,
-                                      backgroundSize: 'contain',
+                                      fontWeight: 'bold',
+                                      marginBottom: '4px',
                                     }}
-                                  />
-                                  <Textarea
-                                    placeholder={`${first_name}'s Bio...`}
-                                    style={{
-                                      flex: 1,
-                                      borderTopLeftRadius: '0',
-                                    }}
-                                    value={this.state.bios[user_id]}
-                                    onChange={e => this.updateBio(user_id, e)}
-                                  />
+                                  >
+                                    {`${first_name} ${last_name}`}
+                                    <RemoveButton
+                                      onClick={() => this.removeHost(user_id)}
+                                      style={{
+                                        marginLeft: '4px',
+                                        marginTop: '-3px',
+                                      }}
+                                    >
+                                      Remove
+                                    </RemoveButton>
+                                  </div>
+                                  <div style={{ display: 'flex' }}>
+                                    <div
+                                      style={{
+                                        width: '48px',
+                                        height: '48px',
+                                        marginRight: '4px',
+                                        marginTop: '1px',
+                                        backgroundImage: `url(http://avatar.wds.fm/${user_id}?width=96)`,
+                                        backgroundSize: 'contain',
+                                      }}
+                                    />
+                                    <Textarea
+                                      placeholder={`${first_name}'s Bio...`}
+                                      style={{
+                                        flex: 1,
+                                        borderTopLeftRadius: '0',
+                                      }}
+                                      value={this.state.bios[user_id]}
+                                      onChange={e => this.updateBio(user_id, e)}
+                                    />
+                                  </div>
                                 </div>
                               </div>
-                            </div>
-                          ),
-                        )}
+                            ),
+                          )}
                       </div>
                     </div>
                   </FormRow>

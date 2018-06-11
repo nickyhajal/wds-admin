@@ -60,7 +60,14 @@ const Badge = styled.div`
 `;
 
 class EventScreen extends React.Component {
-  tabs = ['schedule', 'academies', 'activities', 'meetups', 'registration'];
+  tabs = [
+    'schedule',
+    'academies',
+    'activities',
+    'meetups',
+    'meetup-proposals',
+    'registration',
+  ];
   constructor() {
     super();
     this.state = {

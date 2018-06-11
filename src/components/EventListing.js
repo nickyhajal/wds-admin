@@ -143,7 +143,7 @@ const EventListing = ({ events, listtype, deleteRsvp, onClick, user_id }) => {
   }, []);
   const norm = listtype === 'normal';
 
-  const type = events[0].type;
+  const type = events[0] ? events[0].type : 'program';
   return (
     <Table>
       {['meetup', 'activity'].includes(type) &&
