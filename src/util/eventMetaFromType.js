@@ -47,6 +47,13 @@ const eventNameFromEventType = type => {
       event.showWho = false;
       event.showHosts = false;
       break;
+    case 'ambassador':
+      event.typeStr = 'Ambassador Event';
+      event.showWho = false;
+      event.showHosts = false;
+      event.showForType = false;
+      event.url = 'ambassador';
+      break;
     case 'excursion':
       event.typeStr = 'Excursion';
       event.article = 'an';

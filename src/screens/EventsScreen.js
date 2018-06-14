@@ -132,7 +132,8 @@ class EventScreen extends React.Component {
                   <Tab>Activities</Tab>
                   <Tab>Meetups</Tab>
                   <Tab>Meetup Proposals</Tab>
-                  <Tab>Registration</Tab>
+                  {/* <Tab>Registration</Tab> */}
+                  <Tab>Ambassador</Tab>
                 </TabList>
                 <TabPanel>
                   <Form>
@@ -186,7 +187,7 @@ class EventScreen extends React.Component {
                     onClick={this.showEvent}
                   />
                 </TabPanel>
-                <TabPanel>
+                {/* <TabPanel>
                   <h3>
                     Registration{' '}
                     <Link to="/add-event/registration">
@@ -197,6 +198,16 @@ class EventScreen extends React.Component {
                     events={events.filter(
                       ({ type }) => type === 'registration',
                     )}
+                    onClick={this.showEvent}
+                  />
+                </TabPanel> */}
+                <TabPanel>
+                  <h3>
+                    Ambassador Events{' '}
+                    <Link to="/add-event/ambassador">Add Ambassador Event</Link>
+                  </h3>
+                  <EventListing
+                    events={events.filter(({ type }) => type === 'ambassador')}
                     onClick={this.showEvent}
                   />
                 </TabPanel>

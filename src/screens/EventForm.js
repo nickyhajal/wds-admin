@@ -256,6 +256,7 @@ class AddEventScreen extends React.Component {
       { label: 'Activity', value: 'activity' },
       { label: 'Registration Session', value: 'registration' },
       { label: 'Meetup', value: 'meetup' },
+      { label: 'Ambassador Event', value: 'ambassador' },
     ];
     const statusTypes = [
       { label: 'Active', value: 'active' },
@@ -273,7 +274,6 @@ class AddEventScreen extends React.Component {
       eventMetaFromType(this.state.event.type),
     );
     const { type } = event;
-    console.log('TYPE: ', type);
     const title =
       mode === 'add'
         ? `Add ${event.article} ${event.typeStr}`
@@ -336,16 +336,20 @@ class AddEventScreen extends React.Component {
                       onChange={this.change}
                     />
                   </div>
-                  <div>
-                    <label>For Ticket Type</label>
-                    <Select
-                      value={this.state.event.for_type}
-                      name="for_type"
-                      options={forTypes}
-                      clearable={false}
-                      onChange={({ value }) => this.upd('for_type', value)}
-                    />
-                  </div>
+                  {event.showForType ? (
+                    <div>
+                      <label>For Ticket Type</label>
+                      <Select
+                        value={this.state.event.for_type}
+                        name="for_type"
+                        options={forTypes}
+                        clearable={false}
+                        onChange={({ value }) => this.upd('for_type', value)}
+                      />
+                    </div>
+                  ) : (
+                    <div />
+                  )}
                 </FormRow>
                 <FormRow>
                   <div>
