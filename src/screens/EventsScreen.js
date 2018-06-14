@@ -66,7 +66,8 @@ class EventScreen extends React.Component {
     'activities',
     'meetups',
     'meetup-proposals',
-    'registration',
+    'ambassador',
+    // 'registration',
   ];
   constructor() {
     super();

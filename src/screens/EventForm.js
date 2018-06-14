@@ -72,8 +72,6 @@ class AddEventScreen extends React.Component {
   componentDidMount() {
     const { mode, addType } = this.props;
     if (mode === 'add' && addType) {
-      console.log('>>> UPD TYPE');
-      console.log(addType);
       this.upd('type', addType);
     }
     this.componentWillReceiveProps(this.props);
