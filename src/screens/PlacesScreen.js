@@ -23,6 +23,12 @@ class PlacesScreen extends React.Component {
   render() {
     const columns = [
       {
+        id: 'place_id',
+        Header: 'ID',
+        width: 40,
+        accessor: ({ place_id }) => place_id,
+      },
+      {
         id: 'name',
         Header: 'Venue Name',
         accessor: ({ name }) => name,
