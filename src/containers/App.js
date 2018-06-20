@@ -27,6 +27,9 @@ import NotificationsScreen from '../screens/NotificationsScreen';
 import AddNotificationScreen from '../screens/AddNotificationScreen';
 import NotificationScreen from '../screens/NotificationScreen';
 import ExportScreen from '../screens/ExportScreen';
+import PlacesScreen from '../screens/PlacesScreen';
+import PlaceScreen from '../screens/PlaceScreen';
+import AddPlaceScreen from '../screens/AddPlaceScreen';
 
 const Main = styled.div`
   height: 100%;
@@ -65,6 +68,9 @@ class App extends Component {
                 <Route path="/hotel" component={HotelScreen} />
                 <Route path="/pages" component={PagesScreen} />
                 <Route path="/export" exact component={ExportScreen} />
+                <Route path="/places" exact component={PlacesScreen} />
+                <Route path="/add-place" exact component={AddPlaceScreen} />
+                <Route path="/place/:id" component={PlaceScreen} />
                 <Route path="/events" exact component={EventsScreen} />
                 <Route path="/events/:tab" component={EventsScreen} />
                 <Route path="/add-event" exact component={AddEventScreen} />

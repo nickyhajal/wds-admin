@@ -34,6 +34,7 @@ const Sidebar = () => (
     <Button to="/notifications">Notifications</Button>
     <Button to="/pages">Pages</Button>
     <Button to="/people">People</Button>
+    <Button to="/places">Places</Button>
     <Button to="/tickets">Tickets</Button>
     <Button to="/transactions">Transactions</Button>
     <Button to="/transfers">Transfers</Button>

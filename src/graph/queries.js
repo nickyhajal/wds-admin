@@ -12,6 +12,8 @@ import queryTransfers from './queryTransfers';
 import queryNotifications from './queryNotifications';
 import queryNotification from './queryNotification';
 import queryBareEvents from './queryBareEvents';
+import queryPlaces from './queryPlaces';
+import queryPlace from './queryPlace';
 
 export default {
   querySearchAttendees,
@@ -28,4 +30,6 @@ export default {
   queryBookings,
   queryPages,
   queryPage,
+  queryPlaces,
+  queryPlace,
 };
