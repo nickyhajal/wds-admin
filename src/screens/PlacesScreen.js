@@ -58,7 +58,7 @@ class PlacesScreen extends React.Component {
             loading={!(places !== undefined && places)}
             data={places || []}
             columns={columns}
-            defaultSorted={[{ id: 'created_at', desc: true }]}
+            defaultSorted={[{ id: 'place_id', desc: true }]}
           />
         </WideCol>
       </div>
