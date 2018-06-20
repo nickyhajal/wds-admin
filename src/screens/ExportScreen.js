@@ -35,8 +35,8 @@ const ContentSide = styled.div`
 `;
 
 const exps = {
-  transfers: { filters: [] },
-  hotel: { filters: [] },
+  transfers: { filters: [], defaultParams: {} },
+  hotel: { filters: [], defaultParams: {} },
   tickets: {
     defaultParams: {
       year: ['2018'],
