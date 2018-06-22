@@ -7,7 +7,7 @@ if (!host.includes('localhost') && !host.includes('.nky')) {
     url = 'https://api.worlddominationsummit.com/api';
   }
 }
-url = 'https://api.worlddominationsummit.com/api';
+// url = 'https://api.worlddominationsummit.com/api';
 const Net = {
   url,
   apiUrl: url,

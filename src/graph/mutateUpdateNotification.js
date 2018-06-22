@@ -11,7 +11,7 @@ export default gql`
     $attendee_type: String!
     $content: String!
     $channel_type: String!
-    $channel_id: String!
+    $event_id: String!
     $send_on: String
   ) {
     notificationUpdate(
@@ -24,7 +24,7 @@ export default gql`
       title: $title
       content: $content
       channel_type: $channel_type
-      channel_id: $channel_id
+      event_id: $event_id
       send_on: $send_on
     ) {
       admin_notification_id
@@ -32,7 +32,7 @@ export default gql`
       title
       content
       channel_type
-      channel_id
+      event_id
       send_on
     }
   }
