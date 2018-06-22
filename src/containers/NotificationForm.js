@@ -67,6 +67,7 @@ class AddEventScreen extends React.Component {
       notnReady: false,
       sendNow: true,
       sent: false,
+      lastEvent: false,
       notification: {
         test: 'yes',
         device: 'all',
@@ -244,7 +245,11 @@ class AddEventScreen extends React.Component {
                     <FormRow>
                       <div>
                         <label>Event</label>
-                        <div>{event.what}</div>
+                        <div>
+                          {this.state.lastEvent
+                            ? this.state.lastEvent
+                            : event.what}
+                        </div>
                       </div>
                     </FormRow>
                   )}
@@ -389,12 +394,13 @@ class AddEventScreen extends React.Component {
                       value={this.state.notification.event_id}
                       name="event_id"
                       clearable={true}
-                      onChange={props =>
+                      onChange={props => {
+                        this.setState({ lastEvent: props.label });
                         this.upd(
                           'event_id',
                           props && props.value ? props.value : null,
-                        )
-                      }
+                        );
+                      }}
                     />
                   </div>
                   <div />
