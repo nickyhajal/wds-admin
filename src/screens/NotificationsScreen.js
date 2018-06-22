@@ -44,31 +44,34 @@ class NotificationsScreen extends React.Component {
         accessor: ({ content }) => truncate(content, 40),
       },
       {
+        width: 220,
+        id: 'event',
+        Header: 'Group',
+        accessor: ({ event, event_id }) =>
+          event_id && event_id > 0
+            ? truncate(event.what, { length: 28 })
+            : 'All',
+      },
+      {
         id: 'status',
         Header: 'Status',
-        width: 250,
+        width: 180,
         accessor: ({ send_on, sent_on }) =>
           sent_on
-            ? `Sent on: ${moment(sent_on)
+            ? `Sent: ${moment(sent_on)
                 .utc()
                 .subtract(7, 'h')
-                .format('MM/DD/YY [at] h:mm a')}`
-            : `Scheduled: ${moment(send_on)
+                .format('M/D @ h:mma')}`
+            : `Schd: ${moment(send_on)
                 .utc()
                 .subtract(7, 'h')
-                .format('MM/DD/YY [at] h:mm a')}`,
+                .format('M/D @ h:mma')}`,
       },
       {
         id: 'users',
         Header: 'Users',
         width: 90,
         accessor: ({ sent_users }) => sent_users || '-',
-      },
-      {
-        id: 'devices',
-        Header: 'Devices',
-        width: 90,
-        accessor: ({ sent_devices }) => sent_devices || '-',
       },
       {
         width: 90,

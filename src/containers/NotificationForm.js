@@ -184,7 +184,7 @@ class AddEventScreen extends React.Component {
     const { mode, loading } = this.props;
     const { confirmMode, userCount, deviceCount, sent } = this.state;
     const notn = Object.assign({}, this.state.notification);
-    const { type } = notn;
+    const { type, event_id, event } = notn;
     const title = mode === 'add' ? `Add Notification` : `Edit Notification`;
     const ready = mode === 'add' || notn.admin_notification_id;
     const test = [
@@ -239,6 +239,15 @@ class AddEventScreen extends React.Component {
             </h3>
             <Form>
               <ConfirmationBox style={{}}>
+                {event_id &&
+                  event_id > 0 && (
+                    <FormRow>
+                      <div>
+                        <label>Event</label>
+                        <div>{event.what}</div>
+                      </div>
+                    </FormRow>
+                  )}
                 <FormRow>
                   <div>
                     <label>Title</label>

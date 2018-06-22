@@ -8,7 +8,11 @@ export default gql`
       title
       content
       channel_type
-      channel_id
+      event_id
+      event {
+        event_id
+        what
+      }
       type
       link
       send_on
