@@ -33,6 +33,8 @@ import mutateAddNotification from '../graph/mutateAddNotification';
 import api from '../util/api';
 import 'react-datepicker/dist/react-datepicker.css';
 import mutateUpdateNotification from '../graph/mutateUpdateNotification';
+import EventSearch from './EventSearch';
+import EventSelect from '../components/EventSelect';
 
 const Page = styled.div``;
 const SendCount = styled.div`
@@ -76,7 +78,7 @@ class AddEventScreen extends React.Component {
         content: '',
         send_on: moment().utc(),
         channel_type: 'global',
-        channel_id: 0,
+        event_id: 0,
       },
     };
   }
@@ -368,6 +370,25 @@ class AddEventScreen extends React.Component {
                       onChange={({ value }) => this.upd('attendee_type', value)}
                     />
                   </div>
+                </FormRow>
+                <FormRow>
+                  <div>
+                    <label>
+                      Send to Event (Leave blank to send to all attendees)
+                    </label>
+                    <EventSelect
+                      value={this.state.notification.event_id}
+                      name="event_id"
+                      clearable={true}
+                      onChange={props =>
+                        this.upd(
+                          'event_id',
+                          props && props.value ? props.value : null,
+                        )
+                      }
+                    />
+                  </div>
+                  <div />
                 </FormRow>
                 <h3>Message</h3>
                 <FormRow>

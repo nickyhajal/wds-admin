@@ -38,6 +38,7 @@ class NotificationsScreen extends React.Component {
         ),
       },
       {
+        width: 220,
         id: 'content',
         Header: 'Dispatch Content',
         accessor: ({ content }) => truncate(content, 40),
@@ -45,17 +46,17 @@ class NotificationsScreen extends React.Component {
       {
         id: 'status',
         Header: 'Status',
-        width: 320,
+        width: 250,
         accessor: ({ send_on, sent_on }) =>
           sent_on
             ? `Sent on: ${moment(sent_on)
                 .utc()
                 .subtract(7, 'h')
-                .format('MMMM Do, YYYY [at] h:mm a')}`
+                .format('MM/DD/YY [at] h:mm a')}`
             : `Scheduled: ${moment(send_on)
                 .utc()
                 .subtract(7, 'h')
-                .format('MMMM Do, YYYY [at] h:mm a')}`,
+                .format('MM/DD/YY [at] h:mm a')}`,
       },
       {
         id: 'users',
@@ -70,14 +71,14 @@ class NotificationsScreen extends React.Component {
         accessor: ({ sent_devices }) => sent_devices || '-',
       },
       {
-        width: 170,
+        width: 90,
         id: 'created_at',
-        Header: 'Date Added',
+        Header: 'Created',
         sortMethod: (a, b) => {
           return +a > +b ? -1 : 1;
         },
         accessor: d => d.created_at,
-        Cell: ({ value }) => <div>{moment(value).format('MMMM Do, YYYY')}</div>,
+        Cell: ({ value }) => <div>{moment(value).format('MM/DD/YY')}</div>,
       },
     ];
     const { notifications } = this.props.data;
