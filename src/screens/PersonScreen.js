@@ -228,7 +228,7 @@ class PersonScreen extends React.Component {
     } else if (type === 'speaker') {
       badgeText = 'Speaker';
     } else if (+attending18 === -2) {
-      badgeText = 'Merged to Other User'
+      badgeText = 'Merged to Other User';
     } else if (+attending18 === 1) {
       if (ticket_type === '360') {
         badgeText = '360 Attendee';
@@ -476,7 +476,7 @@ class PersonScreen extends React.Component {
               <Label>Login URL</Label>
               <Input
                 type="text"
-                value={`https://wds.fm/${this.state.user.hash}`}
+                value={`http://wds.fm/${this.state.user.hash}`}
               />
             </div>
           </FormRow>
@@ -487,7 +487,7 @@ class PersonScreen extends React.Component {
                 type="text"
                 value={
                   this.state.user.user_name
-                    ? `https://wds.fm/~${this.state.user.user_name}`
+                    ? `http://wds.fm/~${this.state.user.user_name}`
                     : '< Not Setup >'
                 }
               />
