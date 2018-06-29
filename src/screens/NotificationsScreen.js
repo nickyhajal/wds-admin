@@ -27,8 +27,8 @@ class NotificationsScreen extends React.Component {
         id: 'notification',
         Header: 'Notification',
         accessor: ({ msg, title }) => ({
-          msg: truncate(msg, 30),
-          title,
+          msg: truncate(msg, { length: 50 }),
+          title: truncate(title, { length: 50 }),
         }),
         Cell: ({ value: { msg, title } }) => (
           <div>
@@ -38,10 +38,10 @@ class NotificationsScreen extends React.Component {
         ),
       },
       {
-        width: 220,
+        width: 290,
         id: 'content',
         Header: 'Dispatch Content',
-        accessor: ({ content }) => truncate(content, 40),
+        accessor: ({ content }) => truncate(content, { length: 35 }),
       },
       {
         width: 220,
@@ -55,34 +55,46 @@ class NotificationsScreen extends React.Component {
       {
         id: 'status',
         Header: 'Status',
-        width: 180,
+        width: 120,
         accessor: ({ send_on, sent_on }) =>
           sent_on
-            ? `Sent: ${moment(sent_on)
-                .utc()
-                .subtract(7, 'h')
-                .format('M/D @ h:mma')}`
-            : `Schd: ${moment(send_on)
-                .utc()
-                .subtract(7, 'h')
-                .format('M/D @ h:mma')}`,
+            ? {
+                date: moment(sent_on)
+                  .utc()
+                  .subtract(7, 'h')
+                  .format('M/D @ h:mma'),
+                sent: true,
+              }
+            : {
+                date: moment(send_on)
+                  .utc()
+                  .subtract(7, 'h')
+                  .format('M/D @ h:mma'),
+                sent: false,
+              },
+        Cell: ({ value: { date, sent } }) => (
+          <div style={{ textAlign: 'center' }}>
+            <em>{sent ? 'Sent' : 'Sched '}</em>
+            <div>{date}</div>
+          </div>
+        ),
       },
       {
         id: 'users',
-        Header: 'Users',
-        width: 90,
+        Header: 'To:',
+        width: 52,
         accessor: ({ sent_users }) => sent_users || '-',
       },
-      {
-        width: 90,
-        id: 'created_at',
-        Header: 'Created',
-        sortMethod: (a, b) => {
-          return +a > +b ? -1 : 1;
-        },
-        accessor: d => d.created_at,
-        Cell: ({ value }) => <div>{moment(value).format('MM/DD/YY')}</div>,
-      },
+      // {
+      //   width: 90,
+      //   id: 'created_at',
+      //   Header: 'Created',
+      //   sortMethod: (a, b) => {
+      //     return +a > +b ? -1 : 1;
+      //   },
+      //   accessor: d => d.created_at,
+      //   Cell: ({ value }) => <div>{moment(value).format('MM/DD/YY')}</div>,
+      // },
     ];
     const { notifications } = this.props.data;
     return (
