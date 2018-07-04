@@ -122,7 +122,7 @@ class AddPersonScreen extends React.Component {
       { label: 'Staff', value: 'staff' },
     ];
     const tickets = [
-      { label: 'Give 2018 Ticket', value: 'y' },
+      { label: 'Give 2019 Ticket', value: 'y' },
       { label: "Don't Give Ticket", value: 'n' },
     ];
     const ticket_types = [

@@ -88,7 +88,7 @@ class TicketsTable extends React.Component {
         width: 70,
         style: d => ({
           backgroundColor:
-            +d.year === 2018 ? Colors.blueLightest : Colors.white,
+            +d.year === 2019 ? Colors.blueLightest : Colors.white,
           textAlign: 'center',
           verticalAlign: 'middle',
         }),
@@ -210,7 +210,7 @@ class TicketsTable extends React.Component {
         width: 70,
         style: d => ({
           backgroundColor:
-            +d.year === 2018 ? Colors.blueLightest : Colors.white,
+            +d.year === 2019 ? Colors.blueLightest : Colors.white,
           textAlign: 'center',
           verticalAlign: 'middle',
         }),
@@ -379,7 +379,7 @@ class TicketsTable extends React.Component {
             if (
               rowInfo !== undefined &&
               rowInfo.original !== undefined &&
-              +rowInfo.original.year === 2018
+              +rowInfo.original.year === 2019
             ) {
               style = { backgroundColor: lighten(0.3, Colors.blue) };
             }
@@ -395,7 +395,7 @@ class TicketsTable extends React.Component {
             if (
               rowInfo !== undefined &&
               rowInfo.original !== undefined &&
-              +rowInfo.original.year === 2018
+              +rowInfo.original.year === 2019
             ) {
               style = { borderBottom: '1px solid rgb(203, 223, 224)' };
             }
