@@ -49,6 +49,8 @@ const Block = styled.div`
 const HomeScreen = ({ data }) => {
   const {
     current_wave_tickets,
+    current_wave_plan,
+    current_wave_total,
     total_tickets,
     num_assigned,
     single_buys,
