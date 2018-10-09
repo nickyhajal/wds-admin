@@ -52,7 +52,7 @@ const HomeScreen = ({ data }) => {
     total_tickets,
     num_assigned,
     single_buys,
-    double_buys,
+    payment_plans,
     friends,
     rsvps,
     likes,
@@ -72,11 +72,11 @@ const HomeScreen = ({ data }) => {
       <Blocks>
         <Block>
           <div>{single_buys}</div>
-          <label>Single Sales</label>
+          <label>Full Sales</label>
         </Block>
         <Block>
-          <div>{double_buys}</div>
-          <label>Double Sales</label>
+          <div>{payment_plans}</div>
+          <label>Payment Plans</label>
         </Block>
         <Block>
           <div>{percentAssigned}</div>

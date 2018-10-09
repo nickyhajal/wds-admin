@@ -4,7 +4,7 @@ export default gql`
   query stats {
     stats {
       single_buys
-      double_buys
+      payment_plans
       current_wave_tickets
       total_tickets
       friends
