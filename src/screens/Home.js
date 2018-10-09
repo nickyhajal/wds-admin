@@ -60,7 +60,13 @@ const HomeScreen = ({ data }) => {
     posts,
     pw,
   } = Object.assign(
-    { current_wave_tickets: '', total_tickets: 0, num_assigned: 0 },
+    {
+      current_wave_tickets: '',
+      total_tickets: 0,
+      num_assigned: 0,
+      current_wave_plan: '',
+      current_wave_total: '',
+    },
     data.stats,
   );
   const percentAssigned =
@@ -71,12 +77,25 @@ const HomeScreen = ({ data }) => {
     <Shell>
       <Blocks>
         <Block>
-          <div>{single_buys}</div>
-          <label>Full Sales</label>
+          <div>{current_wave_total}</div>
+          <label>Total (This Wave)</label>
         </Block>
         <Block>
           <div>{current_wave_tickets}</div>
-          <label>Full Sales (This Wave)</label>
+          <label>Full Price Sales (This Wave)</label>
+        </Block>
+        <Block>
+          <div>{current_wave_plan}</div>
+          <label>Payment Plans (This Wave)</label>
+        </Block>
+        <Divide />
+        <Block>
+          <div>{total_tickets}</div>
+          <label>Total Sales (Alltime)</label>
+        </Block>
+        <Block>
+          <div>{single_buys}</div>
+          <label>Full Sales (Alltime)</label>
         </Block>
         <Block>
           <div>{payment_plans}</div>
