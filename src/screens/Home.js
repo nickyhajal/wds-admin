@@ -75,14 +75,18 @@ const HomeScreen = ({ data }) => {
           <label>Full Sales</label>
         </Block>
         <Block>
+          <div>{current_wave_tickets}</div>
+          <label>Full Sales (This Wave)</label>
+        </Block>
+        <Block>
           <div>{payment_plans}</div>
           <label>Payment Plans</label>
         </Block>
+        <Divide />
         <Block>
           <div>{percentAssigned}</div>
           <label>Percent Assigned</label>
         </Block>
-        <Divide />
         <Block>
           <div>{posts}</div>
           <label>Feed Posts</label>
@@ -91,10 +95,10 @@ const HomeScreen = ({ data }) => {
           <div>{likes}</div>
           <label>Feed Likes</label>
         </Block>
-        <Block>
+        {/* <Block>
           <div>{friends}</div>
           <label>New Friendships</label>
-        </Block>
+        </Block> */}
         <Divide />
         <Block>
           <div>{meetups}</div>
