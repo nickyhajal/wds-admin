@@ -39,7 +39,7 @@ const exps = {
   hotel: { filters: [], defaultParams: {} },
   tickets: {
     defaultParams: {
-      year: ['2018'],
+      year: ['2019'],
       type: ['360', 'connect'],
       status: ['active'],
     },
@@ -156,7 +156,7 @@ const exps = {
   },
   people: {
     defaultParams: {
-      year: ['2018'],
+      year: ['2019'],
       type: ['attendee'],
       first_time: 'all',
     },
