@@ -29,11 +29,11 @@ const Message = styled.div`
   color: ${Colors.blueDarker};
 `;
 const Badge = styled.div`
-  background: ${({ type, attending18, pre18, ticket_type }) => {
+  background: ${({ type, attending19, pre19, ticket_type }) => {
     let color = Colors.grayDark;
     if (type === 'staff') {
       color = Colors.blueDarker;
-    } else if (+attending18 === 1) {
+    } else if (+attending19 === 1) {
       if (+ticket_type === 360) {
         color = Colors.orange;
       } else if (ticket_type === 'connect') {
@@ -53,7 +53,7 @@ const Badge = styled.div`
 `;
 
 const Row = ({ user, close, onSelect, inx, selected }) => {
-  const { first_name, last_name, email, attending18, pre18, type } = user;
+  const { first_name, last_name, email, attending19, pre19, type } = user;
   const className = selected ? 'row-selected' : '';
   return (
     <RowShell

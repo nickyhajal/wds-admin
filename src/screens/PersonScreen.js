@@ -75,19 +75,19 @@ const ContentSide = styled.div`
   margin-top: 175px;
 `;
 const Badge = styled.div`
-  background: ${({ type, attending18, pre18, ticket_type }) => {
+  background: ${({ type, attending19, pre19, ticket_type }) => {
     let color = Colors.grayDark;
     if (type === 'staff') {
       color = Colors.blueDarker;
     } else if (type === 'ambassador') {
       color = '#FFB826';
-    } else if (+attending18 === 1) {
+    } else if (+attending19 === 1) {
       if (+ticket_type === 360) {
         color = Colors.orange;
       } else if (ticket_type === 'connect') {
         color = Colors.green;
       }
-    } else if (+attending18 === -1) {
+    } else if (+attending19 === -1) {
       color = '#CB0303';
     }
     return color;
@@ -211,8 +211,8 @@ class PersonScreen extends React.Component {
     const {
       first_name,
       last_name,
-      attending18,
-      pre18,
+      attending19,
+      pre19,
       ticket_type,
       type,
       transfers_from,
@@ -227,17 +227,17 @@ class PersonScreen extends React.Component {
       badgeText = 'Friends & Fam';
     } else if (type === 'speaker') {
       badgeText = 'Speaker';
-    } else if (+attending18 === -2) {
+    } else if (+attending19 === -2) {
       badgeText = 'Merged to Other User';
-    } else if (+attending18 === 1) {
+    } else if (+attending19 === 1) {
       if (ticket_type === '360') {
         badgeText = '360 Attendee';
       } else if (ticket_type === 'connect') {
         badgeText = 'Connect Attendee';
       }
-    } else if (+attending18 === -1) {
+    } else if (+attending19 === -1) {
       badgeText = 'Canceled';
-    } else if (+pre18 === 1) {
+    } else if (+pre19 === 1) {
       badgeText = 'Unclaimed Pre-Order';
     }
     const types = [

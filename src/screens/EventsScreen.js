@@ -32,11 +32,11 @@ const ContentSide = styled.div`
   margin-top: 110px;
 `;
 const Badge = styled.div`
-  background: ${({ type, attending18, pre18, ticket_type }) => {
+  background: ${({ type, attending19, pre19, ticket_type }) => {
     let color = Colors.grayDark;
     if (type === 'staff') {
       color = Colors.blueDarker;
-    } else if (+attending18 === 1) {
+    } else if (+attending19 === 1) {
       if (+ticket_type === 360) {
         color = Colors.orange;
       } else if (ticket_type === 'connect') {
@@ -124,71 +124,70 @@ class EventScreen extends React.Component {
         <div>
           <h2>Events</h2>
           {loading && <div>Loading...</div>}
-          {!loading &&
-            events.length && (
-              <Tabs onSelect={this.changeTab} selectedIndex={this.state.tab}>
-                <TabList>
-                  <Tab>Schedule</Tab>
-                  <Tab>Academies</Tab>
-                  <Tab>Activities</Tab>
-                  <Tab>Meetups</Tab>
-                  <Tab>Meetup Proposals</Tab>
-                  {/* <Tab>Registration</Tab> */}
-                  <Tab>Ambassador</Tab>
-                </TabList>
-                <TabPanel>
-                  <Form>
-                    <h3>
-                      WDS Schedule
-                      <Link to="/add-event/program">Add Schedule Event</Link>
-                    </h3>
-                    <EventListing
-                      events={events.filter(({ type }) => type === 'program')}
-                      onClick={this.showEvent}
-                    />
-                  </Form>
-                </TabPanel>
-                <TabPanel>
+          {!loading && events.length && (
+            <Tabs onSelect={this.changeTab} selectedIndex={this.state.tab}>
+              <TabList>
+                <Tab>Schedule</Tab>
+                <Tab>Academies</Tab>
+                <Tab>Activities</Tab>
+                <Tab>Meetups</Tab>
+                <Tab>Meetup Proposals</Tab>
+                {/* <Tab>Registration</Tab> */}
+                <Tab>Ambassador</Tab>
+              </TabList>
+              <TabPanel>
+                <Form>
                   <h3>
-                    Academies <Link to="/add-event/academy">Add Academy</Link>
+                    WDS Schedule
+                    <Link to="/add-event/program">Add Schedule Event</Link>
                   </h3>
                   <EventListing
-                    events={events.filter(({ type }) => type === 'academy')}
+                    events={events.filter(({ type }) => type === 'program')}
                     onClick={this.showEvent}
                   />
-                </TabPanel>
-                <TabPanel>
-                  <h3>
-                    Activities
-                    <Link to="/add-event/activity">Add Activity</Link>
-                  </h3>
-                  <EventListing
-                    events={events.filter(({ type }) => type === 'activity')}
-                    onClick={this.showEvent}
-                  />
-                </TabPanel>
-                <TabPanel>
-                  <h3>
-                    Meetups <Link to="/add-event/meetup">Add Meetup</Link>
-                  </h3>
-                  <EventListing
-                    events={events.filter(
-                      ({ type, active }) => type === 'meetup' && +active,
-                    )}
-                    onClick={this.showEvent}
-                  />
-                </TabPanel>
-                <TabPanel>
-                  <h3>Meetup Proposals</h3>
-                  <EventListing
-                    events={events.filter(
-                      ({ type, ignored, active }) =>
-                        type === 'meetup' && !+ignored && !+active,
-                    )}
-                    onClick={this.showEvent}
-                  />
-                </TabPanel>
-                {/* <TabPanel>
+                </Form>
+              </TabPanel>
+              <TabPanel>
+                <h3>
+                  Academies <Link to="/add-event/academy">Add Academy</Link>
+                </h3>
+                <EventListing
+                  events={events.filter(({ type }) => type === 'academy')}
+                  onClick={this.showEvent}
+                />
+              </TabPanel>
+              <TabPanel>
+                <h3>
+                  Activities
+                  <Link to="/add-event/activity">Add Activity</Link>
+                </h3>
+                <EventListing
+                  events={events.filter(({ type }) => type === 'activity')}
+                  onClick={this.showEvent}
+                />
+              </TabPanel>
+              <TabPanel>
+                <h3>
+                  Meetups <Link to="/add-event/meetup">Add Meetup</Link>
+                </h3>
+                <EventListing
+                  events={events.filter(
+                    ({ type, active }) => type === 'meetup' && +active,
+                  )}
+                  onClick={this.showEvent}
+                />
+              </TabPanel>
+              <TabPanel>
+                <h3>Meetup Proposals</h3>
+                <EventListing
+                  events={events.filter(
+                    ({ type, ignored, active }) =>
+                      type === 'meetup' && !+ignored && !+active,
+                  )}
+                  onClick={this.showEvent}
+                />
+              </TabPanel>
+              {/* <TabPanel>
                   <h3>
                     Registration{' '}
                     <Link to="/add-event/registration">
@@ -202,18 +201,18 @@ class EventScreen extends React.Component {
                     onClick={this.showEvent}
                   />
                 </TabPanel> */}
-                <TabPanel>
-                  <h3>
-                    Ambassador Events{' '}
-                    <Link to="/add-event/ambassador">Add Ambassador Event</Link>
-                  </h3>
-                  <EventListing
-                    events={events.filter(({ type }) => type === 'ambassador')}
-                    onClick={this.showEvent}
-                  />
-                </TabPanel>
-              </Tabs>
-            )}
+              <TabPanel>
+                <h3>
+                  Ambassador Events{' '}
+                  <Link to="/add-event/ambassador">Add Ambassador Event</Link>
+                </h3>
+                <EventListing
+                  events={events.filter(({ type }) => type === 'ambassador')}
+                  onClick={this.showEvent}
+                />
+              </TabPanel>
+            </Tabs>
+          )}
         </div>
       </ColContent>
     );

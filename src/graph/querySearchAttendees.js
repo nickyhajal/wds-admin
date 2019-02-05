@@ -5,7 +5,9 @@ export default gql`
     users(search: $search, years: $years, types: $types) {
       user_id
       attending18
+      attending19
       pre18
+      pre19
       type
       ticket_type
       first_name

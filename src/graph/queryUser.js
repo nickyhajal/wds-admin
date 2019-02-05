@@ -11,6 +11,7 @@ export default gql`
       hash
       attending17
       attending18
+      attending19
       pre18
       type
       email_hash
