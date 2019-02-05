@@ -50,6 +50,7 @@ const exps = {
           name: 'Year',
           multi: true,
           options: [
+            '2019',
             '2018',
             '2017',
             '2016',
@@ -86,7 +87,7 @@ const exps = {
   },
   events: {
     defaultParams: {
-      year: ['2018'],
+      year: ['2019'],
       type: ['program', 'meetup', 'activity', 'academy'],
       rejected: 'no',
       for_type: ['360', 'Connect'],
@@ -101,6 +102,7 @@ const exps = {
           name: 'Year',
           multi: true,
           options: [
+            '2019',
             '2018',
             '2017',
             '2016',
@@ -164,7 +166,7 @@ const exps = {
           id: 'year',
           name: 'Year',
           multi: true,
-          options: ['2018', '2017', '2016', '2015', '2014'],
+          options: ['2019', '2018', '2017', '2016', '2015', '2014'],
         },
         {
           id: 'type',
