@@ -220,6 +220,6 @@ class EventScreen extends React.Component {
 }
 export default withRouter(
   query('events', EventScreen, {
-    variables: { year: '18', showInactive: true },
+    variables: { year: '19', showInactive: true },
   }),
 );
