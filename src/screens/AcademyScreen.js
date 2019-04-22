@@ -66,7 +66,7 @@ class AcademyScreen extends React.Component {
       event: {
         active: false,
         ignored: false,
-        year: '2018',
+        year: '2019',
         type: 'academy',
         format: '',
         outline: '',

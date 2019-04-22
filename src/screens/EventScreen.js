@@ -80,7 +80,6 @@ const RsvpRow = styled.div`
 `;
 
 const EventScreen = props => {
-  console.log(props);
   const { data } = props;
   const { event } = data;
   if (event) {

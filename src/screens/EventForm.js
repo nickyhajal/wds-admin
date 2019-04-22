@@ -42,7 +42,7 @@ class AddEventScreen extends React.Component {
       event: {
         active: false,
         ignored: false,
-        year: '2018',
+        year: '2019',
         type: null,
         format: '',
         for_type: 'all',
@@ -286,8 +286,8 @@ class AddEventScreen extends React.Component {
     const status = +event.ignored
       ? 'rejected'
       : +event.active
-        ? 'active'
-        : 'not-active';
+      ? 'active'
+      : 'not-active';
     return (
       <div style={{ flex: '0.8', width: '100%' }}>
         {ready && (
