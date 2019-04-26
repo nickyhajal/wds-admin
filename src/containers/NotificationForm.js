@@ -195,7 +195,7 @@ class AddEventScreen extends React.Component {
     const device = [
       { label: 'All', value: 'all' },
       { label: 'iOS', value: 'ios' },
-      { label: 'Android', value: 'android' },
+      { label: 'Android', value: 'and' },
     ];
     const registered = [
       { label: 'All', value: 'all' },
@@ -240,19 +240,18 @@ class AddEventScreen extends React.Component {
             </h3>
             <Form>
               <ConfirmationBox style={{}}>
-                {event_id &&
-                  event_id > 0 && (
-                    <FormRow>
+                {event_id && event_id > 0 && (
+                  <FormRow>
+                    <div>
+                      <label>Event</label>
                       <div>
-                        <label>Event</label>
-                        <div>
-                          {this.state.lastEvent
-                            ? this.state.lastEvent
-                            : event.what}
-                        </div>
+                        {this.state.lastEvent
+                          ? this.state.lastEvent
+                          : event.what}
                       </div>
-                    </FormRow>
-                  )}
+                    </div>
+                  </FormRow>
+                )}
                 <FormRow>
                   <div>
                     <label>Title</label>
@@ -278,10 +277,10 @@ class AddEventScreen extends React.Component {
                       {sent
                         ? 'Sent'
                         : this.state.sendNow
-                          ? 'Now'
-                          : `On ${moment(this.state.notification.send_on)
-                              .subtract(7, 'h')
-                              .format('MMMM Do YYYY, h:mm:ss a')}`}
+                        ? 'Now'
+                        : `On ${moment(this.state.notification.send_on)
+                            .subtract(7, 'h')
+                            .format('MMMM Do YYYY, h:mm:ss a')}`}
                     </div>
                   </div>
                 </FormRow>
