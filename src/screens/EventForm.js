@@ -237,6 +237,7 @@ class AddEventScreen extends React.Component {
   };
   render() {
     const { mode, loading } = this.props;
+    console.log('Render event form');
     const dates = [
       { label: 'Monday, June 24th', value: '24' },
       { label: 'Tuesday, June 25th', value: '25' },
