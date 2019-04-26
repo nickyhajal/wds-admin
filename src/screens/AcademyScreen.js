@@ -190,10 +190,13 @@ class AcademyScreen extends React.Component {
   };
   render() {
     const dates = [
+      { label: 'June 26th', value: '26' },
       { label: 'June 27th', value: '27' },
       { label: 'June 28th', value: '28' },
       { label: 'June 29th', value: '29' },
+      { label: 'July 1st', value: '1' },
       { label: 'July 2nd', value: '2' },
+      { label: 'July 3rd', value: '3' },
     ];
     return (
       <div>
