@@ -89,22 +89,23 @@ const EventRow = ({
       <td>
         <div>{what}</div>
         {place && <div className="row2">{place}</div>}
-        {hosts &&
-          hosts.length > 0 && (
-            <div className="row2">
-              <span>Hosted by: </span>
-              {hosts.map(({ first_name, last_name }, inx) => (
-                <span>{`${first_name} ${last_name}${
-                  inx !== hosts.length - 1 ? ', ' : ''
-                }`}</span>
-              ))}
-            </div>
-          )}
+        {hosts && hosts.length > 0 && (
+          <div className="row2">
+            <span>Hosted by: </span>
+            {hosts.map(({ first_name, last_name }, inx) => (
+              <span>{`${first_name} ${last_name}${
+                inx !== hosts.length - 1 ? ', ' : ''
+              }`}</span>
+            ))}
+          </div>
+        )}
       </td>
-      {type === 'academy' &&
-        norm && <td className="data">{`${num_free}/${free_max}`}</td>}
-      {['academy', 'activity', 'meetup'].includes(type) &&
-        norm && <td className="data">{`${num_rsvps}/${max}`}</td>}
+      {type === 'academy' && norm && (
+        <td className="data">{`${num_free}/${free_max}`}</td>
+      )}
+      {['academy', 'activity', 'meetup'].includes(type) && norm && (
+        <td className="data">{`${num_rsvps}/${max}`}</td>
+      )}
       {user_id && <td className="data">{`${type}`}</td>}
       {user_id && (
         <td className="data" style={{ width: '160px' }}>
@@ -146,27 +147,25 @@ const EventListing = ({ events, listtype, deleteRsvp, onClick, user_id }) => {
   const type = events[0] ? events[0].type : 'program';
   return (
     <Table>
-      {['meetup', 'activity'].includes(type) &&
-        norm && (
-          <Head>
-            <tr>
-              <th />
-              <th />
-              <th>RSVPs</th>
-            </tr>
-          </Head>
-        )}
-      {type === 'academy' &&
-        norm && (
-          <Head>
-            <tr>
-              <th />
-              <th />
-              <th>Free</th>
-              <th>Paid</th>
-            </tr>
-          </Head>
-        )}
+      {['meetup', 'activity'].includes(type) && norm && (
+        <Head>
+          <tr>
+            <th />
+            <th />
+            <th>RSVPs</th>
+          </tr>
+        </Head>
+      )}
+      {type === 'academy' && norm && (
+        <Head>
+          <tr>
+            <th />
+            <th />
+            <th>Free</th>
+            <th>Total</th>
+          </tr>
+        </Head>
+      )}
       {user_id && (
         <Head>
           <tr>
@@ -178,21 +177,20 @@ const EventListing = ({ events, listtype, deleteRsvp, onClick, user_id }) => {
         </Head>
       )}
       <tbody>
-        {eventsWithHeadings.map(
-          (e, i) =>
-            e.heading ? (
-              <Heading heading={e.heading} key={e.heading} />
-            ) : (
-              <EventRow
-                deleteRsvp={deleteRsvp}
-                listtype={listtype}
-                user_id={user_id}
-                key={e.event_id}
-                onClick={() => onClick(e)}
-                event={e}
-                even={i % 2}
-              />
-            ),
+        {eventsWithHeadings.map((e, i) =>
+          e.heading ? (
+            <Heading heading={e.heading} key={e.heading} />
+          ) : (
+            <EventRow
+              deleteRsvp={deleteRsvp}
+              listtype={listtype}
+              user_id={user_id}
+              key={e.event_id}
+              onClick={() => onClick(e)}
+              event={e}
+              even={i % 2}
+            />
+          ),
         )}
       </tbody>
     </Table>

@@ -9,7 +9,7 @@ const Content = styled.div`
 
   h2 {
     font-size: 36px;
-    line-height: 24px;
+    line-height: 130%;
 
     button,
     a {
