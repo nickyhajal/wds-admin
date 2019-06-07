@@ -30,6 +30,9 @@ import ExportScreen from '../screens/ExportScreen';
 import PlacesScreen from '../screens/PlacesScreen';
 import PlaceScreen from '../screens/PlaceScreen';
 import AddPlaceScreen from '../screens/AddPlaceScreen';
+import RaceScreen from '../screens/RaceScreen';
+import ChallengeScreen from '../screens/ChallengeScreen';
+import AddChallengeScreen from '../screens/AddChallengeScreen';
 
 const Main = styled.div`
   height: 100%;
@@ -69,6 +72,17 @@ class App extends Component {
                 <Route path="/pages" component={PagesScreen} />
                 <Route path="/export" exact component={ExportScreen} />
                 <Route path="/places" exact component={PlacesScreen} />
+                <Route path="/race" exact component={RaceScreen} />
+                <Route
+                  path="/challenge/:id"
+                  exact
+                  component={ChallengeScreen}
+                />
+                <Route
+                  path="/add-challenge"
+                  exact
+                  component={AddChallengeScreen}
+                />
                 <Route path="/add-place" exact component={AddPlaceScreen} />
                 <Route path="/place/:id" component={PlaceScreen} />
                 <Route path="/events" exact component={EventsScreen} />

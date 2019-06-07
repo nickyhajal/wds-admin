@@ -14,6 +14,8 @@ import queryNotification from './queryNotification';
 import queryBareEvents from './queryBareEvents';
 import queryPlaces from './queryPlaces';
 import queryPlace from './queryPlace';
+import queryRaceTasks from './queryRaceTasks';
+import queryRaceTask from './queryRacetask';
 
 export default {
   querySearchAttendees,
@@ -24,6 +26,8 @@ export default {
   queryEvent,
   queryTransactions,
   queryStats,
+  queryRaceTasks,
+  queryRaceTask,
   queryTransfers,
   queryNotification,
   queryNotifications,
