@@ -9,7 +9,7 @@ export default gql`
     $descr: String
     $points: String!
     $note: String
-    $active: String!
+    $active: String
     $address: String
     $attendee_max: String
     $global_max: String
