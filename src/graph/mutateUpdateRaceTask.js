@@ -6,7 +6,7 @@ export default gql`
     $section: String!
     $type: String!
     $task: String!
-    $descr: String!
+    $descr: String
     $points: String!
     $note: String
     $active: String!
