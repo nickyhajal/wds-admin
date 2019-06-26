@@ -167,16 +167,6 @@ class ChallengeForm extends React.Component {
               </FormRow>
               <FormRow>
                 <div>
-                  <label>Status</label>
-                  <Select
-                    value={this.state.challenge.active}
-                    name="status"
-                    options={status}
-                    clearable={false}
-                    onChange={({ value }) => this.upd('active', value)}
-                  />
-                </div>
-                <div>
                   <label>Points</label>
                   <Input
                     type="number"
@@ -185,6 +175,7 @@ class ChallengeForm extends React.Component {
                     onChange={this.change}
                   />
                 </div>
+                <div />
               </FormRow>
               <FormRow>
                 <div>
@@ -213,48 +204,8 @@ class ChallengeForm extends React.Component {
                   <label>Description</label>
                   <Textarea
                     type="text"
-                    value={this.state.challenge.descr}
-                    name="descr"
-                    onChange={this.change}
-                  />
-                </div>
-                <div>
-                  <label>Optional Note</label>
-                  <Textarea
-                    type="text"
                     value={this.state.challenge.note}
                     name="note"
-                    onChange={this.change}
-                  />
-                </div>
-              </FormRow>
-              <FormRow>
-                <div>
-                  <label>Attendee Max</label>
-                  <Input
-                    type="number"
-                    value={this.state.challenge.attendee_max}
-                    name="attendee_max"
-                    onChange={this.change}
-                  />
-                </div>
-                <div>
-                  <label>Global Max</label>
-                  <Input
-                    type="number"
-                    value={this.state.challenge.global_max}
-                    name="global_max"
-                    onChange={this.change}
-                  />
-                </div>
-              </FormRow>
-              <FormRow>
-                <div>
-                  <label>Address</label>
-                  <Input
-                    type="text"
-                    value={this.state.challenge.address}
-                    name="address"
                     onChange={this.change}
                   />
                 </div>
