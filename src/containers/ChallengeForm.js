@@ -164,6 +164,7 @@ class ChallengeForm extends React.Component {
                     onChange={this.change}
                   />
                 </div>
+                <div />
               </FormRow>
               <FormRow>
                 <div>
