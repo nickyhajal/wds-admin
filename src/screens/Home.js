@@ -93,11 +93,11 @@ const HomeScreen = ({ data }) => {
         <Divide />
         <Block>
           <div>{total_tickets}</div>
-          <label>Total Sales (Alltime)</label>
+          <label>Total Tickets (All Types)</label>
         </Block>
         <Block>
           <div>{single_buys}</div>
-          <label>Full Sales (Alltime)</label>
+          <label>Total Sales (Alltime)</label>
         </Block>
         <Block>
           <div>{payment_plans}</div>
