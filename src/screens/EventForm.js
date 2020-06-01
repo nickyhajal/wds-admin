@@ -42,7 +42,7 @@ class AddEventScreen extends React.Component {
       event: {
         active: false,
         ignored: false,
-        year: '2019',
+        year: '2020',
         type: null,
         format: '',
         for_type: 'all',
