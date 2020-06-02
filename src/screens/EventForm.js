@@ -238,15 +238,15 @@ class AddEventScreen extends React.Component {
   render() {
     const { mode, loading } = this.props;
     const dates = [
-      { label: 'Monday, June 24th', value: '24' },
-      { label: 'Tuesday, June 25th', value: '25' },
-      { label: 'Wednesday, June 26th', value: '26' },
-      { label: 'Thursday, June 27th', value: '27' },
-      { label: 'Friday, June 28th', value: '28' },
-      { label: 'Saturday, June 29th', value: '29' },
-      { label: 'Sunday, June 30th', value: '30' },
-      { label: 'Monday, July 1st', value: '1' },
-      { label: 'Tuesday, July 2nd', value: '2' },
+      // { label: 'Monday, June 24th', value: '24' },
+      // { label: 'Tuesday, June 25th', value: '25' },
+      // { label: 'Wednesday, June 26th', value: '26' },
+      { label: 'Saturday, June 27th', value: '27' },
+      { label: 'Sunday, June 28th', value: '28' },
+      // { label: 'Saturday, June 29th', value: '29' },
+      // { label: 'Sunday, June 30th', value: '30' },
+      // { label: 'Monday, July 1st', value: '1' },
+      // { label: 'Tuesday, July 2nd', value: '2' },
     ];
     const types = [
       { label: 'Program Event', value: 'program' },
@@ -265,7 +265,6 @@ class AddEventScreen extends React.Component {
       { label: '360', value: '360' },
       { label: 'Connect', value: 'connect' },
     ];
-    console.log('event', this.state.event);
     const event = Object.assign(
       {},
       this.state.event,

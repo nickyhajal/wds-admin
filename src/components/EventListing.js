@@ -134,7 +134,6 @@ const Heading = ({ heading }) => {
 }
 const EventListing = ({ events, listtype, deleteRsvp, onClick, user_id }) => {
 	let lastDay = false
-	console.log(events)
 	const eventsWithHeadings = events.reduce((out, curr) => {
 		if (!lastDay || !moment(lastDay).isSame(curr.start, 'day')) {
 			lastDay = curr.start
@@ -144,7 +143,6 @@ const EventListing = ({ events, listtype, deleteRsvp, onClick, user_id }) => {
 		return out
 	}, [])
 	const norm = listtype === 'normal'
-	console.log(eventsWithHeadings)
 
 	const type = events[0] ? events[0].type : 'program'
 	return (

@@ -119,16 +119,6 @@ class EventScreen extends React.Component {
 	}
 	render() {
 		const { loading, events } = this.props.data
-		console.log('evs', events)
-		if (events) {
-			console.log(
-				'filt',
-				events.filter(
-					({ type, ignored, active }) =>
-						type === 'meetup' && !+ignored && !+active
-				)
-			)
-		}
 		return (
 			<ColContent>
 				<div>
