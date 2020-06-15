@@ -392,7 +392,7 @@ class AddEventScreen extends React.Component {
 										<div />
 									)}
 								</FormRow>
-								{type === 'meetup' && (
+								{this.state.event.outline && (
 									<FormRow>
 										<div>
 											<label>Outline</label>
