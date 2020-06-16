@@ -82,7 +82,6 @@ const RsvpRow = styled.div`
 const EventScreen = (props) => {
 	const {data} = props
 	const {event} = data
-	console.log(event)
 	if (event) {
 		const {
 			event_id,
