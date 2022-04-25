@@ -1,4 +1,4 @@
-import { gql } from 'react-apollo';
+import {gql} from 'react-apollo'
 
 export default gql`
   query user($id: String!) {
@@ -12,7 +12,9 @@ export default gql`
       attending17
       attending18
       attending19
+      attending20
       pre18
+      pre20
       type
       email_hash
       ticket_type
@@ -125,4 +127,4 @@ export default gql`
       }
     }
   }
-`;
+`

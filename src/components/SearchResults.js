@@ -1,11 +1,11 @@
-import React from 'react';
-import { Link } from 'react-router-dom';
-import { debounce } from 'lodash';
-import styled from 'styled-components';
-import Colors from '../constants/Colors';
-import query from '../util/query';
+import React from 'react'
+import {Link} from 'react-router-dom'
+import {debounce} from 'lodash'
+import styled from 'styled-components'
+import Colors from '../constants/Colors'
+import query from '../util/query'
 
-const ResultsShell = styled.div``;
+const ResultsShell = styled.div``
 const RowShell = styled(Link)`
   padding: 18px 28px;
   font-weight: 600;
@@ -19,7 +19,7 @@ const RowShell = styled(Link)`
     cursor: pointer;
     background: ${Colors.searchHover};
   }
-`;
+`
 const Message = styled.div`
   padding: 30px;
   padding-left: 40px;
@@ -27,20 +27,20 @@ const Message = styled.div`
   font-weight: 600;
   font-style: italic;
   color: ${Colors.blueDarker};
-`;
+`
 const Badge = styled.div`
-  background: ${({ type, attending19, pre19, ticket_type }) => {
-    let color = Colors.grayDark;
+  background: ${({type, attending20, pre20, ticket_type}) => {
+    let color = Colors.grayDark
     if (type === 'staff') {
-      color = Colors.blueDarker;
-    } else if (+attending19 === 1) {
+      color = Colors.blueDarker
+    } else if (+attending20 === 1) {
       if (+ticket_type === 360) {
-        color = Colors.orange;
+        color = Colors.orange
       } else if (ticket_type === 'connect') {
-        color = Colors.green;
+        color = Colors.green
       }
     }
-    return color;
+    return color
   }};
   border-radius: 50%;
   display: inline-block;
@@ -50,11 +50,11 @@ const Badge = styled.div`
   width: 12px;
   height: 12px;
   margin-left: -9px;
-`;
+`
 
-const Row = ({ user, close, onSelect, inx, selected }) => {
-  const { first_name, last_name, email, attending19, pre19, type } = user;
-  const className = selected ? 'row-selected' : '';
+const Row = ({user, close, onSelect, inx, selected}) => {
+  const {first_name, last_name, email, attending20, pre20, type} = user
+  const className = selected ? 'row-selected' : ''
   return (
     <RowShell
       to={`/person/${email}`}
@@ -65,10 +65,10 @@ const Row = ({ user, close, onSelect, inx, selected }) => {
       <Badge {...user} />
       {first_name} {last_name}
     </RowShell>
-  );
-};
+  )
+}
 
-const Results = ({ data, close, selected, onSelect, setResults }) => {
+const Results = ({data, close, selected, onSelect, setResults}) => {
   // if (data !== undefined && data.users !== undefined && data.users.length) {
   //   setResults(data.users);
   // }
@@ -93,8 +93,8 @@ const Results = ({ data, close, selected, onSelect, setResults }) => {
         )}
       </div>
     </ResultsShell>
-  );
-};
-export default query('searchAttendees', Results, ({ search, year, types }) => ({
-  variables: { search, year, types },
-}));
+  )
+}
+export default query('searchAttendees', Results, ({search, year, types}) => ({
+  variables: {search, year, types},
+}))

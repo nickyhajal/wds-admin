@@ -1,36 +1,36 @@
-import React from 'react';
-import styled from 'styled-components';
-import { withRouter } from 'react-router-dom';
-import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
-import moment from 'moment';
-import { omit } from 'lodash';
-import axios from 'axios';
-import query from '../util/query';
-import Container from '../components/Container';
-import Form from '../components/Form';
-import FormRow from '../components/FormRow';
-import Input from '../components/Input';
-import Select from 'react-select';
-import AddressForm from '../components/AddressForm';
-import ShirtSize from '../components/ShirtSize';
-import Colors from '../constants/Colors';
-import Table from '../components/Table';
-import TicketsTable from '../components/TicketsTable';
-import TransactionsTable from '../components/TransactionsTable';
-import Label from '../components/Label';
-import apollo from '../util/apollo';
-import mutateAddTicket from '../graph/mutateAddTicket';
-import UserAdminNoteContainer from '../containers/UserAdminNoteContainer';
-import mutateUpdateUser from '../graph/mutateUpdateUser';
-import EventListing from '../components/EventListing';
-import NullMsg from '../components/NullMsg';
-import mutateDeleteRsvp from '../graph/mutateDeleteRsvp';
-import EmailsTable from '../components/EmailsTable';
-import Avatar from '../components/Avatar';
-import MergeAttendee from '../containers/MergeAttendee';
-import delay from '../util/delay';
+import React from 'react'
+import styled from 'styled-components'
+import {withRouter} from 'react-router-dom'
+import {Tab, Tabs, TabList, TabPanel} from 'react-tabs'
+import moment from 'moment'
+import {omit} from 'lodash'
+import axios from 'axios'
+import query from '../util/query'
+import Container from '../components/Container'
+import Form from '../components/Form'
+import FormRow from '../components/FormRow'
+import Input from '../components/Input'
+import Select from 'react-select'
+import AddressForm from '../components/AddressForm'
+import ShirtSize from '../components/ShirtSize'
+import Colors from '../constants/Colors'
+import Table from '../components/Table'
+import TicketsTable from '../components/TicketsTable'
+import TransactionsTable from '../components/TransactionsTable'
+import Label from '../components/Label'
+import apollo from '../util/apollo'
+import mutateAddTicket from '../graph/mutateAddTicket'
+import UserAdminNoteContainer from '../containers/UserAdminNoteContainer'
+import mutateUpdateUser from '../graph/mutateUpdateUser'
+import EventListing from '../components/EventListing'
+import NullMsg from '../components/NullMsg'
+import mutateDeleteRsvp from '../graph/mutateDeleteRsvp'
+import EmailsTable from '../components/EmailsTable'
+import Avatar from '../components/Avatar'
+import MergeAttendee from '../containers/MergeAttendee'
+import delay from '../util/delay'
 
-const Page = styled.div``;
+const Page = styled.div``
 
 const ColContent = styled.div`
   display: flex;
@@ -38,7 +38,7 @@ const ColContent = styled.div`
   .react-tabs__tab-panel {
     width: 100% !important;
   }
-`;
+`
 const RotateShell = styled.button`
   cursor: pointer;
   width: 28px;
@@ -51,7 +51,7 @@ const RotateShell = styled.button`
   &:hover {
     opacity: 1;
   }
-`;
+`
 const RotateIcon = styled.div`
   cursor: pointer;
   background-color: transparent !important;
@@ -64,7 +64,7 @@ const RotateIcon = styled.div`
   position: relative;
   left: -3px;
   top: 1px;
-`;
+`
 const ContentSide = styled.div`
   background: ${Colors.white};
   padding: 32px;
@@ -73,24 +73,24 @@ const ContentSide = styled.div`
   box-shadow: 3px 3px 20px rgba(0, 0, 0, 0.08);
   flex: 0.2;
   margin-top: 175px;
-`;
+`
 const Badge = styled.div`
-  background: ${({ type, attending19, pre19, ticket_type }) => {
-    let color = Colors.grayDark;
+  background: ${({type, attending20, pre20, ticket_type}) => {
+    let color = Colors.grayDark
     if (type === 'staff') {
-      color = Colors.blueDarker;
+      color = Colors.blueDarker
     } else if (type === 'ambassador') {
-      color = '#FFB826';
-    } else if (+attending19 === 1) {
+      color = '#FFB826'
+    } else if (+attending20 === 1) {
       if (+ticket_type === 360) {
-        color = Colors.orange;
+        color = Colors.orange
       } else if (ticket_type === 'connect') {
-        color = Colors.green;
+        color = Colors.green
       }
-    } else if (+attending19 === -1) {
-      color = '#CB0303';
+    } else if (+attending20 === -1) {
+      color = '#CB0303'
     }
-    return color;
+    return color
   }};
   border-radius: 3px;
   padding: 0px 12px;
@@ -104,11 +104,11 @@ const Badge = styled.div`
   font-weight: 600;
   letter-spacing: 0.5px;
   line-height: 24px;
-`;
+`
 
 class PersonScreen extends React.Component {
   constructor() {
-    super();
+    super()
     this.state = {
       avatarRefresh: '',
       status: 'ready',
@@ -129,141 +129,139 @@ class PersonScreen extends React.Component {
         twitter: '',
         facebook: '',
       },
-    };
+    }
   }
-  changeType = e => {
+  changeType = (e) => {
     this.setState({
-      user: Object.assign({}, this.state.user, { type: e.value }),
-    });
-  };
+      user: Object.assign({}, this.state.user, {type: e.value}),
+    })
+  }
   upd = (name, value) => {
     this.setState({
-      user: Object.assign({}, this.state.user, { [name]: value }),
-    });
-  };
-  change = e => {
+      user: Object.assign({}, this.state.user, {[name]: value}),
+    })
+  }
+  change = (e) => {
     if (e.currentTarget.name !== undefined) {
-      const { name, value } = e.currentTarget;
+      const {name, value} = e.currentTarget
       this.setState({
-        user: Object.assign({}, this.state.user, { [name]: value }),
-      });
+        user: Object.assign({}, this.state.user, {[name]: value}),
+      })
     }
-  };
+  }
   rowProps = (state, rowInfo, column, instance) => {
     return {
       onClick: (e, original) => {
-        this.props.history.push(`/edit-deal/${rowInfo.original.deal_id}`);
+        this.props.history.push(`/edit-deal/${rowInfo.original.deal_id}`)
       },
-    };
-  };
+    }
+  }
   componentWillReceiveProps(props) {
-    this.setState({ user: Object.assign({}, props.data.user) });
+    this.setState({user: Object.assign({}, props.data.user)})
   }
   giveTicket = async () => {
-    this.setState({ giveTicketText: 'Giving Ticket...' });
+    this.setState({giveTicketText: 'Giving Ticket...'})
     const result = await apollo.mutate({
       mutation: mutateAddTicket,
       variables: {
         user_id: this.state.user.user_id,
       },
-    });
-    this.setState({ giveTicketText: 'Success!' });
-    this.props.data.refetch();
+    })
+    this.setState({giveTicketText: 'Success!'})
+    this.props.data.refetch()
     setTimeout(() => {
-      this.setState({ giveTicketText: 'Give Ticket' });
-    });
-  };
-  save = async e => {
-    e.stopPropagation();
-    e.preventDefault();
-    const user = this.state.user;
-    this.setState({ status: 'saving' });
+      this.setState({giveTicketText: 'Give Ticket'})
+    })
+  }
+  save = async (e) => {
+    e.stopPropagation()
+    e.preventDefault()
+    const user = this.state.user
+    this.setState({status: 'saving'})
     const res = await apollo.mutate({
       mutation: mutateUpdateUser,
       variables: omit(user, ['tickets', 'transactions', 'lat', 'lon', 'hash']),
-    });
-    this.setState({ status: 'success' });
+    })
+    this.setState({status: 'success'})
     setTimeout(() => {
-      this.setState({ status: 'ready' });
-    }, 2000);
-  };
-  unRsvp = async event_id => {
+      this.setState({status: 'ready'})
+    }, 2000)
+  }
+  unRsvp = async (event_id) => {
     await apollo.mutate({
       mutation: mutateDeleteRsvp,
       variables: {
         user_id: this.state.user.user_id.toString(),
         event_id: event_id.toString(),
       },
-    });
-    this.props.data.refetch();
-  };
+    })
+    this.props.data.refetch()
+  }
   rotate = async () => {
     await axios(
-      `https://api.worlddominationsummit.com/rotate?user_id=${
-        this.state.user.user_id
-      }`,
-    );
+      `https://api.worlddominationsummit.com/rotate?user_id=${this.state.user.user_id}`
+    )
     setTimeout(() => {
-      this.setState({ avatarRefresh: +new Date() });
-    }, 200);
-  };
+      this.setState({avatarRefresh: +new Date()})
+    }, 200)
+  }
   render() {
     const {
       first_name,
       last_name,
-      attending19,
-      pre19,
+      attending20,
+      pre20,
       ticket_type,
       type,
       transfers_from,
       transfers_to,
-    } = this.state.user;
-    let badgeText = 'Not Attending';
+    } = this.state.user
+    let badgeText = 'Not Attending'
     if (type === 'staff') {
-      badgeText = 'Staff';
+      badgeText = 'Staff'
     } else if (type === 'ambassador') {
-      badgeText = 'Ambassador';
+      badgeText = 'Ambassador'
     } else if (type === 'friend') {
-      badgeText = 'Friends & Fam';
+      badgeText = 'Friends & Fam'
     } else if (type === 'speaker') {
-      badgeText = 'Speaker';
-    } else if (+attending19 === -2) {
-      badgeText = 'Merged to Other User';
-    } else if (+attending19 === 1) {
+      badgeText = 'Speaker'
+    } else if (+attending20 === -2) {
+      badgeText = 'Merged to Other User'
+    } else if (+attending20 === 1) {
       if (ticket_type === '360') {
-        badgeText = '360 Attendee';
+        badgeText = '360 Attendee'
       } else if (ticket_type === 'connect') {
-        badgeText = 'Connect Attendee';
+        badgeText = 'Connect Attendee'
       }
-    } else if (+attending19 === -1) {
-      badgeText = 'Canceled';
-    } else if (+pre19 === 1) {
-      badgeText = 'Unclaimed Pre-Order';
+    } else if (+attending20 === -1) {
+      badgeText = 'Canceled'
+    } else if (+pre20 === 1) {
+      badgeText = 'Unclaimed Pre-Order'
     }
     const types = [
-      { label: 'Attendee', value: 'attendee' },
-      { label: 'Ambassador', value: 'ambassador' },
-      { label: 'Friends & Family', value: 'friend' },
-      { label: 'Speaker', value: 'speaker' },
-      { label: 'Staff', value: 'staff' },
-    ];
+      {label: 'Attendee', value: 'attendee'},
+      {label: 'Ambassador', value: 'ambassador'},
+      {label: 'Friends & Family', value: 'friend'},
+      {label: 'Speaker', value: 'speaker'},
+      {label: 'Staff', value: 'staff'},
+    ]
     const ticket_types = [
-      { label: '360', value: '360' },
-      { label: 'Connect', value: 'connect' },
-    ];
+      {label: '360', value: '360'},
+      {label: 'Connect', value: 'connect'},
+    ]
     const transfers = {
       from: transfers_from,
       to: transfers_to,
-    };
+    }
     return (
       <ColContent>
-        <div style={{ flex: '0.8', width: '100%' }}>
-          <h2 style={{ position: 'relative' }}>
+        <div style={{flex: '0.8', width: '100%'}}>
+          <h2 style={{position: 'relative'}}>
             <Avatar
               user={this.state.user}
               width="96"
               suffix={this.state.avatarRefresh}
-              style={{ marginRight: '12px', marginBottom: '-8px' }}
+              style={{marginRight: '12px', marginBottom: '-8px'}}
             />
             <RotateShell onClick={this.rotate}>
               <RotateIcon />
@@ -292,7 +290,7 @@ class PersonScreen extends React.Component {
                       name="type"
                       options={types}
                       clearable={false}
-                      onChange={({ value }) => this.upd('type', value)}
+                      onChange={({value}) => this.upd('type', value)}
                     />
                   </div>
                   <div>
@@ -302,7 +300,7 @@ class PersonScreen extends React.Component {
                       name="ticket_type"
                       options={ticket_types}
                       clearable={false}
-                      onChange={({ value }) => this.upd('ticket_type', value)}
+                      onChange={({value}) => this.upd('ticket_type', value)}
                     />
                   </div>
                 </FormRow>
@@ -462,13 +460,13 @@ class PersonScreen extends React.Component {
               <MergeAttendee
                 into={this.state.user}
                 onMerge={async () => {
-                  await delay(200);
-                  this.props.data.refetch();
+                  await delay(200)
+                  this.props.data.refetch()
                 }}
               />
             </TabPanel>
           </Tabs>
-          <div style={{ height: '100px', width: '40px' }} />
+          <div style={{height: '100px', width: '40px'}} />
         </div>
         <ContentSide>
           <FormRow cols={2}>
@@ -501,11 +499,11 @@ class PersonScreen extends React.Component {
           </FormRow>
         </ContentSide>
       </ColContent>
-    );
+    )
   }
 }
 export default withRouter(
-  query('user', PersonScreen, ({ match }) => ({
-    variables: { id: match.params.id },
-  })),
-);
+  query('user', PersonScreen, ({match}) => ({
+    variables: {id: match.params.id},
+  }))
+)
