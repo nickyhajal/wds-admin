@@ -1,23 +1,23 @@
-import { startCase } from 'lodash';
-import React from 'react';
-import moment from 'moment';
-import { lighten } from 'polished';
-import Select from 'react-select';
-import { Link } from 'react-router-dom';
-import Table from './Table';
-import Colors from '../constants/Colors';
-import queryTickets from '../graph/queryTickets';
-import apollo from '../util/apollo';
-import ConfirmationModal from './ConfirmationModal';
-import mutateUpdateTicket from '../graph/mutateUpdateTicket';
+import {startCase} from 'lodash'
+import React from 'react'
+import moment from 'moment'
+import {lighten} from 'polished'
+import Select from 'react-select'
+import {Link} from 'react-router-dom'
+import Table from './Table'
+import Colors from '../constants/Colors'
+import queryTickets from '../graph/queryTickets'
+import apollo from '../util/apollo'
+import ConfirmationModal from './ConfirmationModal'
+import mutateUpdateTicket from '../graph/mutateUpdateTicket'
 
 class TicketsTable extends React.Component {
   static defaultProps = {
     graph: false,
     onTicketChange: () => {},
-  };
+  }
   constructor() {
-    super();
+    super()
     this.state = {
       data: [],
       pages: -1,
@@ -30,21 +30,21 @@ class TicketsTable extends React.Component {
         content: null,
         title: 'Confirm this',
       },
-    };
+    }
   }
   componentWillMount() {
     this.query = apollo.watchQuery({
       query: queryTickets,
       pollInterval: 10000,
-      options: { fetchPolicy: 'network-only' },
+      options: {fetchPolicy: 'network-only'},
       fetchPolicy: 'network-only',
       variables: {
         per_page: this.state.per_page,
         page: this.state.page,
       },
-    });
+    })
     this.query.subscribe({
-      next: ({ data }) => {
+      next: ({data}) => {
         this.setState({
           data:
             data !== undefined && data.tickets !== undefined
@@ -55,9 +55,9 @@ class TicketsTable extends React.Component {
               ? data.tickets.pages
               : [],
           loading: false,
-        });
+        })
       },
-    });
+    })
   }
   openConfirm(title, content, handleConfirm) {
     this.setState({
@@ -67,32 +67,32 @@ class TicketsTable extends React.Component {
         content,
         handleConfirm,
       },
-    });
+    })
   }
   actionSelect = (e, elm, props) => {
-    this.changeTicketStatus(props, e.value);
-  };
+    this.changeTicketStatus(props, e.value)
+  }
   closeConfirm = () => {
     this.setState({
       confirmation: Object.assign({}, this.state.confirmation, {
         open: false,
         confirmText: null,
       }),
-    });
-  };
+    })
+  }
   changeTicketStatus = (ticket, status) => {
     const columns = [
       {
         id: 'type',
         Header: 'Type',
         width: 70,
-        style: d => ({
+        style: (d) => ({
           backgroundColor:
             +d.year === 2019 ? Colors.blueLightest : Colors.white,
           textAlign: 'center',
           verticalAlign: 'middle',
         }),
-        accessor: d =>
+        accessor: (d) =>
           d.type !== undefined && d.type && d.type.length
             ? d.type === 'connect'
               ? 'CNCT'
@@ -103,20 +103,20 @@ class TicketsTable extends React.Component {
         id: 'year',
         Header: 'Year',
         width: 90,
-        style: { textAlign: 'center' },
-        accessor: d => d.year,
+        style: {textAlign: 'center'},
+        accessor: (d) => (d.year === '2020' ? 'X' : d.year),
       },
       {
         id: 'status',
         Header: 'Status',
-        style: { textAlign: 'center' },
-        accessor: d => startCase(d.status),
+        style: {textAlign: 'center'},
+        accessor: (d) => startCase(d.status),
       },
       {
         id: 'purchaser',
-        style: { textAlign: 'center' },
+        style: {textAlign: 'center'},
         Header: 'Purchased By',
-        accessor: d =>
+        accessor: (d) =>
           d.purchaser.first_name !== undefined && d.purchaser.first_name
             ? `${d.purchaser.first_name} ${d.purchaser.last_name}`
             : 'Owner',
@@ -124,61 +124,61 @@ class TicketsTable extends React.Component {
       {
         id: 'assigned',
         Header: 'Assigned To',
-        style: { textAlign: 'center' },
-        accessor: d =>
+        style: {textAlign: 'center'},
+        accessor: (d) =>
           d.user.first_name !== undefined && d.user.first_name
             ? `${d.user.first_name} ${d.user.last_name}`
             : 'Owner',
       },
-    ];
+    ]
     const content = (
       <div>
         <Table
           {...this.props}
           data={[ticket]}
           manual
-          footerStyle={{ display: 'none' }}
+          footerStyle={{display: 'none'}}
           tiny
           defaultPageSize={1}
           columns={columns}
         />
       </div>
-    );
+    )
     this.openConfirm(
       `Are you sure you want to mark this ticket as ${status}?`,
       content,
       () => {
-        this.doChangeTicketStatus(ticket, status);
-      },
-    );
-  };
+        this.doChangeTicketStatus(ticket, status)
+      }
+    )
+  }
   confirmText(confirmText) {
     this.setState({
-      confirmation: Object.assign({}, this.state.confirmation, { confirmText }),
-    });
+      confirmation: Object.assign({}, this.state.confirmation, {confirmText}),
+    })
   }
   doChangeTicketStatus = async (props, status) => {
-    this.confirmText('Processing...');
+    this.confirmText('Processing...')
     const res = apollo.mutate({
       mutation: mutateUpdateTicket,
       variables: {
         ticket_id: props.ticket_id,
         status,
       },
-    });
-    this.confirmText('Success!');
+    })
+    this.confirmText('Success!')
     if (this.query) {
       this.query.setVariables({
         per_page: this.state.per_page,
         page: this.state.page,
-      });
+      })
     }
-    this.props.onTicketChange();
+    this.props.onTicketChange()
 
     setTimeout(() => {
-      this.closeConfirm();
-    }, 350);
-  };
+      this.closeConfirm()
+    }, 350)
+  }
   modals() {
     return (
       <ConfirmationModal
@@ -190,7 +190,7 @@ class TicketsTable extends React.Component {
       >
         {this.state.confirmation.content}
       </ConfirmationModal>
-    );
+    )
   }
   rowProps = (state, rowInfo, column, instance) => {
     return {
@@ -199,22 +199,22 @@ class TicketsTable extends React.Component {
           // this.cancelTicket();
         }
       },
-    };
-  };
+    }
+  }
   render() {
-    const { transfers } = this.props;
+    const {transfers} = this.props
     const columns = [
       {
         id: 'type',
         Header: 'Type',
         width: 70,
-        style: d => ({
+        style: (d) => ({
           backgroundColor:
             +d.year === 2019 ? Colors.blueLightest : Colors.white,
           textAlign: 'center',
           verticalAlign: 'middle',
         }),
-        accessor: d =>
+        accessor: (d) =>
           d.type !== undefined && d.type && d.type.length
             ? d.type === 'connect'
               ? 'CNCT'
@@ -225,66 +225,66 @@ class TicketsTable extends React.Component {
         id: 'year',
         Header: 'Year',
         width: 90,
-        style: { textAlign: 'center' },
-        accessor: d => d.year,
+        style: {textAlign: 'center'},
+        accessor: (d) => (d.year === '2020' ? 'X' : d.year),
       },
       {
         id: 'status',
         Header: 'Status',
-        style: { textAlign: 'center' },
-        accessor: d => startCase(d.status),
+        style: {textAlign: 'center'},
+        accessor: (d) => startCase(d.status),
       },
 
       {
         id: 'purchaser',
-        style: { textAlign: 'center' },
+        style: {textAlign: 'center'},
         Header: 'Purchased By',
-        accessor: d => ({
+        accessor: (d) => ({
           email: d.purchaser.user_id,
           name:
             d.purchaser.first_name !== undefined && d.purchaser.first_name
               ? `${d.purchaser.first_name} ${d.purchaser.last_name}`
               : 'Owner',
         }),
-        Cell: props => (
+        Cell: (props) => (
           <Link to={`/person/${props.value.email}`}>{props.value.name}</Link>
         ),
       },
       {
         id: 'assigned',
         Header: 'Assigned To',
-        style: { textAlign: 'center' },
-        accessor: d => ({
+        style: {textAlign: 'center'},
+        accessor: (d) => ({
           email: d.user.user_id,
           name:
             d.user.first_name !== undefined && d.user.first_name
               ? `${d.user.first_name} ${d.user.last_name}`
               : 'Owner',
         }),
-        Cell: props => (
+        Cell: (props) => (
           <Link to={`/person/${props.value.email}`}>{props.value.name}</Link>
         ),
       },
       {
         id: 'created',
         Header: 'Purchased On',
-        accessor: d => moment(d.created_at).format('MMM Do, YYYY'),
+        accessor: (d) => moment(d.created_at).format('MMM Do, YYYY'),
       },
       {
         id: 'actions',
         Header: '',
-        accessor: d => d,
-        Cell: props => {
-          const t = props.value;
-          const actions = [];
+        accessor: (d) => d,
+        Cell: (props) => {
+          const t = props.value
+          const actions = []
           if (t.status !== 'canceled') {
-            actions.push({ value: 'canceled', label: 'Cancel' });
+            actions.push({value: 'canceled', label: 'Cancel'})
           }
           if (t.status !== 'active') {
-            actions.push({ value: 'active', label: 'Activate' });
+            actions.push({value: 'active', label: 'Activate'})
           }
           if (t.status !== 'unclaimed') {
-            actions.push({ value: 'unclaimed', label: 'Set Unclaimed' });
+            actions.push({value: 'unclaimed', label: 'Set Unclaimed'})
           }
           return (
             <Select
@@ -293,47 +293,47 @@ class TicketsTable extends React.Component {
               placeholder="Actions"
               searchable={false}
             />
-          );
+          )
         },
       },
-    ];
+    ]
     const transferCol = {
       id: 'transfer',
-      style: { textAlign: 'center' },
+      style: {textAlign: 'center'},
       Header: 'Transferred',
-      accessor: ({ year, updated_at }) => {
-        const { from, to } = transfers;
+      accessor: ({year, updated_at}) => {
+        const {from, to} = transfers
         const f = from.find(
-          t =>
+          (t) =>
             +t.year === +year &&
-            Math.abs(+new Date(updated_at) - +new Date(t.created_at)) < 30000,
-        );
-        const t = to.find(t => (console.log(t), +t.year === +year));
+            Math.abs(+new Date(updated_at) - +new Date(t.created_at)) < 30000
+        )
+        const t = to.find((t) => (console.log(t), +t.year === +year))
         if (t) {
           return (
             <span>
               From:{' '}
-              <Link to={`/person/${t.from.email}`}>{`${t.from.first_name} ${
-                t.from.last_name
-              }`}</Link>
+              <Link
+                to={`/person/${t.from.email}`}
+              >{`${t.from.first_name} ${t.from.last_name}`}</Link>
             </span>
-          );
+          )
         }
         if (f) {
           return (
             <span>
               To:{' '}
-              <Link to={`/person/${f.to.email}`}>{`${f.to.first_name} ${
-                f.to.last_name
-              }`}</Link>
+              <Link
+                to={`/person/${f.to.email}`}
+              >{`${f.to.first_name} ${f.to.last_name}`}</Link>
             </span>
-          );
+          )
         }
-        return 'No';
+        return 'No'
       },
-    };
+    }
     if (transfers) {
-      columns.splice(2, 0, transferCol);
+      columns.splice(2, 0, transferCol)
     }
     if (this.props.graph) {
       return (
@@ -344,10 +344,10 @@ class TicketsTable extends React.Component {
             data={this.state.data}
             pages={this.state.pages}
             loading={this.state.loading}
-            onPageChange={pageIndex => this.setState({ page: pageIndex })} // Called when the page index is changed by the user
+            onPageChange={(pageIndex) => this.setState({page: pageIndex})} // Called when the page index is changed by the user
             className="-striped"
             onPageSizeChange={(pageSize, pageIndex) =>
-              this.setState({ per_page: pageSize })
+              this.setState({per_page: pageSize})
             }
             manual
             page={this.state.page}
@@ -359,12 +359,12 @@ class TicketsTable extends React.Component {
                 this.query.setVariables({
                   per_page: this.state.per_page,
                   page: this.state.page,
-                });
-              }, 40);
+                })
+              }, 40)
             }}
           />
         </div>
-      );
+      )
     }
     return (
       <div>
@@ -375,42 +375,42 @@ class TicketsTable extends React.Component {
           className="-striped"
           getTdProps={this.rowProps}
           getTrProps={(params, rowInfo) => {
-            let style = {};
+            let style = {}
             if (
               rowInfo !== undefined &&
               rowInfo.original !== undefined &&
               +rowInfo.original.year === 2019
             ) {
-              style = { backgroundColor: lighten(0.3, Colors.blue) };
+              style = {backgroundColor: lighten(0.3, Colors.blue)}
             }
             return {
               style,
               onClick: () => {
-                this.setState({ highlightedIndex: rowInfo.row._index });
+                this.setState({highlightedIndex: rowInfo.row._index})
               },
-            };
+            }
           }}
           getTrGroupProps={(params, rowInfo) => {
-            let style = {};
+            let style = {}
             if (
               rowInfo !== undefined &&
               rowInfo.original !== undefined &&
               +rowInfo.original.year === 2019
             ) {
-              style = { borderBottom: '1px solid rgb(203, 223, 224)' };
+              style = {borderBottom: '1px solid rgb(203, 223, 224)'}
             }
             return {
               style,
               onClick: () => {
-                this.setState({ highlightedIndex: rowInfo.row._index });
+                this.setState({highlightedIndex: rowInfo.row._index})
               },
-            };
+            }
           }}
-          defaultSorted={[{ id: 'created_at', desc: true }]}
+          defaultSorted={[{id: 'created_at', desc: true}]}
         />
       </div>
-    );
+    )
   }
 }
 
-export default TicketsTable;
+export default TicketsTable

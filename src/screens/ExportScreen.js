@@ -1,28 +1,28 @@
-import React from 'react';
-import styled from 'styled-components';
-import { withRouter, Link } from 'react-router-dom';
-import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
-import moment from 'moment';
-import Select from 'react-select';
-import query from '../util/query';
-import Container from '../components/Container';
-import Form from '../components/Form';
-import FormRow from '../components/FormRow';
-import Input from '../components/Input';
-import AddressForm from '../components/AddressForm';
-import ShirtSize from '../components/ShirtSize';
-import Colors from '../constants/Colors';
-import Table from '../components/Table';
-import Label from '../components/Label';
-import apollo from '../util/apollo';
-import EventListing from '../components/EventListing';
-import WideCol from '../components/WideCol';
-import Filter from '../components/Filter';
-import SubmitButton from '../components/SubmitButton';
-import EventSelect from '../components/EventSelect';
-import toQueryString from '../util/toQueryString';
+import React from 'react'
+import styled from 'styled-components'
+import {withRouter, Link} from 'react-router-dom'
+import {Tab, Tabs, TabList, TabPanel} from 'react-tabs'
+import moment from 'moment'
+import Select from 'react-select'
+import query from '../util/query'
+import Container from '../components/Container'
+import Form from '../components/Form'
+import FormRow from '../components/FormRow'
+import Input from '../components/Input'
+import AddressForm from '../components/AddressForm'
+import ShirtSize from '../components/ShirtSize'
+import Colors from '../constants/Colors'
+import Table from '../components/Table'
+import Label from '../components/Label'
+import apollo from '../util/apollo'
+import EventListing from '../components/EventListing'
+import WideCol from '../components/WideCol'
+import Filter from '../components/Filter'
+import SubmitButton from '../components/SubmitButton'
+import EventSelect from '../components/EventSelect'
+import toQueryString from '../util/toQueryString'
 
-const Page = styled.div``;
+const Page = styled.div``
 
 const ContentSide = styled.div`
   background: ${Colors.white};
@@ -32,11 +32,11 @@ const ContentSide = styled.div`
   box-shadow: 3px 3px 20px rgba(0, 0, 0, 0.08);
   flex: 1;
   margin-top: 110px;
-`;
+`
 
 const exps = {
-  transfers: { filters: [], defaultParams: {} },
-  hotel: { filters: [], defaultParams: {} },
+  transfers: {filters: [], defaultParams: {}},
+  hotel: {filters: [], defaultParams: {}},
   tickets: {
     defaultParams: {
       year: ['2019'],
@@ -50,6 +50,7 @@ const exps = {
           name: 'Year',
           multi: true,
           options: [
+            '2020',
             '2019',
             '2018',
             '2017',
@@ -102,6 +103,7 @@ const exps = {
           name: 'Year',
           multi: true,
           options: [
+            '2020',
             '2019',
             '2018',
             '2017',
@@ -166,7 +168,7 @@ const exps = {
           id: 'year',
           name: 'Year',
           multi: true,
-          options: ['2019', '2018', '2017', '2016', '2015', '2014'],
+          options: ['2020', '2019', '2018', '2017', '2016', '2015', '2014'],
         },
         {
           id: 'type',
@@ -177,7 +179,7 @@ const exps = {
             'Staff',
             'Ambassador',
             'Speaker',
-            { label: 'Friends & Fam', value: 'friend' },
+            {label: 'Friends & Fam', value: 'friend'},
           ],
         },
       ],
@@ -211,50 +213,50 @@ const exps = {
       ],
     ],
   },
-};
+}
 
 class ExportScreen extends React.Component {
-  tabs = ['schedule', 'academies', 'activities', 'meetups', 'registration'];
+  tabs = ['schedule', 'academies', 'activities', 'meetups', 'registration']
   constructor() {
-    super();
+    super()
     this.state = {
       tab: 0,
       type: 'people',
       params: {},
-    };
+    }
   }
   componentDidMount() {
-    this.changeExport({ value: 'people' });
+    this.changeExport({value: 'people'})
   }
-  changeExport = ({ value }) => {
-    const params = exps[value].defaultParams;
-    this.setState({ type: value, params });
-  };
+  changeExport = ({value}) => {
+    const params = exps[value].defaultParams
+    this.setState({type: value, params})
+  }
   upd = (name, val) => {
-    const { params } = this.state;
-    params[name] = val;
-    this.setState({ params });
-  };
-  export = e => {
-    e.stopPropagation();
-    e.preventDefault();
-    const { params, type } = this.state;
-    params.export = type;
+    const {params} = this.state
+    params[name] = val
+    this.setState({params})
+  }
+  export = (e) => {
+    e.stopPropagation()
+    e.preventDefault()
+    const {params, type} = this.state
+    params.export = type
     const url = `https://api.worlddominationsummit.com/api/admin/export${toQueryString(
-      params,
-    )}`;
-    window.location.assign(url);
-  };
+      params
+    )}`
+    window.location.assign(url)
+  }
   render() {
     const types = [
-      { label: 'People', value: 'people' },
-      { label: 'Tickets', value: 'tickets' },
-      { label: 'Events', value: 'events' },
-      { label: 'Event RSVPs', value: 'rsvps' },
-      { label: 'Bookings', value: 'hotel' },
-      { label: 'Transfers', value: 'transfers' },
-    ];
-    const exp = exps[this.state.type];
+      {label: 'People', value: 'people'},
+      {label: 'Tickets', value: 'tickets'},
+      {label: 'Events', value: 'events'},
+      {label: 'Event RSVPs', value: 'rsvps'},
+      {label: 'Bookings', value: 'hotel'},
+      {label: 'Transfers', value: 'transfers'},
+    ]
+    const exp = exps[this.state.type]
     return (
       <div>
         <h2>Exports</h2>
@@ -262,7 +264,7 @@ class ExportScreen extends React.Component {
           <Form onSubmit={this.export}>
             <FormRow>
               <div>
-                <h4 style={{ marginTop: '30px' }}>Choose an Export Type</h4>
+                <h4 style={{marginTop: '30px'}}>Choose an Export Type</h4>
                 <Select
                   value={this.state.type}
                   name="type"
@@ -274,16 +276,16 @@ class ExportScreen extends React.Component {
               <div />
             </FormRow>
             {exp.filters.length > 0 && (
-              <h4 style={{ marginTop: '10px' }}>Filters</h4>
+              <h4 style={{marginTop: '10px'}}>Filters</h4>
             )}
-            {exp.filters.map(row => (
+            {exp.filters.map((row) => (
               <FormRow>
-                {row.map(filter => (
+                {row.map((filter) => (
                   <div>
                     <Filter
                       {...filter}
                       value={this.state.params[filter.id]}
-                      onChange={k => (
+                      onChange={(k) => (
                         console.log(k), this.upd(filter.id, k.value)
                       )}
                     />
@@ -294,13 +296,13 @@ class ExportScreen extends React.Component {
             ))}
             <FormRow>
               <div>
-                <SubmitButton msgs={{ ready: 'Run Export' }} />
+                <SubmitButton msgs={{ready: 'Run Export'}} />
               </div>
             </FormRow>
           </Form>
         </WideCol>
       </div>
-    );
+    )
   }
 }
-export default ExportScreen;
+export default ExportScreen
