@@ -288,8 +288,8 @@ class PersonScreen extends React.Component {
                     <Input
                       type="text"
                       value={this.state.user.title}
-                      placeholder="First Name"
-                      name="first_name"
+                      placeholder="WDS Title"
+                      name="title"
                       onChange={this.change}
                     />
                   </div>
