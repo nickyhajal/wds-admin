@@ -244,7 +244,7 @@ class AddEventScreen extends React.Component {
     const dates = [
       // { label: 'Monday, June 24th', value: '24' },
       // { label: 'Tuesday, June 25th', value: '25' },
-      // { label: 'Wednesday, June 26th', value: '26' },
+      {label: 'Tuesday, June 21st', value: '21'},
       {label: 'Wednesday, June 22nd', value: '22'},
       {label: 'Thursday, June 23rd', value: '23'},
       {label: 'Friday, June 24th', value: '24'},
