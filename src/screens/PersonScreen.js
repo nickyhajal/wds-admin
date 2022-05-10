@@ -284,6 +284,18 @@ class PersonScreen extends React.Component {
                 <h3>Attendee Info</h3>
                 <FormRow>
                   <div>
+                    <label>WDS Title</label>
+                    <Input
+                      type="text"
+                      value={this.state.user.title}
+                      placeholder="First Name"
+                      name="first_name"
+                      onChange={this.change}
+                    />
+                  </div>
+                </FormRow>
+                <FormRow>
+                  <div>
                     <label>Type</label>
                     <Select
                       value={this.state.user.type}

@@ -1,4 +1,4 @@
-import { gql } from 'react-apollo';
+import {gql} from 'react-apollo'
 
 export default gql`
   mutation userUpdate(
@@ -11,6 +11,7 @@ export default gql`
     $instagram: String
     $first_name: String
     $last_name: String
+    $title: String
     $address: String
     $address2: String
     $city: String
@@ -27,6 +28,7 @@ export default gql`
       site: $site
       instagram: $instagram
       first_name: $first_name
+      title: $title
       last_name: $last_name
       address: $address
       address2: $address2
@@ -38,7 +40,8 @@ export default gql`
       user_id
       first_name
       last_name
+      title
       email_hash
     }
   }
-`;
+`

@@ -89,7 +89,6 @@ class AddEventScreen extends React.Component {
         const start = moment.utc(e.start)
         const end = moment.utc(e.end)
         const date = start.format('DD')
-        console.log('>> date', date)
         let hour = +start.format('HH')
         let end_hour = +end.format('HH')
         let pm = '0'
@@ -146,8 +145,6 @@ class AddEventScreen extends React.Component {
     if (name === 'price' && +value > 0) {
       value *= 100
     }
-    console.log('upd: ', name, value)
-    console.log(Object.assign({}, this.state.event, {[name]: value}))
     this.setState(
       {
         event: Object.assign({}, this.state.event, {[name]: value}),

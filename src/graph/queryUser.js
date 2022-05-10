@@ -5,6 +5,7 @@ export default gql`
     user(id: $id) {
       user_id
       first_name
+      title
       last_name
       email
       user_name
